@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "create": "webpack",
+    "create": "webpack --watch",
     "start": "webpack-dev-server --open"
   },
   "babel": {
