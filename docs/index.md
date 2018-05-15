@@ -1,6 +1,6 @@
-# Project Name
+# Criboard helps keep tenants and landlords organized
 
-> Pithy project description
+> Track rent and utilities, maintenance issues, and apartment info.
 
 ## Team
 
@@ -20,7 +20,7 @@
 
 ## Usage
 
-> Some usage instructions
+> Easily split rent and utilities amongst multiple tenants. Streamline the process of moving in/out with integrated checklists. Keep documents such as lease agreements, renter's insurance, photos, and listings safe and accessible. Track mainenance issues, chores, and monthly expenses. Keep all parties informed with general information (parking, laundry, trash, guest rules, etc), or grant individuals access to user-specific knowledge (key and alarm combinations). Great for both lessors and lessees.
 
 ## Requirements
 
