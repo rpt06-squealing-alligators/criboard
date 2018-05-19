@@ -20,7 +20,14 @@
 
 ## Usage
 
-> Some usage instructions
+> Create a local MySQL database. Create a config.js file in the root directory and add the following code in the file.
+
+module.exports = {
+  DBNAME: 'your-database-name',
+  DBUSERNAME: 'your-username',
+  DBPASSWORD: 'your-password',
+  DBHOST: 'your-host-url or localhost'
+};
 
 ## Requirements
 
