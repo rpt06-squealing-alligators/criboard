@@ -2,6 +2,3 @@ language: node_js
 node_js:
   - "lts/*"
   - "iojs"
-cache:
-  directories:
-    - node_modules
