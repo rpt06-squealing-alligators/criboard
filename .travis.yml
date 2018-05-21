@@ -3,5 +3,4 @@ node_js:
   - "lts/*"
 script:
 - npm install
-- npm start
-- npm test
+- npm start test
