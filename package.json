@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "mocha server/spec"
+    "test": "mocha server/spec nodemon server/index.js"
   },
   "repository": {
     "type": "git",
