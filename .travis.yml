@@ -2,5 +2,8 @@ language: node_js
 node_js:
   - "lts/*"
   - "iojs"
-before_install:
+cache:
+  directories:
+    - node_modules
+before_script:
   - node server/index.js
