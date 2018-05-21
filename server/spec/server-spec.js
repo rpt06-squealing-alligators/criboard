@@ -1,5 +1,13 @@
 var request = require('request');
+require('../index.js')
 var expect = require('chai').expect;
+
+describe('Test that tests run', function(done) {
+  it('should run a test', function(done) {
+    expect(true).to.eql(true);
+    done();
+  });
+});
 
 describe('server', function() {
   it('should respond to GET requests for / with a 200', function(done) {
