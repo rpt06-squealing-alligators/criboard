@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Issues from './components/Issues.jsx'
+import Issues from './components/Issues.jsx';
+import Newissue from './components/Newissue.jsx';
 require('./assets/styles/index.css')
 
 class App extends React.Component {
@@ -8,6 +9,7 @@ class App extends React.Component {
     return (
       <div>
         <Issues />
+        <Newissue />
       </div>
     )
 
