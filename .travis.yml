@@ -2,3 +2,5 @@ language: node_js
 node_js:
   - "lts/*"
   - "iojs"
+before_install:
+  - node server/index.js
