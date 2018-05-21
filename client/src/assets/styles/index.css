@@ -1,0 +1,40 @@
+.grid {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%
+}
+
+.reports {
+  grid-area: header;
+  grid-column-start: 1;
+  vertical-align: top;
+}
+
+/*.reports-body {
+  grid-area: content;
+  grid-column-start: 1;
+  width: 70px;
+}*/
+
+.scheduled {
+  grid-area: header;
+  grid-column-start: 2;
+  vertical-align: top;
+}
+
+.ip {
+  grid-area: header;
+  grid-column-start: 3;
+  vertical-align: top;
+}
+
+.fixed {
+  grid-area: header;
+  grid-column-start: 4;
+  vertical-align: top;
+}
+
+.input {
+  width: 80%;
+  display: block;
+  margin: 20px;
+}
