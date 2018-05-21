@@ -9,13 +9,13 @@ describe('Test that tests run', function(done) {
   });
 });
 
-describe('server', function() {
-  it('should respond to GET requests for / with a 200', function(done) {
-    request('http://127.0.0.1:3000', function(error, response, body) {
-      expect(response.statusCode).to.equal(200);
-      done();
-    });
-  });
+// describe('server', function() {
+//   it('should respond to GET requests for / with a 200', function(done) {
+//     request('http://127.0.0.1:3000', function(error, response, body) {
+//       expect(response.statusCode).to.equal(200);
+//       done();
+//     });
+//   });
 
   // it('should respond to GET requests for / with static assets', function(done) {
   //   request('http://127.0.0.1:3000/', function(error, response, body) {
