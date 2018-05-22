@@ -39,7 +39,7 @@ class App extends React.Component {
       <Router>
         <div className="main grid">
           <div className="dashboard">
-            {this.state.dashboard && <Route path="/" component={Dashboard}/>}
+            {this.state.dashboard && <Route exact path="/" component={Dashboard}/>}
             <Route path="/budget" component={Budget}/>
             <Route path="/issues" component={Issues}/>
             <Route path="/lease" component={Lease}/>
