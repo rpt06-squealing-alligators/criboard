@@ -96,3 +96,37 @@
   display: block;
   margin: 20px;
 }
+
+
+
+
+
+
+
+.upload {
+  position:relative;
+  overflow:hidden
+}
+
+.upload, .upload *, .upload :after, .upload :before, .upload:after, .upload:before {
+  -webkit-box-sizing:border-box;
+  box-sizing:border-box;
+  -webkit-transition:none;
+  transition:none;-webkit-user-select:none!important;
+  -moz-user-select:none!important;
+  -ms-user-select:none!important;
+  user-select:none!important
+}
+
+.upload-input {
+  position:absolute;top:0;right:0;bottom:0;left:0;z-index:-1px;opacity:0;pointer-events:none
+}
+
+.upload-target {
+  cursor:pointer
+}
+
+.upload-disabled .fs-upload-target,.no-touch .fs-upload-disabled:hover .fs-upload-target {
+  cursor:default;
+  cursor:not-allowed
+}

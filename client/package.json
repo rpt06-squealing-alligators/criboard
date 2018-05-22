@@ -17,6 +17,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "core-js": "^2.5.6",
+    "formstone": "^1.4.6",
+    "jquery": "^3.3.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-router-dom": "^4.2.2"
