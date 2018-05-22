@@ -21,7 +21,6 @@ class Issues extends React.Component {
 
   displayReportButton() {
     this.setState({showReportButton: !this.state.showReportButton})
-    console.log('this.state.showReportButton: ', this.state.showReportButton)
   }
 
   render() {
