@@ -20,7 +20,11 @@ class Signup extends React.Component {
   }
 
   onSubmit() {
-    console.log(this.state.username, this.state.email, this.state.password)
+    // console.log(this.state.username, this.state.email, this.state.password)
+    if (this.state.username === '' || this.state.email === '' || this.state.password === '')  {
+      alert('username, email and password fields cannot be empty. Enter new values');
+      // TODO - redirect to signup page
+    }
     var data = {
       username: this.state.username,
       email: this.state.email,
@@ -29,6 +33,19 @@ class Signup extends React.Component {
     axios.post('./signup', data)
       .then(result => {
         console.log(result);
+        // clear input fields
+        this.setState({
+          email: '',
+          password: ''
+        });
+        if (result.data === 'user created') {
+          alert(`Info for ${this.state.username} has been saved`);
+          // TODO - redirect to dashboard page
+        } else {
+          alert(`${this.state.username} already exists`)
+          // TODO - redirect to login page
+
+        }
       })
       .catch(err => {
         console.log(err);
