@@ -3,9 +3,12 @@ var path = require('path');
 var bodyParser = require('body-parser');
 
 var busboy = require('connect-busboy');
-
 var db = require('../database/helpers.js');
 
+var bcrypt = require('bcrypt');
+var db = require('../database/helpers.js');
+
+const saltRounds = 10;
 
 var app = express();
 app.use(bodyParser.json());
@@ -18,15 +21,22 @@ app.use(busboy());
 var port = 3000;
 
 app.post('/signup', function(req, res) {
+  // TODO - data validation using express-validator
   console.log(req.body)
   var username = req.body.username;
   var email = req.body.email;
   var password = req.body.password;
-  db.createUser(username, email, password, function(userCreated) {
-    if (userCreated) {
-      res.send('user created');
-    } else {
-      res.send('user already exists');
+  // hash the password by auto-gen a salt and hash
+  bcrypt.hash(password, saltRounds, function(err, hash) {
+    // store hash in database
+    if (hash) {
+      db.createUser(username, email, hash, function(userCreated) {
+        if (userCreated) {
+          res.send('user created');
+        } else {
+          res.send('user already exists');
+        }
+      });
     }
   });
 });
