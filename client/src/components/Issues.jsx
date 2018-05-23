@@ -83,7 +83,7 @@ class Issues extends React.Component {
                   <h5>{issue.title}</h5>
                 <div>
                   <p>{issue.handyman} will fix this issue {issue.visit}.</p>
-                  <textarea className="notes" name="message" rows="10" cols="30">{issue.description}</textarea>
+                  <textarea className="notes" name="message" rows="10" cols="30" defaultValue={issue.description}></textarea>
                   <img src={issue.image}></img>
                   <button className="notes" onClick={this.addNotes}>Add note</button>
                   <button className="supply" onClick={this.showCatalogue}>Get supplies</button>
@@ -97,7 +97,7 @@ class Issues extends React.Component {
                   <h5>{issue.title}</h5>
                 <div>
                   <p>{issue.handyman} is waiting on {issue.holdup}.</p>
-                  <textarea className="notes" name="message" rows="10" cols="30">{issue.description}</textarea>
+                  <textarea className="notes" name="message" rows="10" cols="30" defaultValue={issue.description}></textarea>
                   <img src={issue.image}></img>
                   <button className="notes" onClick={this.addNotes}>Add note</button>
                   <button className="supply" onClick={this.showCatalogue}>Get supplies</button>
