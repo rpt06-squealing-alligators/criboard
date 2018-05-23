@@ -51,6 +51,8 @@
 
 .issues {
   grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 25px 2em 20em;
+  grid-gap: 4px;
 }
 
 .dashboard {
@@ -62,33 +64,67 @@
 }
 
 .reports {
-  grid-area: header;
-  grid-column-start: 1;
-  vertical-align: top;
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
 }
 
-/*.reports-body {
-  grid-area: content;
-  grid-column-start: 1;
-  width: 70px;
-}*/
+.report-button {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  border-radius: 30px;
+  height: 3em;
+  width: 8em;
+}
+
+.reports-list {
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+}
 
 .scheduled {
-  grid-area: header;
-  grid-column-start: 2;
-  vertical-align: top;
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+.schedule-button {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  border-radius: 30px;
+  height: 3em;
+  width: 8em;
+}
+
+.scheduled-list {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
 }
 
 .ip {
-  grid-area: header;
-  grid-column-start: 3;
-  vertical-align: top;
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
+}
+
+.supplies-button {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+  border-radius: 30px;
+  height: 3em;
+  width: 8em;
+}
+
+.ip-list {
+  grid-column: 3 / 4;
+  grid-row: 3 / 4;
 }
 
 .fixed {
-  grid-area: header;
-  grid-column-start: 4;
-  vertical-align: top;
+  grid-column: 4 / 5;
+  grid-row: 2 / 3;
+}
+
+.fixed-list {
+  grid-column: 4 / 5;
+  grid-row: 3 / 4;
 }
 
 .input {
@@ -97,6 +133,37 @@
   margin: 20px;
 }
 
+.report-title div{
+  display: none;
+}
+
+.report-title:hover > div {
+  display: block;
+}
+
+.scheduled-title div{
+  display: none;
+}
+
+.scheduled-title:hover > div {
+  display: block;
+}
+
+.ip-title div{
+  display: none;
+}
+
+.ip-title:hover > div {
+  display: block;
+}
+
+.fixed-title div{
+  display: none;
+}
+
+.fixed-title:hover > div {
+  display: block;
+}
 
 
 

@@ -4,7 +4,8 @@ import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import Dashboard from './components/Dashboard.jsx';
 import Budget from './components/Budget.jsx';
 import Issues from './components/Issues.jsx';
-// import Newissue from './components/Newissue.jsx';
+import Issbook from './components/Issbook.jsx';
+import Issupplies from './components/Issupplies.jsx';
 import Lease from './components/Lease.jsx';
 
 import Account from './components/Account.jsx';
@@ -42,6 +43,8 @@ class App extends React.Component {
             {this.state.dashboard && <Route exact path="/" component={Dashboard}/>}
             <Route path="/budget" component={Budget}/>
             <Route path="/issues" component={Issues}/>
+            <Route path="/book" component={Issbook}/>
+            <Route path="/supplies" component={Issupplies}/>
             <Route path="/lease" component={Lease}/>
 
             <Route path="/account" component={Account}/>
