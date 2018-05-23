@@ -1,7 +1,11 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
+
 var busboy = require('connect-busboy');
+
+var db = require('../database/helpers.js');
+
 
 var app = express();
 app.use(bodyParser.json());
@@ -12,6 +16,20 @@ var busboy = require('connect-busboy');
 app.use(busboy());
 
 var port = 3000;
+
+app.post('/signup', function(req, res) {
+  console.log(req.body)
+  var username = req.body.username;
+  var email = req.body.email;
+  var password = req.body.password;
+  db.createUser(username, email, password, function(userCreated) {
+    if (userCreated) {
+      res.send('user created');
+    } else {
+      res.send('user already exists');
+    }
+  });
+});
 
 app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
