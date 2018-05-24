@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "core-js": "^2.5.6",
     "formstone": "^1.4.6",
     "jquery": "^3.3.1",
