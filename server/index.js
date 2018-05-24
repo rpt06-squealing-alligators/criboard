@@ -63,7 +63,8 @@ app.post('/issues', function (req, res, next) {
 
 app.get('/issues', function(req, res) {
   console.log('issues is getting')
-  db.selectIssues(res.status(200).json(results))
+  res.status.send('test')
+  // db.selectIssues(res.status(200).json('test'))
 })
 
 app.get('/check', function(req, res) {
