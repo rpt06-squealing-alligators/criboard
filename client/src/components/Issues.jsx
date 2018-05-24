@@ -27,6 +27,12 @@ class Issues extends React.Component {
     this.showCatalogue = this.showCatalogue.bind(this);
   }
 
+  componentDidMount() {
+    fetch('/issues')
+    .then(res => JSON.stringify(res.body))
+    .then(jres => console.log(jres))
+  }
+
   showReport() {
     this.setState({report: true})
   }
