@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: Jay Wilson, Jr
+  - __Product Owner__: Amena Kauser Syeda
   - __Scrum Master__: Adelle Housker
-  - __Development Team Members__: Amena Kauser Syeda, Jared Horne
+  - __Development Team Members__: Jared Horne
 
 ## Table of Contents
 

@@ -1,6 +1,7 @@
 var Sequelize = require('sequelize');
 
 var User = require('./models/user.js');
+var Issues = require('./models/issues.js');
 
 // save username, email and password in database
 // check if username already exists in database, if not insert user info into database
@@ -27,8 +28,29 @@ var createUser = (username, email, password, callback) => {
     })
 }
 
+var reportIssue = (title, description, image) => {
+  // console.log('title: ', title)
+  // console.log('title: ', description)
+  // console.log('title: ', image)
+  Issues.create({
+    title: title,
+    description: description,
+    image: image
+  });
+}
+
+var selectIssues = (cb) => {
+  console.log('selectIssues is being called')
+  Issues.findOne({
+    attributes: 'image'
+  })
+  .then(results => cb(results))
+}
+
 // createUser('test', 'test', 'test')
 
 module.exports = {
-  createUser: createUser
+  createUser: createUser,
+  reportIssue: reportIssue,
+  selectIssues: selectIssues
 };
