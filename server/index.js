@@ -61,6 +61,11 @@ app.post('/issues', function (req, res, next) {
   req.pipe(req.busboy);
 })
 
+app.get('/issues', function(req, res) {
+  console.log('issues is getting')
+  db.selectIssues(res.status(200).json(results))
+})
+
 app.get('/check', function(req, res) {
   db.selectIssues(res.status(200).json(results))
 })

@@ -41,10 +41,8 @@ var reportIssue = (title, description, image) => {
 
 var selectIssues = (cb) => {
   console.log('selectIssues is being called')
-  Issues.findOne({
-    attributes: 'image'
-  })
-  .then(results => cb(results))
+  Issues.findAll()
+  .then(result => cb(result))
 }
 
 // createUser('test', 'test', 'test')
