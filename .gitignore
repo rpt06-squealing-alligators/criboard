@@ -1,5 +1,4 @@
 **/node_modules
 client/dist
 config.js
-client/package-lock.json
-server/package-lock.json
+package-lock.json
