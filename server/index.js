@@ -3,7 +3,6 @@ var path = require('path');
 var bodyParser = require('body-parser');
 
 var busboy = require('connect-busboy');
-var db = require('../database/helpers.js');
 
 var bcrypt = require('bcrypt');
 var db = require('../database/helpers.js');
@@ -51,20 +50,22 @@ app.get('*', function(req, res) {
 
 app.post('/issues', function (req, res, next) {
   req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-    fs.writeFile('test.jpg', file, (err) => {
-      if (err) throw err;
-      console.log('The file has been saved!');
+    file.on('data', function(data) {
+      db.reportIssue(req.body.title, req.body.description, data)
+      console.log('data:', data)
+      file.on('end', function() {
+        res.status(201).send(`File ${filename} finished`);
+      });
     });
   });
-  req.busboy.on('field', function(key, value, keyTruncated, valueTruncated) {
-  });
   req.pipe(req.busboy);
-  res.status(201).send('Post to issues went through')
-
-//see this for storing in database:
-//https://stackoverflow.com/questions/14704559/how-to-insert-image-in-mysql-databasetable
-
 })
+
+app.get('/check', function(req, res) {
+  db.selectIssues(res.status(200).json(results))
+})
+
+
 
 
 app.listen(port, function(){console.log(`server is listening on ${port} . . .`)});
