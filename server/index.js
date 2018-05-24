@@ -2,6 +2,8 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 
+var session = require('express-session');
+
 var busboy = require('connect-busboy');
 
 var bcrypt = require('bcrypt');
@@ -16,6 +18,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var fs = require('fs');
 var busboy = require('connect-busboy');
 app.use(busboy());
+
+app.use(express.static(path.resolve(__dirname, '../client/dist')));
+
+app.use(session({
+  secret: 'criboard',
+  resave: false,
+  saveUninitialized: false, // only save sessions for users that are logged in
+  // cookie: { secure: true }
+}))
 
 var port = 3000;
 
@@ -40,14 +51,6 @@ app.post('/signup', function(req, res) {
   });
 });
 
-app.use(express.static(path.resolve(__dirname, '../client/dist')));
-
-app.get('*', function(req, res) {
-  // console.log('serving default route')
-  res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
-});
-
-
 app.post('/issues', function (req, res, next) {
   req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
     file.on('data', function(data) {
@@ -71,7 +74,10 @@ app.get('/check', function(req, res) {
   db.selectIssues(res.status(200).json(results))
 })
 
-
+app.get('*', function(req, res) {
+  // console.log('serving default route')
+  res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
+});
 
 
 app.listen(port, function(){console.log(`server is listening on ${port} . . .`)});
