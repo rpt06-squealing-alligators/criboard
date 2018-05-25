@@ -13,10 +13,10 @@ class GeneralInfo extends React.Component {
     <div>
       <h3>General Info</h3>
         <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
+          <li>Landlord Information</li>
+          <li>Rules of the House</li>
+          <li>Parking</li>
+          <li>Rent/Lease Information</li>
         </ul>
     </div>
   }
