@@ -34,7 +34,7 @@ app.use(passport.session());
 
 var port = 3000;
 
-app.post('/signup', function(req, res) {
+app.post('/signupuser', function(req, res) {
   // TODO - data validation using express-validator
   console.log(req.body)
   var username = req.body.username;
