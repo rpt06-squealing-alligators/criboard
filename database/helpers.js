@@ -17,13 +17,22 @@ var createUser = (username, email, password, callback) => {
           username: username, email: email, password: password
         })
           .then((result) => {
-            // console.log('new user created', result)
-            callback(true);
+            // // console.log('new user created', result)
+            // // grab the last inserted id in database
+            // User.findOne({
+            //   where: {username: username}
+            // })
+            //   .then((result) => {
+            //     //login comes from passport and creates a session and a cookie for the user
+            //     // console.log(result.dataValues)
+            //     // callback(true);
+            //   })
+            console.log('new user result', result)
           })
       } else {
         // username already exists in database
         console.log('username already exists');
-        callback(false);
+        // callback(false);
       }
     })
 }
@@ -45,7 +54,7 @@ var selectIssues = (cb) => {
   .then(result => cb(result))
 }
 
-// createUser('test', 'test', 'test')
+createUser('tester2', 'test', 'test')
 
 module.exports = {
   createUser: createUser,
