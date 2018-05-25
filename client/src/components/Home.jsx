@@ -2,16 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import Dashboard from './Dashboard.jsx';
-import Budget from './Budget.jsx';
-import Issues from './Issues.jsx';
-import Issbook from './Issbook.jsx';
-import Issupplies from './Issupplies.jsx';
-import Lease from './Lease.jsx';
-
-import Account from './Account.jsx';
-import Group from './Group.jsx';
-import Help from './Help.jsx';
-import Logout from './Logout.jsx';
+// import Logout from './Logout.jsx';
 import '../assets/styles/index.css';
 
 class Home extends React.Component {
@@ -37,21 +28,9 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-      <Router>
         <div className="main grid">
           <div className="dashboard">
             {this.state.dashboard && <Route exact path="/dashboard" component={Dashboard}/>}
-            <Route path="/budget" component={Budget}/>
-            <Route path="/issues" component={Issues}/>
-            <Route path="/book" component={Issbook}/>
-            <Route path="/supplies" component={Issupplies}/>
-            <Route path="/lease" component={Lease}/>
-
-            <Route path="/account" component={Account}/>
-            <Route path="/group" component={Group}/>
-            <Route path="/help" component={Help}/>
-            <Route path="/logout" component={Logout}/>
-
           </div>
           <div className="navs">
             <div className="dropdown">
@@ -91,7 +70,6 @@ class Home extends React.Component {
             </div>
           </div>
         </div>
-      </Router>
       </div>
     )
 
