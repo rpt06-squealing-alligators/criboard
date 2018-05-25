@@ -45,7 +45,6 @@
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.4.0",
     "react-router-dom": "^4.2.2",
-    "semantic-ui": "^2.3.1",
     "sequelize": "^4.37.8",
     "style-loader": "^0.21.0",
     "web": "0.0.2",
