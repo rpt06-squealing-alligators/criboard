@@ -11,7 +11,8 @@ class Signup extends React.Component {
       username: '',
       email: '',
       password: '',
-      onHomePage: false
+      onHomePage: false,
+      onLandingPage: false
     }
   }
 
@@ -47,8 +48,11 @@ class Signup extends React.Component {
             onHomePage: true
           })
         } else {
-          alert(`${this.state.username} already exists`)
+          alert(`${this.state.username} already exists. Please login as ${this.state.username} or signup as a different user`)
           // TODO - redirect to landing page
+          this.setState({
+            onLandingPage: true
+          })
 
         }
       })
@@ -62,6 +66,11 @@ class Signup extends React.Component {
     if (this.state.onHomePage) {
       return (
         <Redirect to="/home" />
+      );
+    }
+    if (this.state.onLandingPage) {
+      return (
+        <Redirect to="/" />
       );
     }
     return (

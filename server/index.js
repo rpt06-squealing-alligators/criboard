@@ -96,6 +96,8 @@ app.get('/check', function(req, res) {
 })
 
 app.get('*', function(req, res) {
+  console.log('req.user', req.user)
+  console.log('isauthenticated', req.isAuthenticated())
   // console.log('serving default route')
   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
 });
