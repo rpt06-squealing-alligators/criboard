@@ -23,10 +23,11 @@ app.use(busboy());
 app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
 app.use(session({
-  secret: 'criboard',
+  secret: 'lalala',
+  cookieName: 'criboard',
   resave: false,
-  saveUninitialized: false, // only save sessions for users that are logged in
-  // cookie: { secure: true }
+  saveUninitialized: false // only save sessions for users that are logged in
+  // ,cookie: { secure: true }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -43,15 +44,32 @@ app.post('/signup', function(req, res) {
   bcrypt.hash(password, saltRounds, function(err, hash) {
     // store hash in database
     if (hash) {
-      db.createUser(username, email, hash, function(userCreated) {
+      db.createUser(username, email, hash, function(userCreated, user_id) {
         if (userCreated) {
-          res.send('user created');
+          req.login(user_id, function(err) {
+            if (err) {
+              console.log(err)
+            } else {
+              // console.log('req.user', req.user)
+              // console.log('isauthenticated', req.isAuthenticated())
+              res.send('user created');
+            }
+          });
         } else {
           res.send('user already exists');
         }
       });
     }
   });
+});
+
+// Passport will maintain persistent login sessions. In order for persistent sessions to work, the authenticated user must be serialized to the session, and deserialized when subsequent requests are made.
+passport.serializeUser(function(user_id, done) {
+  done(null, user_id);
+});
+
+passport.deserializeUser(function(user_id, done) {
+  done(null, user_id);
 });
 
 app.post('/issues', function (req, res, next) {

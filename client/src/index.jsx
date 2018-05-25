@@ -12,7 +12,9 @@ import Account from './components/Account.jsx';
 import Group from './components/Group.jsx';
 import Help from './components/Help.jsx';
 import Logout from './components/Logout.jsx';
+import Signup from './components/Signup.jsx';
 import './assets/styles/index.css';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -37,6 +39,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+      {/*<Signup  />*/}
       <Router>
         <div className="main grid">
           <div className="dashboard">

@@ -40,7 +40,7 @@ class Signup extends React.Component {
         });
         if (result.data === 'user created') {
           alert(`Info for ${this.state.username} has been saved`);
-          // TODO - redirect to dashboard page
+          // TODO - redirect to dashboard page - which is one of the restricted pages
         } else {
           alert(`${this.state.username} already exists`)
           // TODO - redirect to landing page
@@ -55,7 +55,8 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="jumbotron">
+      <h1 className="display-4">Signup</h1>
         <div className="form-group">
           <label>Username</label>&nbsp;&nbsp;
           <input type="email" className="form-control" placeholder="Enter username" name="username" value={this.state.usernamel} onChange={this.onChange.bind(this)} />
