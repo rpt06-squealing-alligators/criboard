@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 import { Button } from 'react-bootstrap';
 
@@ -9,7 +10,8 @@ class Signup extends React.Component {
     this.state = {
       username: '',
       email: '',
-      password: ''
+      password: '',
+      onHomePage: false
     }
   }
 
@@ -30,7 +32,7 @@ class Signup extends React.Component {
       email: this.state.email,
       password: this.state.password
     };
-    axios.post('./signup', data)
+    axios.post('./signupuser', data)
       .then(result => {
         console.log(result);
         // clear input fields
@@ -40,7 +42,10 @@ class Signup extends React.Component {
         });
         if (result.data === 'user created') {
           alert(`Info for ${this.state.username} has been saved`);
-          // TODO - redirect to dashboard page - which is one of the restricted pages
+          // TODO - redirect to Home page - which is one of the restricted pages
+          this.setState({
+            onHomePage: true
+          })
         } else {
           alert(`${this.state.username} already exists`)
           // TODO - redirect to landing page
@@ -54,6 +59,11 @@ class Signup extends React.Component {
   }
 
   render() {
+    if (this.state.onHomePage) {
+      return (
+        <Redirect to="/home" />
+      );
+    }
     return (
       <div className="jumbotron">
       <h1 className="display-4">Signup</h1>
