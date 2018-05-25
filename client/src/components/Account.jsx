@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Home from '../components/Home.jsx';
+
 class Account extends React.Component {
   constructor(props) {
     super(props);
@@ -11,6 +13,7 @@ class Account extends React.Component {
   render() {
     return(
       <div>
+      <Home />
       <h3>Account</h3>
         <ul>
           <li>Profile picture</li>

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Home from '../components/Home.jsx';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 // import {Collapse} from 'react-collapse';
 import $ from 'jquery';
@@ -61,6 +62,7 @@ class Issues extends React.Component {
   render() {
     return(
       <div>
+      <Home />
       {this.state.report ? <Issnew /> :
       <div className="issues grid">
         <h3 className="reports" onMouseEnter={this.displayReportButton}>Reports</h3>
