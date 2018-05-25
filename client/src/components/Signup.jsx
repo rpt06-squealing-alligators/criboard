@@ -43,7 +43,7 @@ class Signup extends React.Component {
           // TODO - redirect to dashboard page
         } else {
           alert(`${this.state.username} already exists`)
-          // TODO - redirect to login page
+          // TODO - redirect to landing page
 
         }
       })
