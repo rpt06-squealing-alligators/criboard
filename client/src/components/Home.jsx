@@ -26,12 +26,14 @@ class Home extends React.Component {
   }
 
   render() {
+   {/* if (this.state.dashboard) {
+      return (
+        <Dashboard />
+      );
+    } */}
     return (
       <div>
         <div className="main grid">
-          <div className="dashboard">
-            {this.state.dashboard && <Route exact path="/dashboard" component={Dashboard}/>}
-          </div>
           <div className="navs">
             <div className="dropdown">
               <button className="dropbtn glyphicons glyphicons-user">Account</button>
@@ -54,7 +56,7 @@ class Home extends React.Component {
             <div className="dropdown">
               <button className="dropbtn glyphicons glyphicons-menu-hamburger">Sidebar</button>
               <div className="dropdown-content">
-                <Link to="/">
+                <Link to="/dashboard">
                   <div onClick={this.showDashboard}>Dashboard</div>
                 </Link>
                 <Link to="/budget">

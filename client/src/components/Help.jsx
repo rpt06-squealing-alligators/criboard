@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Home from '../components/Home.jsx';
 
 class Help extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class Help extends React.Component {
   render() {
     return(
       <div>
+      <Home />
       <h3>Help</h3>
         <ul>
           <li>Navigation map</li>

@@ -15,6 +15,7 @@ import Lease from '../components/Lease.jsx';
 import Account from '../components/Account.jsx';
 import Group from '../components/Group.jsx';
 import Help from '../components/Help.jsx';
+
 import Logout from '../components/Logout.jsx';
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -32,9 +33,10 @@ const AppRouter = () => (
       <Route exact path="/book" component={Issbook}/>
       <Route exact path="/supplies" component={Issupplies}/>
       <Route exact path="/lease" component={Lease}/>
-      <Route exact exact path="/account" component={Account}/>
+      <Route exact path="/account" component={Account}/>
       <Route exact path="/group" component={Group}/>
       <Route exact path="/help" component={Help}/>
+      <Route exact path="/dashboard" component={Dashboard}/>
       <Route exact path="/logout" component={Logout}/>
     </Switch>
     </div>
