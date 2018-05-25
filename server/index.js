@@ -3,6 +3,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 
 var session = require('express-session');
+var passport = require('passport');
 
 var busboy = require('connect-busboy');
 
@@ -26,7 +27,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false, // only save sessions for users that are logged in
   // cookie: { secure: true }
-}))
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 var port = 3000;
 
