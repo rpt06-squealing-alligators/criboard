@@ -34,28 +34,20 @@ class Login extends React.Component {
     axios.post('./loginuser', data)
       .then(result => {
         console.log(result);
-        // clear input fields
-        this.setState({
-          email: '',
-          password: ''
-        });
-        if (result.data === 'user logged in') {
-          alert(`${this.state.username} has been logged in`);
-          // TODO - redirect to Home page - which is one of the restricted pages
+        if (result) {
           this.setState({
             onHomePage: true
           })
         } else {
-          alert('Incorrect username and/or password. Please signup/login');
-          // TODO - redirect to landing page
           this.setState({
             onLandingPage: true
           })
-
         }
       })
       .catch(err => {
-        console.log(err);
+        this.setState({
+            onLandingPage: true
+        })
       })
 
   }
