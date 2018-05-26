@@ -36,11 +36,6 @@ class Signup extends React.Component {
     axios.post('./signupuser', data)
       .then(result => {
         console.log(result);
-        // clear input fields
-        this.setState({
-          email: '',
-          password: ''
-        });
         if (result.data === 'user created') {
           alert(`Info for ${this.state.username} has been saved`);
           // TODO - redirect to Home page - which is one of the restricted pages
