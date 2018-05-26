@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser')
 
 var session = require('express-session');
 var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 // initalize sequelize with session store
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
 
@@ -46,6 +48,22 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// authenticate user with a username and password stored in the database
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    console.log('in local strategy function', username, password);
+    db.authenticateUser(username, password, function(matched) {
+      console.log('password matched', matched)
+      if (matched) {
+        console.log('username for matched user', username)
+        return done(null, username)
+      } else {
+        return done(null, false)
+      }
+    })
+  }
+));
+
 var authMiddleware = function () {
   return (req, res, next) => {
     console.log(`req.session.passport.user: ${req.session.passport}`);
@@ -84,6 +102,7 @@ app.post('/signupuser', function(req, res) {
     if (hash) {
       db.createUser(username, email, hash, function(userCreated, user_id) {
         if (userCreated) {
+          //login comes from passport and creates a session and a cookie for the user
           req.login(user_id, function(err) {
             if (err) {
               console.log(err)
@@ -101,14 +120,10 @@ app.post('/signupuser', function(req, res) {
   });
 });
 
-// app.post('/loginuser', function(req, res) {
-//   console.log(req.body)
-//   var username = req.body.username;
-//   var password = req.body.password;
-
-// });
-
-
+app.post('/loginuser', passport.authenticate('local'), (req, res) => {
+  console.log('req.user in loginuser', req.user)
+  res.send(req.user);
+})
 
 
 // Passport will maintain persistent login sessions. In order for persistent sessions to work, the authenticated user must be serialized to the session, and deserialized when subsequent requests are made.
@@ -150,7 +165,7 @@ app.get('*', authMiddleware(), function(req, res) {
   console.log('serving authenticated route')
   // if (req.isAuthenticated()) {
     // console.log('serving default route')
-    res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
+  res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
   // }
 });
 
