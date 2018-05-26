@@ -170,6 +170,7 @@ app.get('*', authMiddleware(), function(req, res) {
   console.log('serving authenticated route')
   // if (req.isAuthenticated()) {
     // console.log('serving default route')
+});
 
 app.get('*', function(req, res) {
   console.log('req.user', req.user)
@@ -177,9 +178,7 @@ app.get('*', function(req, res) {
   // console.log('serving default route')
 
   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
-  // }
 });
-
 
 // app.get('*', function(req, res) {
 //   console.log('req.user', req.user)
