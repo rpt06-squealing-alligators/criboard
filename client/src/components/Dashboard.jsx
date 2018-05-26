@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Home from '../components/Home.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class Dashboard extends React.Component {
   render() {
     return(
       <div>
+      <Home />
       <h3>Dashboard</h3>
         <ul>
           <li>Map with address</li>
