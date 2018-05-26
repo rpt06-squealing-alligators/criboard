@@ -1,14 +1,19 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
+var Sequelize = require('sequelize')
+var cookieParser = require('cookie-parser')
 
 var session = require('express-session');
 var passport = require('passport');
+// initalize sequelize with session store
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 var busboy = require('connect-busboy');
 
 var bcrypt = require('bcrypt');
 var db = require('../database/helpers.js');
+var connection = require('../database');
 
 const saltRounds = 10;
 
@@ -22,9 +27,18 @@ app.use(busboy());
 
 app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
+var sessionStore = new SequelizeStore({
+  db: connection,
+  checkExpirationInterval: 15 * 60 * 1000, // The interval at which to cleanup expired sessions in milliseconds.
+  expiration: 1 * 60 * 60 * 1000  // The maximum age (in milliseconds) of a valid session.
+})
+
+sessionStore.sync();
+
 app.use(session({
   secret: 'lalala',
   cookieName: 'criboard',
+  store: sessionStore,
   resave: false,
   saveUninitialized: false // only save sessions for users that are logged in
   // ,cookie: { secure: true }
@@ -32,7 +46,31 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+var authMiddleware = function () {
+  return (req, res, next) => {
+    console.log(`req.session.passport.user: ${req.session.passport}`);
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.redirect('/');
+  }
+}
+
 var port = 3000;
+
+app.get('/signup', function(req, res) {
+  console.log('req.user', req.user)
+  console.log('isauthenticated', req.isAuthenticated())
+  console.log('serving signup route')
+  res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
+});
+
+app.get('/login', function(req, res) {
+  console.log('req.user', req.user)
+  console.log('isauthenticated', req.isAuthenticated())
+  console.log('serving login route')
+  res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
+});
 
 app.post('/signupuser', function(req, res) {
   // TODO - data validation using express-validator
@@ -62,6 +100,16 @@ app.post('/signupuser', function(req, res) {
     }
   });
 });
+
+// app.post('/loginuser', function(req, res) {
+//   console.log(req.body)
+//   var username = req.body.username;
+//   var password = req.body.password;
+
+// });
+
+
+
 
 // Passport will maintain persistent login sessions. In order for persistent sessions to work, the authenticated user must be serialized to the session, and deserialized when subsequent requests are made.
 passport.serializeUser(function(user_id, done) {
@@ -95,12 +143,26 @@ app.get('/check', function(req, res) {
   db.selectIssues(res.status(200).json(results))
 })
 
-app.get('*', function(req, res) {
+// protect all routes other than landing, login and signup pages
+app.get('*', authMiddleware(), function(req, res) {
   console.log('req.user', req.user)
   console.log('isauthenticated', req.isAuthenticated())
-  // console.log('serving default route')
-  res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
+  console.log('serving authenticated route')
+  // if (req.isAuthenticated()) {
+    // console.log('serving default route')
+    res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
+  // }
 });
+
+
+// app.get('*', function(req, res) {
+//   console.log('req.user', req.user)
+//   console.log('isauthenticated', req.isAuthenticated())
+//   // if (req.isAuthenticated()) {
+//     console.log('serving default route')
+//     res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
+//   // }
+// });
 
 
 app.listen(port, function(){console.log(`server is listening on ${port} . . .`)});
