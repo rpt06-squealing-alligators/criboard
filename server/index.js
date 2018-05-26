@@ -77,6 +77,10 @@ var authMiddleware = function () {
 
 var port = 3000;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> da93a1dfcca0f333def6aecd36d02e4f46e1b3e7
 app.get('/signup', function(req, res) {
   console.log('req.user', req.user)
   console.log('isauthenticated', req.isAuthenticated())
@@ -103,7 +107,10 @@ app.post('/signupuser', function(req, res) {
     if (hash) {
       db.createUser(username, email, hash, function(userCreated, user_id) {
         if (userCreated) {
+
           //login comes from passport and creates a session and a cookie for the user
+          //login comes from passport and creates a session and a cookie for the user
+
           req.login(user_id, function(err) {
             if (err) {
               console.log(err)
@@ -203,6 +210,12 @@ app.get('*', authMiddleware(), function(req, res) {
   console.log('serving authenticated route')
   // if (req.isAuthenticated()) {
     // console.log('serving default route')
+
+app.get('*', function(req, res) {
+  console.log('req.user', req.user)
+  console.log('isauthenticated', req.isAuthenticated())
+  // console.log('serving default route')
+
   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
   // }
 });
