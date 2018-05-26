@@ -77,10 +77,6 @@ var authMiddleware = function () {
 
 var port = 3000;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> da93a1dfcca0f333def6aecd36d02e4f46e1b3e7
 app.get('/signup', function(req, res) {
   console.log('req.user', req.user)
   console.log('isauthenticated', req.isAuthenticated())
