@@ -10,7 +10,7 @@
     "test": "mocha server/spec",
     "react-dev": "webpack --watch",
     "server-dev": "nodemon server/index.js",
-    "start": "webpack --watch & node server/index.js"
+    "start": "npm run react-dev & npm run server-dev"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,8 @@
   "homepage": "https://github.com/rpt06-squealing-alligators/criboard#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "b64-to-blob": "^1.2.19",
+    "base64url": "^3.0.0",
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.1.1",

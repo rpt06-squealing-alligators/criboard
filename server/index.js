@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
+var fs = require('fs');
 
 var session = require('express-session');
 var passport = require('passport');
@@ -55,26 +56,63 @@ app.post('/signup', function(req, res) {
 });
 
 app.post('/issues', function (req, res, next) {
-  req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-    file.on('data', function(data) {
-      db.reportIssue(req.body.title, req.body.description, data)
-      console.log('data:', data)
-      file.on('end', function() {
-        res.status(201).send(`File ${filename} finished`);
-      });
-    });
-  });
-  req.pipe(req.busboy);
+  console.log('posting')
+
+let body = [];
+req.on('data', (chunk) => {
+  body.push(chunk);
+}).on('end', () => {
+  body = Buffer.concat(body).toString();
+  console.log('body: ', body)
+  // at this point, `body` has the entire request body stored in it as a string
+});
+
+  // console.log('req.body.image: ', req.body.image)
+
+
+  // var buffer = require('fs').createWriteStream('output.txt');
+  // var enc = require('base64-stream').encode();
+  // savePixels(pixels, 'png').on('end', function() {
+  //   //Writes a DataURL to  output.txt
+  //   buffer.write("data:image/png;base64,"+enc.read().toString());
+  // }).pipe(enc);
+  // // var buf = new Buffer(req.body.image, 'base64');
+  // // console.log('+++++++++POST TO ISSUES +++++++')
+  // db.reportIssue(req.body.title, req.body.description, req.body.image)
+
+  // // var file = fs.createWriteStream(path.resolve(__dirname, '../client/src/assets/') + 'test');
+  // // buff.pipe(file)
+
+
+
+  // req.on('data ', function(data){
+  //   console.log('readable')
+  //   console.log(req.read());
+  // });
+  // console.log('req.body: ', req.body)
+  // db.reportIssue(req.body.title, req.body.description, req.body.image)
+  // req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+  //   console.log('file: ', file)
+  //   file.on('data', function(data) {
+  //     db.reportIssue(req.body.title, req.body.description, data)
+  //     console.log('data:', data)
+  //     file.on('end', function() {
+  //       res.send(`File ${filename} finished`);
+  //     });
+  //   });
+  // });
+  // req.pipe(req.busboy);
 })
 
-app.get('/issues', function(req, res) {
-  console.log('issues is getting')
-  res.status.send('test')
+app.get('/data', function(req, res) {
+  // console.log('issues is getting')
+  res.send('test')
   // db.selectIssues(res.status(200).json('test'))
 })
 
 app.get('/check', function(req, res) {
-  db.selectIssues(res.status(200).json(results))
+  // res.json('test')
+  db.selectIssues((results) => res.json(results))
 })
 
 app.get('*', function(req, res) {

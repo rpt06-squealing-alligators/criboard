@@ -50,7 +50,7 @@ var reportIssue = (title, description, image) => {
 
 var selectIssues = (cb) => {
   console.log('selectIssues is being called')
-  Issues.findAll()
+  Issues.findOne({attributes: ['title']})
   .then(result => cb(result))
 }
 

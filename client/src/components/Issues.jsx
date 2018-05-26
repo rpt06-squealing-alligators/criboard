@@ -28,7 +28,7 @@ class Issues extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/issues')
+    fetch('/data')
     .then(res => JSON.stringify(res))
     .then(jres => console.log(jres))
   }
