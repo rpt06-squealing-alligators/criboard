@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 import { Button } from 'react-bootstrap';
 
@@ -9,7 +10,9 @@ class Signup extends React.Component {
     this.state = {
       username: '',
       email: '',
-      password: ''
+      password: '',
+      onHomePage: false,
+      onLandingPage: false
     }
   }
 
@@ -30,20 +33,21 @@ class Signup extends React.Component {
       email: this.state.email,
       password: this.state.password
     };
-    axios.post('./signup', data)
+    axios.post('./signupuser', data)
       .then(result => {
         console.log(result);
-        // clear input fields
-        this.setState({
-          email: '',
-          password: ''
-        });
         if (result.data === 'user created') {
           alert(`Info for ${this.state.username} has been saved`);
-          // TODO - redirect to dashboard page
+          // TODO - redirect to Home page - which is one of the restricted pages
+          this.setState({
+            onHomePage: true
+          })
         } else {
-          alert(`${this.state.username} already exists`)
+          alert(`${this.state.username} already exists. Please login as ${this.state.username} or signup as a different user`)
           // TODO - redirect to landing page
+          this.setState({
+            onLandingPage: true
+          })
 
         }
       })
@@ -54,8 +58,19 @@ class Signup extends React.Component {
   }
 
   render() {
+    if (this.state.onHomePage) {
+      return (
+        <Redirect to="/home" />
+      );
+    }
+    if (this.state.onLandingPage) {
+      return (
+        <Redirect to="/" />
+      );
+    }
     return (
-      <div>
+      <div className="jumbotron">
+      <h1 className="display-4">Signup</h1>
         <div className="form-group">
           <label>Username</label>&nbsp;&nbsp;
           <input type="email" className="form-control" placeholder="Enter username" name="username" value={this.state.usernamel} onChange={this.onChange.bind(this)} />

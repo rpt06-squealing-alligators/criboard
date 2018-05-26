@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Home from '../components/Home.jsx';
 
 class Budget extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class Budget extends React.Component {
   render() {
     return(
       <div>
+      <Home />
       <h3>Budget</h3>
         <ul>
           <li>Billpay</li>
