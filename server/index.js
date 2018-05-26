@@ -76,6 +76,7 @@ var authMiddleware = function () {
 
 var port = 3000;
 
+
 app.get('/signup', function(req, res) {
   console.log('req.user', req.user)
   console.log('isauthenticated', req.isAuthenticated())
@@ -90,6 +91,7 @@ app.get('/login', function(req, res) {
   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
 });
 
+
 app.post('/signupuser', function(req, res) {
   // TODO - data validation using express-validator
   console.log(req.body)
@@ -102,7 +104,9 @@ app.post('/signupuser', function(req, res) {
     if (hash) {
       db.createUser(username, email, hash, function(userCreated, user_id) {
         if (userCreated) {
+
           //login comes from passport and creates a session and a cookie for the user
+
           req.login(user_id, function(err) {
             if (err) {
               console.log(err)
@@ -119,6 +123,7 @@ app.post('/signupuser', function(req, res) {
     }
   });
 });
+
 
 app.post('/loginuser', passport.authenticate('local'), (req, res) => {
   console.log('req.user in loginuser', req.user)
@@ -165,6 +170,12 @@ app.get('*', authMiddleware(), function(req, res) {
   console.log('serving authenticated route')
   // if (req.isAuthenticated()) {
     // console.log('serving default route')
+
+app.get('*', function(req, res) {
+  console.log('req.user', req.user)
+  console.log('isauthenticated', req.isAuthenticated())
+  // console.log('serving default route')
+
   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
   // }
 });

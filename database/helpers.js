@@ -24,6 +24,10 @@ var createUser = (username, email, password, callback) => {
               where: {username: username}
             })
               .then((result) => {
+
+
+                //login comes from passport and creates a session and a cookie for the user
+
                 // console.log(result.dataValues)
                 var user_id = result.dataValues.id;
                 callback(true, user_id);
