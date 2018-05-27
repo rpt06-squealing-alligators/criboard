@@ -7,6 +7,7 @@ class Transaction extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      bill: '',
       amount: '',
       person: ''
     }
@@ -19,7 +20,9 @@ class Transaction extends React.Component {
   }
 
   onSubmit() {
-    console.log(this.state)
+    axios.post('/addtransaction', this.state)
+    .then(res => console.log(res))
+    // console.log(this.state)
     // TODO - send info to server
 
   }
@@ -27,6 +30,10 @@ class Transaction extends React.Component {
   render() {
     return (
       <div>
+        <div className="form-group">
+          <label>Bill</label>&nbsp;&nbsp;
+          <input type="text" className="form-control" placeholder="Enter bill you are paying" name="bill" value={this.state.bill} onChange={this.onChange.bind(this)} />
+        </div>
         <div className="form-group">
           <label>Amount</label>&nbsp;&nbsp;
           <input type="text" className="form-control" placeholder="Enter amount" name="amount" value={this.state.amount} onChange={this.onChange.bind(this)} />
@@ -40,5 +47,8 @@ class Transaction extends React.Component {
     );
   }
 }
+
+//datepicker:
+//https://jqueryui.com/datepicker/
 
 export default Transaction;

@@ -199,6 +199,14 @@ app.get('/check', function(req, res) {
   db.selectIssues((results) => res.json(results))
 })
 
+app.post('/addtransaction', function(req, res) {
+  console.log('req.body: ', req.body)
+  db.insertTransaction(req.body.bill, req.body.amount, req.body.person, function(result) {
+    res.status(201).send(result);
+  })
+})
+
+
 // protect all routes other than landing, login and signup pages
 app.get('*', authMiddleware(), function(req, res) {
   console.log('req.user', req.user)

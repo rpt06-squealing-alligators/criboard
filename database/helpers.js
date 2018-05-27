@@ -1,8 +1,11 @@
 var Sequelize = require('sequelize');
 
 var User = require('./models/user.js');
+var Transaction = require('./models/transaction.js')
 var Issues = require('./models/issues.js');
 var bcrypt = require('bcrypt');
+User.hasMany(Transaction);
+Transaction.belongsTo(User);
 
 // save username, email and password in database
 // check if username already exists in database, if not insert user info into database
@@ -81,11 +84,26 @@ var selectIssues = (cb) => {
   .then(result => cb(result))
 }
 
+insertTransaction = (bill, amount, paidby, cb) => {
+  User.findOne({where: {username: paidby}})
+  .then((result) => {
+    var id = result.dataValues.id
+    Transaction.create({
+      bill: bill,
+      amount: amount,
+      paidby: id
+    })
+    .then(result => cb(result))
+  })
+  .catch(err => console.log(err))
+}
+
 // createUser('tester2', 'test', 'test')
 
 module.exports = {
   createUser: createUser,
   reportIssue: reportIssue,
   selectIssues: selectIssues,
-  authenticateUser: authenticateUser
+  authenticateUser: authenticateUser,
+  insertTransaction: insertTransaction
 };
