@@ -33,7 +33,7 @@ class Login extends React.Component {
     };
     axios.post('./loginuser', data)
       .then(result => {
-        console.log(result);
+        console.log('in loginuser', result.data);
         alert(`${this.state.username} is logged in!`)
         if (result) {
           this.setState({

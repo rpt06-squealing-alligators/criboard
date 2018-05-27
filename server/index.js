@@ -42,13 +42,12 @@ app.use(passport.session());
 // authenticate user with a username and password stored in the database (using Passport local strategy)
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    db.authenticateUser(username, password, function(matched) {
+    db.authenticateUser(username, password, function(matched, user_id) {
       // console.log('user matched or not', matched)
       if (matched) {
-        // console.log('username for matched user', username)
-        return done(null, username)
+        return done(null, user_id);
       } else {
-        return done(null, false)
+        return done(null, false);
       }
     })
   }
@@ -120,7 +119,7 @@ app.post('/signupuser', function(req, res) {
 
 app.post('/loginuser', passport.authenticate('local'), (req, res) => {
   console.log('req.user in loginuser', req.user)
-  res.send(req.user);
+  res.send('logged in');
 })
 
 

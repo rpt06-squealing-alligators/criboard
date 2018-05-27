@@ -49,14 +49,15 @@ var authenticateUser = function(username, password, isMatch) {
   })
     .then((result) => {
       if (result === null) {
-        console.log('user does not exist');
+        // console.log('user does not exist');
         isMatch(false);
       } else {
         var hash = result.dataValues.password;
-        console.log('hash for user', hash);
+        // console.log('hash for user', hash);
+        var userId = result.dataValues.id;
         bcrypt.compare(password, hash, function(err, response) {
           if (response === true) {
-            isMatch(true)
+            isMatch(true, userId);
           } else {
             isMatch(false);
           }
@@ -64,7 +65,7 @@ var authenticateUser = function(username, password, isMatch) {
       }
     })
     .catch(err => {
-      console.log('error reading from database');
+      // console.log('error reading from database');
       isMatch(false)
     })
 };
