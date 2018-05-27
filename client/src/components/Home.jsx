@@ -62,6 +62,9 @@ class Home extends React.Component {
                 <Link to="/budget">
                   <div onClick={this.hideDashboard}>Budget (activity, billpay)</div>
                 </Link>
+                <Link to="/activity">
+                  <div onClick={this.hideDashboard}>Show all Activity</div>
+                </Link>
                 <Link to="/transaction">
                   <div onClick={this.hideDashboard}>Add a transaction</div>
                 </Link>

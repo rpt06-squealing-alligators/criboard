@@ -40,6 +40,11 @@ class Transaction extends React.Component {
     .then(res => {
       // console.log(res)
       alert('Transaction has been posted');
+      this.setState({
+        bill: '',
+        amount: '',
+        user: ''
+      });
     });
   }
 
