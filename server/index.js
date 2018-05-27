@@ -207,6 +207,18 @@ app.get('/fetchusers', authMiddleware(), function(req, res) {
   })
 });
 
+app.get('/allactivity', authMiddleware(), function(req, res) {
+  db.fetchActivity(function(results) {
+    res.send(results);
+  });
+});
+
+// route to get info about the currently logged in
+app.get('/getuser', authMiddleware(), function(req, res) {
+  console.log('REQ.USER IN SERVER', req.user)
+  res.send(req.user);
+});
+
 // protect all routes other than landing, login, and signup pages
 app.get('*', authMiddleware(), function(req, res) {
   // console.log('req.user', req.user)
