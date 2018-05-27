@@ -161,5 +161,6 @@ module.exports = {
   selectIssues: selectIssues,
   authenticateUser: authenticateUser,
   insertTransaction: insertTransaction,
-  fetchPeople: fetchPeople
+  fetchPeople: fetchPeople,
+  fetchActivity: fetchActivity
 };
