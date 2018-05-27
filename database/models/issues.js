@@ -11,7 +11,7 @@ var Issues = db.define('Issues', {
     type: Sequelize.STRING
   },
   image: {
-    type: Sequelize.BLOB
+    type: Sequelize.STRING
   }
   ,
   handyman: {

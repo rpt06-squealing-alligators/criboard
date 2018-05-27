@@ -192,11 +192,13 @@ class Issnew extends React.Component {
   render() {
     return(
       <div>
-      <button onClick={this.reportIssue}>Report Issue</button>
-      <input id="title" className="input" ref={el => this.titleInput = el} placeholder="Title . . ."></input>
-      <input id="description" className="input" ref={el => this.descriptInput = el} placeholder="Description"></input>
-      <input id="image" className="input" type="file"  ref={el => this.imageInput = el} onChange={this.previewFile}></input>
-      {this.state.imagePreviewUrl && <img src={this.state.imagePreviewUrl} height="200" alt="Image preview..."></img>}
+      <form action="/upload" method="post" onSubmit={() => alert('Thank you for reporting this issue!')} encType="multipart/form-data">
+        <input type="submit" value="report issue"></input>
+        <input id="title" name="title" className="input" ref={el => this.titleInput = el} placeholder="Title . . ."></input>
+        <input id="description" name="description" className="input" ref={el => this.descriptInput = el} placeholder="Description"></input>
+        <input id="image" name="image" className="input" type="file"  ref={el => this.imageInput = el} onChange={this.previewFile}></input>
+        {this.state.imagePreviewUrl && <img src={this.state.imagePreviewUrl} height="200" alt="Image preview..."></img>}
+      </form>
       </div>
     )
   }
