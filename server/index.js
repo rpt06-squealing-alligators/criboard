@@ -45,9 +45,10 @@ passport.use(new LocalStrategy(
     db.authenticateUser(username, password, function(matched, user_id) {
       // console.log('user matched or not', matched)
       if (matched) {
-        return done(null, user_id);
+        // console.log('username for matched user', username)
+        return done(null, username)
       } else {
-        return done(null, false);
+        return done(null, false)
       }
     })
   }
@@ -100,7 +101,7 @@ app.post('/signupuser', function(req, res) {
       db.createUser(username, email, hash, function(userCreated, user_id) {
         if (userCreated) {
           //login comes from passport and creates a session and a cookie for the user
-          req.login(user_id, function(err) {
+          req.login(username, function(err) {
             if (err) {
               console.log(err)
             } else {
@@ -119,7 +120,7 @@ app.post('/signupuser', function(req, res) {
 
 app.post('/loginuser', passport.authenticate('local'), (req, res) => {
   console.log('req.user in loginuser', req.user)
-  res.send('logged in');
+  res.send(req.user);
 })
 
 
