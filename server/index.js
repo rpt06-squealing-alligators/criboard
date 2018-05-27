@@ -130,6 +130,15 @@ app.post('/loginuser', passport.authenticate('local'), (req, res) => {
 })
 
 
+app.get('/logoutuser', function(req, res) {
+  // req.logout is a function available from passport
+  req.logout();
+  // destroy session for the user that has been logged out
+  req.session.destroy();
+  // logout user
+  res.send('logged out')
+})
+
 // Passport will maintain persistent login sessions. In order for persistent sessions to work, the authenticated user must be serialized to the session, and deserialized when subsequent requests are made.
 passport.serializeUser(function(user_id, done) {
   done(null, user_id);
@@ -199,6 +208,7 @@ app.get('/check', function(req, res) {
   db.selectIssues((results) => res.json(results))
 })
 
+
 app.post('/addtransaction', function(req, res) {
   console.log('req.body: ', req.body)
   db.insertTransaction(req.body.bill, req.body.amount, req.body.person, function(result) {
@@ -206,8 +216,7 @@ app.post('/addtransaction', function(req, res) {
   })
 })
 
-
-// protect all routes other than landing, login and signup pages
+// protect all routes other than landing, login, logout and signup pages
 app.get('*', authMiddleware(), function(req, res) {
   console.log('req.user', req.user)
   console.log('isauthenticated', req.isAuthenticated())
