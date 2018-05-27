@@ -4,6 +4,9 @@ var User = require('./models/user.js');
 var Transaction = require('./models/transaction.js')
 var Issues = require('./models/issues.js');
 var bcrypt = require('bcrypt');
+
+// establish relationship between users and transactions tables
+// a user can have many transactions
 User.hasMany(Transaction);
 Transaction.belongsTo(User);
 
@@ -27,11 +30,7 @@ var createUser = (username, email, password, callback) => {
               where: {username: username}
             })
               .then((result) => {
-
-
                 //login comes from passport and creates a session and a cookie for the user
-
-                // console.log(result.dataValues)
                 var user_id = result.dataValues.id;
                 callback(true, user_id);
               })

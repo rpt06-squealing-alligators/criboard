@@ -22,7 +22,6 @@ class Login extends React.Component {
   }
 
   onSubmit() {
-    console.log(this.state)
     if (this.state.username === '' || this.state.password === '')  {
       alert('username, email and password fields cannot be empty. Enter new values');
       // TODO - redirect to signup page

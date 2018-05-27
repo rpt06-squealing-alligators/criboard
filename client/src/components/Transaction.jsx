@@ -10,8 +10,8 @@ class Transaction extends React.Component {
     this.state = {
       bill: '',
       amount: '',
-      person: '',
-      people: []
+      users: [],
+      user: ''
     }
   }
 
@@ -26,8 +26,8 @@ class Transaction extends React.Component {
       .then((result) => {
         // console.log(result)
         this.setState({
-          people: result.data,
-          person: result.data[0]
+          users: result.data,
+          user: result.data[0]
         });
       })
       .catch(err => {
@@ -44,10 +44,10 @@ class Transaction extends React.Component {
   }
 
   render() {
-    let optionItems = this.state.people.map(person => {
+    let optionItems = this.state.users.map(user => {
       return (
-        <option key={person}>
-          {person}
+        <option key={user}>
+          {user}
         </option>
       );
     });
@@ -66,7 +66,7 @@ class Transaction extends React.Component {
           </div>
           <div className="form-group">
             <label>Paid by</label>&nbsp;&nbsp;
-            <select className="form-control" name="person" value={this.state.person} onChange={this.onChange.bind(this)} >
+            <select className="form-control" name="user" value={this.state.user} onChange={this.onChange.bind(this)} >
               {optionItems}
             </select>
           </div>
