@@ -43,6 +43,7 @@ app.use(passport.session());
 passport.use(new LocalStrategy(
   function(username, password, done) {
     db.authenticateUser(username, password, function(matched) {
+      // console.log('user matched or not', matched)
       if (matched) {
         // console.log('username for matched user', username)
         return done(null, username)
@@ -118,7 +119,7 @@ app.post('/signupuser', function(req, res) {
 });
 
 app.post('/loginuser', passport.authenticate('local'), (req, res) => {
-  // console.log('req.user in loginuser', req.user)
+  console.log('req.user in loginuser', req.user)
   res.send(req.user);
 })
 
@@ -216,4 +217,6 @@ app.get('*', authMiddleware(), function(req, res) {
 
 var port = 3000;
 
-app.listen(port, function(){console.log(`server is listening on ${port} . . .`)});
+app.listen(port, function() {
+  console.log(`server is listening on ${port} . . .`)
+});

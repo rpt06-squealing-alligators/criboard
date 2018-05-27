@@ -57,12 +57,15 @@ var authenticateUser = function(username, password, isMatch) {
         bcrypt.compare(password, hash, function(err, response) {
           if (response === true) {
             isMatch(true)
+          } else {
+            isMatch(false);
           }
         });
       }
     })
     .catch(err => {
       console.log('error reading from database');
+      isMatch(false)
     })
 };
 
