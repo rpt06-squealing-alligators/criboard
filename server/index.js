@@ -221,26 +221,8 @@ app.get('*', authMiddleware(), function(req, res) {
   console.log('req.user', req.user)
   console.log('isauthenticated', req.isAuthenticated())
   console.log('serving authenticated route')
-  // if (req.isAuthenticated()) {
-    // console.log('serving default route')
-});
-
-app.get('*', function(req, res) {
-  console.log('req.user', req.user)
-  console.log('isauthenticated', req.isAuthenticated())
-  // console.log('serving default route')
-
   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
 });
-
-// app.get('*', function(req, res) {
-//   console.log('req.user', req.user)
-//   console.log('isauthenticated', req.isAuthenticated())
-//   // if (req.isAuthenticated()) {
-//     console.log('serving default route')
-//     res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
-//   // }
-// });
 
 
 app.listen(port, function(){console.log(`server is listening on ${port} . . .`)});
