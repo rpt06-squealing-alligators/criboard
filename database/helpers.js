@@ -88,6 +88,35 @@ var fetchPeople = function(callback) {
     })
 };
 
+// function to get all data from transactions table
+var fetchActivity = function(callback) {
+  var transactions = [];
+  Transaction.findAll({})
+    .then(results => {
+      results.forEach(result => {
+        User.findOne({
+          where: {id: result.UserId}
+        })
+          .then(user => {
+            username = user.dataValues.username;
+            var transaction = {
+              paidBy: username,
+              amount: result.amount,
+              bill: result.bill
+            };
+            transactions.push(transaction);
+            if (transactions.length === results.length) {
+              // console.log(transactions)
+              callback(transactions);
+            }
+          })
+      })
+    })
+    .catch(err => {
+      // console.log(err);
+      callback(null)
+    });
+};
 
 
 var reportIssue = (title, description, image) => {
