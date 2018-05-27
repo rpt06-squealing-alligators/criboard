@@ -26,12 +26,30 @@ class Issues extends React.Component {
     this.showReport = this.showReport.bind(this);
     this.displayReportButton = this.displayReportButton.bind(this);
     this.showCatalogue = this.showCatalogue.bind(this);
+    this.updateData = this.updateData.bind(this);
   }
 
   componentDidMount() {
+    this.updateData();
+  }
+
+  // componentDidUpdate() {
+  //   this.updateData();
+  // }
+
+  updateData() {
     fetch('/data')
-    .then(res => JSON.stringify(res))
-    .then(jres => console.log(jres))
+    .then(res => res.json())
+    .then(jres => JSON.parse(jres))
+    .then(data => {
+      this.setState({
+        reported: data.filter(issue => issue.status === 'reported'),
+        scheduled: data.filter(issue => issue.status === 'scheduled'),
+        ip: data.filter(issue => issue.status === 'ip'),
+        fixed: data.filter(issue => issue.status === 'fixed')
+      })
+    })
+    .catch(err => console.log(err))
   }
 
   showReport() {

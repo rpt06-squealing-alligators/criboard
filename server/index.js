@@ -220,14 +220,19 @@ app.post('/upload', function(req, res) {
 // })
 
 app.get('/data', function(req, res) {
-  // console.log('issues is getting')
-  res.send('test')
-  // db.selectIssues(res.status(200).json('test'))
+  console.log('there is a request to /data')
+  db.selectIssues(data => {
+    console.log('inside the callback')
+    console.log('++++++++ THIS IS MY DATA INSIDE THE SERVER GET REQUEST: ', data)
+    res.status(200).json(data)
+  })
 })
 
 app.get('/check', function(req, res) {
+  console.log('++++++++check is being called+++++++++++')
   // res.json('test')
-  db.selectIssues((results) => res.json(results))
+  db.selectIssues
+  .then(data => res.json(data))
 })
 
 

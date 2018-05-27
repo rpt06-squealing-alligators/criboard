@@ -21,93 +21,99 @@ class Issnew extends React.Component {
       imagePreviewUrl: null,
       blob: null
     }
-    this.reportIssue = this.reportIssue.bind(this);
+    // this.reportIssue = this.reportIssue.bind(this);
     this.previewFile = this.previewFile.bind(this);
-    this.checkImage = this.checkImage.bind(this);
-    this.blobToBase64 = this.blobToBase64.bind(this);
+    // this.checkImage = this.checkImage.bind(this);
+    // this.blobToBase64 = this.blobToBase64.bind(this);
     // this.resizeBase64Img = this.resizeBase64Img.bind(this);
     // this.uploadHandler = this.uploadHandler.bind(this);
   }
 
   componentDidMount() {
-    $('.upload').upload({
-      action: '/issues'
-    });
-    $('.upload').on('complete', this.previewFile)
+    // $('.upload').upload({
+    //   action: '/issues'
+    // });
+    // $('.upload').on('complete', this.previewFile)
     // $('.upload').on('complete', () => this.setState({image: true}))
-    this.checkImage()
+
+
+    // this.checkImage()
   }
 
-  checkImage() {
-    let reader  = new FileReader();
-    fetch('/check')
-    .then(res => res.json())
-    .then((jres) => {
-      console.log('jres: ', jres)
-      var blob = new Blob([new Uint8Array(jres.image.data)], {type: 'img/jpg'});
-      console.log('blob: ', blob)
-
-    reader.onloadend = () => {
-      console.log('reader.result (supposed to be dataUrl): ', reader.result)
-      this.setState({imagePreviewUrl: reader.result})
-
-    }
-
-      var objectURL = URL.createObjectURL(blob)
-      console.log('objectURL: ', objectURL)
-      // var blobUrl = URL.createObjectURL(blob);
-      // console.log('blobUrl (made within .then): ', blobUrl)
-      reader.readAsDataURL(blob)
-    })
+  // checkImage() {
+  //   console.log('checkImage is being called')
+  //   // let reader  = new FileReader();
+  //   fetch('/data')
+  //   .then(() => console.log('I got a response!!!'))
+  //   .catch(err => console.log(err))
+  //   // .then(jres => console.log('jres: ', jres))
+  // }
 
 
-      // var objectURL = URL.createObjectURL(blob);
-      // this.setState({imagePreviewUrl: objectURL});
+    //   var blob = new Blob([new Uint8Array(jres.image.data)], {type: 'img/jpg'});
+    //   console.log('blob: ', blob)
 
-    reader.onloadend = () => {
-      console.log('reader.result (supposed to be dataUrl): ', reader.result)
-      // var partial = reader.result.split(',')
-      // console.log('partial: ', partial)
-      // var fixed = 'data:image/jpg;base64, ' + partial[1]
-      // console.log('fixed: ', fixed)
-      // this.setState({
-      //   imagePreviewUrl: fixed
-      // }, () => console.log(this.state.imagePreviewUrl));
-    }
+    // reader.onloadend = () => {
+    //   console.log('reader.result (supposed to be dataUrl): ', reader.result)
+    //   this.setState({imagePreviewUrl: reader.result})
 
-  }
+    // }
 
-
-
-  reportIssue() {
-    console.log('this.state.imagePreviewUrl: ', this.state.imagePreviewUrl)
-    var b64Data = this.state.imagePreviewUrl.split(',')[1];
-    console.log('b64Data: ', b64Data)
-    var blob = b64toBlob(b64Data, this.state.file.type);
-    console.log('blob: ', blob)
-
-    var body =
-    {
-      title: this.titleInput.value,
-      description: this.descriptInput.value,
-      image: blob
-    }
-    // this.blobToBase64(this.state.file, function(base64) {
-    //   body.image = base64;
-      axios.post('/issues', body)
-      .then(res => console.log(res))
+    //   var objectURL = URL.createObjectURL(blob)
+    //   console.log('objectURL: ', objectURL)
+    //   // var blobUrl = URL.createObjectURL(blob);
+    //   // console.log('blobUrl (made within .then): ', blobUrl)
+    //   reader.readAsDataURL(blob)
     // })
-  }
 
-  blobToBase64(blob, cb) {
-    let reader  = new FileReader();
-    reader.onload = function() {
-      var dataUrl = reader.result;
-      var base64 = dataUrl.split(',')[1];
-      cb(base64);
-    };
-    reader.readAsDataURL(this.state.file);
-  }
+
+    //   // var objectURL = URL.createObjectURL(blob);
+    //   // this.setState({imagePreviewUrl: objectURL});
+
+    // reader.onloadend = () => {
+    //   console.log('reader.result (supposed to be dataUrl): ', reader.result)
+    //   // var partial = reader.result.split(',')
+    //   // console.log('partial: ', partial)
+    //   // var fixed = 'data:image/jpg;base64, ' + partial[1]
+    //   // console.log('fixed: ', fixed)
+    //   // this.setState({
+    //   //   imagePreviewUrl: fixed
+    //   // }, () => console.log(this.state.imagePreviewUrl));
+    // }
+
+  // }
+
+
+
+  // reportIssue() {
+  //   console.log('this.state.imagePreviewUrl: ', this.state.imagePreviewUrl)
+  //   var b64Data = this.state.imagePreviewUrl.split(',')[1];
+  //   console.log('b64Data: ', b64Data)
+  //   var blob = b64toBlob(b64Data, this.state.file.type);
+  //   console.log('blob: ', blob)
+
+  //   var body =
+  //   {
+  //     title: this.titleInput.value,
+  //     description: this.descriptInput.value,
+  //     image: blob
+  //   }
+  //   // this.blobToBase64(this.state.file, function(base64) {
+  //   //   body.image = base64;
+  //     axios.post('/issues', body)
+  //     .then(res => console.log(res))
+  //   // })
+  // }
+
+  // blobToBase64(blob, cb) {
+  //   let reader  = new FileReader();
+  //   reader.onload = function() {
+  //     var dataUrl = reader.result;
+  //     var base64 = dataUrl.split(',')[1];
+  //     cb(base64);
+  //   };
+  //   reader.readAsDataURL(this.state.file);
+  // }
 
 
 
