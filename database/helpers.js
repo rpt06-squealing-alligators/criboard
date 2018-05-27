@@ -67,6 +67,21 @@ var authenticateUser = function(username, password, isMatch) {
     })
 };
 
+var fetchPeople = function(callback) {
+  User.findAll({})
+    .then(result => {
+      var people = result.map(person => {
+        return person.dataValues.username;
+      })
+      // console.log(people)
+      callback(people);
+    })
+    .catch(err => {
+      // console.log('error fetching from database');
+      callback(null);
+    })
+};
+
 var reportIssue = (title, description, image) => {
   // console.log('title: ', title)
   // console.log('title: ', description)
@@ -84,10 +99,10 @@ var selectIssues = (cb) => {
   .then(result => cb(result))
 }
 
-insertTransaction = (bill, amount, paidby, cb) => {
+var insertTransaction = (bill, amount, paidby, cb) => {
   User.findOne({where: {username: paidby}})
   .then((result) => {
-    var id = result.dataValues.id
+    var id = result.dataValues.id;
     Transaction.create({
       bill: bill,
       amount: amount,
@@ -98,12 +113,11 @@ insertTransaction = (bill, amount, paidby, cb) => {
   .catch(err => console.log(err))
 }
 
-// createUser('tester2', 'test', 'test')
-
 module.exports = {
   createUser: createUser,
   reportIssue: reportIssue,
   selectIssues: selectIssues,
   authenticateUser: authenticateUser,
-  insertTransaction: insertTransaction
+  insertTransaction: insertTransaction,
+  fetchPeople: fetchPeople
 };
