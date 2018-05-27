@@ -10,6 +10,4 @@ var sessionStore = new SequelizeStore({
   expiration: 1 * 60 * 60 * 1000  // The maximum age (in milliseconds) of a valid session.
 })
 
-sessionStore.sync();
-
 module.exports = sessionStore;

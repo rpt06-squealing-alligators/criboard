@@ -7,14 +7,9 @@ var Transaction = db.define('Transaction', {
   amount: {
     type: Sequelize.INTEGER
   },
-  paidby: {
-    type: Sequelize.INTEGER
-  },
   bill: {
     type: Sequelize.STRING
   }
 });
-
-Transaction.sync()
 
 module.exports = Transaction;

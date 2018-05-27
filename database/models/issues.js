@@ -29,6 +29,4 @@ var Issues = db.define('Issues', {
   }
 });
 
-Issues.sync()
-
 module.exports = Issues;

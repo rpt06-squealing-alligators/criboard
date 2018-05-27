@@ -4,11 +4,14 @@ var User = require('./models/user.js');
 var Transaction = require('./models/transaction.js')
 var Issues = require('./models/issues.js');
 var bcrypt = require('bcrypt');
+var db = require('../database');
 
 // establish relationship between users and transactions tables
 // a user can have many transactions
-User.hasMany(Transaction);
 Transaction.belongsTo(User);
+User.hasMany(Transaction);
+
+db.sync();
 
 // save username, email and password in database
 // check if username already exists in database, if not insert user info into database
@@ -85,6 +88,8 @@ var fetchPeople = function(callback) {
     })
 };
 
+
+
 var reportIssue = (title, description, image) => {
   // console.log('title: ', title)
   // console.log('title: ', description)
@@ -105,16 +110,21 @@ var selectIssues = (cb) => {
 var insertTransaction = (bill, amount, paidby, cb) => {
   User.findOne({where: {username: paidby}})
   .then((result) => {
-    var id = result.dataValues.id;
+    console.log('')
+    var userId = result.dataValues.id;
+    console.log('userId', userId)
     Transaction.create({
       bill: bill,
       amount: amount,
-      paidby: id
+      UserId: userId
     })
-    .then(result => cb(result))
+    .then(result => {
+      // console.log(result)
+      cb(result)
+    })
   })
   .catch(err => console.log(err))
-}
+};
 
 module.exports = {
   createUser: createUser,
