@@ -210,11 +210,17 @@ app.get('/check', function(req, res) {
 
 
 app.post('/addtransaction', function(req, res) {
-  console.log('req.body: ', req.body)
+  // console.log('req.body: ', req.body)
   db.insertTransaction(req.body.bill, req.body.amount, req.body.person, function(result) {
     res.status(201).send(result);
   })
 })
+
+app.get('/fetchusers', function(req, res) {
+  db.fetchPeople(function(people) {
+    res.send(people);
+  })
+});
 
 // protect all routes other than landing, login, logout and signup pages
 app.get('*', authMiddleware(), function(req, res) {
