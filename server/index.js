@@ -9,7 +9,22 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
+
 var busboy = require('connect-busboy');
+
+// initalize sequelize with session store
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+// var busboy = require('connect-busboy');
+var multer  = require('multer')
+var storage = multer.diskStorage({
+  destination: path.resolve(__dirname, '../client/src/assets/images/'),
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + Date.now() + path.extname(file.originalname))
+  }
+});
+var upload = multer({ storage: storage }).single('image')
+
 
 var bcrypt = require('bcrypt');
 var db = require('../database/helpers.js');
@@ -22,9 +37,9 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var fs = require('fs');
-var busboy = require('connect-busboy');
-app.use(busboy());
+// var fs = require('fs');
+// var busboy = require('connect-busboy');
+// app.use(busboy());
 
 app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
@@ -133,16 +148,30 @@ app.get('/logoutuser', function(req, res) {
   res.send('logged out')
 });
 
-app.post('/issues', function (req, res, next) {
-  console.log('posting')
+// app.post('/issues', function (req, res, next) {
+//   console.log('posting')
 
-let body = [];
-req.on('data', (chunk) => {
-  body.push(chunk);
-}).on('end', () => {
-  body = Buffer.concat(body).toString();
-  console.log('body: ', body)
-  // at this point, `body` has the entire request body stored in it as a string
+// let body = [];
+// req.on('data', (chunk) => {
+//   body.push(chunk);
+// }).on('end', () => {
+//   body = Buffer.concat(body).toString();
+//   console.log('body: ', body)
+//   // at this point, `body` has the entire request body stored in it as a string
+// });
+
+app.post('/upload', function(req, res) {
+  upload(req, res, function(err) {
+    if(err) {
+      console.log(err);
+    }
+    console.log('req.body: ', req.body)
+    console.log('req.file: ', req.file)
+    db.reportIssue(req.body.title, req.body.description, './' + req.file.filename, () => {
+      console.log('results: ', results)
+    })
+  })
+  res.status(201).redirect('/issues');
 });
 
   // console.log('req.body.image: ', req.body.image)
@@ -180,17 +209,24 @@ req.on('data', (chunk) => {
   //   });
   // });
   // req.pipe(req.busboy);
-})
+// })
+
+
 
 app.get('/data', authMiddleware(), function(req, res) {
-  // console.log('issues is getting')
-  res.send('test')
-  // db.selectIssues(res.status(200).json('test'))
+  console.log('there is a request to /data')
+  db.selectIssues(data => {
+    console.log('inside the callback')
+    console.log('++++++++ THIS IS MY DATA INSIDE THE SERVER GET REQUEST: ', data)
+    res.status(200).json(data)
+  })
 })
 
-app.get('/check', authMiddleware(), function(req, res) {
+app.get('/check', authMiddleware(),function(req, res) {
+  console.log('++++++++check is being called+++++++++++')
   // res.json('test')
-  db.selectIssues((results) => res.json(results))
+  db.selectIssues
+  .then(data => res.json(data))
 })
 
 

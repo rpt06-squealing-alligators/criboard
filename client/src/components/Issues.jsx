@@ -2,22 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from '../components/Home.jsx';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
+import { Button, Modal } from 'react-bootstrap';
 // import {Collapse} from 'react-collapse';
 import $ from 'jquery';
 import Issnew from './Issnew.jsx';
 import Issbook from './Issbook.jsx';
 import Issupplies from './Issupplies.jsx';
 import data from '../assets/mockdata.json';
-import '../assets/styles/index.css'
+import '../assets/styles/index.css';
+var images = require.context('../assets/images', false, /\.(png|jpg|gif)$/);
 
 class Issues extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      show: false,
+      activeModal: null,
       report: false,
       showReportButton: false,
       showScheduleButton: false,
       showSuppliesButton: false,
+      pictures: [],
       reported: data.filter(issue => issue.status === 'reported'),
       scheduled: data.filter(issue => issue.status === 'scheduled'),
       ip: data.filter(issue => issue.status === 'ip'),
@@ -26,12 +31,38 @@ class Issues extends React.Component {
     this.showReport = this.showReport.bind(this);
     this.displayReportButton = this.displayReportButton.bind(this);
     this.showCatalogue = this.showCatalogue.bind(this);
+    this.updateData = this.updateData.bind(this);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentDidMount() {
+    images.keys().forEach(function(key){
+      console.log('key: ', key)
+      console.log('images(key): ', images(key));
+    });
+  }
+
+  componentWillMount() {
+    this.updateData();
+  }
+
+  updateData() {
     fetch('/data')
-    .then(res => JSON.stringify(res))
-    .then(jres => console.log(jres))
+    .then(res => res.json())
+    .then(jres => JSON.parse(jres))
+    .then(data => {
+      var pictures = data.map(instance => images(instance.image))
+      console.log('pictures: ', pictures)
+      this.setState({
+        reported: data.filter(issue => issue.status === 'reported'),
+        scheduled: data.filter(issue => issue.status === 'scheduled'),
+        ip: data.filter(issue => issue.status === 'ip'),
+        fixed: data.filter(issue => issue.status === 'fixed'),
+        pictures: pictures
+      }, () => console.log('images(this.state.reported[0].image): ', images(this.state.reported[0].image) ))
+    })
+    .catch(err => console.log(err))
   }
 
   showReport() {
@@ -58,6 +89,20 @@ class Issues extends React.Component {
 
   }
 
+  handleClose() {
+    this.setState({
+      show: false,
+      activeModal: null
+    });
+  }
+
+  handleShow(e, i) {
+    this.setState({
+      show: true,
+      activeModal: i
+    });
+  }
+
 
   render() {
     return(
@@ -68,19 +113,23 @@ class Issues extends React.Component {
         <h3 className="reports" onMouseEnter={this.displayReportButton}>Reports</h3>
           {
             this.state.showReportButton &&
-            <button className="report-button" onClick={this.showReport}>Report New Issue</button>
+            <Button className="report-button" onClick={this.showReport}>Report Issue</Button>
           }
           <ul className="reports-list">
-            {this.state.reported.map(issue =>
+            {this.state.reported.map((issue, i) =>
               <div key={issue.id} className="report-title">
                 <h5>{issue.title}</h5>
                   <div>
                     <p>{issue.description}</p>
-                    <img src={issue.image}></img>
-
-                    <button className="booking" onClick={this.bookRepair}>Book handyman</button>
-
-                    <button className="supply" onClick={this.showCatalogue}>Get supplies</button>
+                    <Button bsStyle="primary" bsSize="small" onClick={e => this.handleShow(e, i)}>Photo</Button>
+                    <Button bsStyle="primary" bsSize="small" className="booking" onClick={this.bookRepair}>Book handyman</Button>
+                    <Button bsStyle="primary" bsSize="small" className="supply" onClick={this.showCatalogue}>Get supplies</Button>
+                    <Modal show={this.state.activeModal === i} onHide={this.handleClose}>
+                      <Modal.Header closeButton></Modal.Header>
+                      <Modal.Body>
+                        <img src={this.state.pictures[i]} height="200"></img>
+                      </Modal.Body>
+                    </Modal>
                   </div>
               </div>)}
           </ul>
@@ -134,3 +183,5 @@ export default Issues;
 
 
 //when issue gets fixed, add to description automatically who and when.
+//currently the setstate doesn't update when the issue is reported - must refresh page
+//

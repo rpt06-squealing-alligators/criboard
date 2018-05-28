@@ -124,17 +124,20 @@ var reportIssue = (title, description, image) => {
   // console.log('title: ', description)
   // console.log('title: ', image)
   Issues.create({
+    status: 'reported',
     title: title,
     description: description,
     image: image
   });
 }
 
-var selectIssues = (cb) => {
-  console.log('selectIssues is being called')
-  Issues.findOne({attributes: ['title']})
-  .then(result => cb(result))
-}
+var selectIssues = (callback) => {
+  Issues.findAll()
+  .then((result) => {
+    console.log(callback)
+    callback(JSON.stringify(result))
+  }).bind(this);
+};
 
 var insertTransaction = (bill, amount, paidby, cb) => {
   User.findOne({where: {username: paidby}})
