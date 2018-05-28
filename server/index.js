@@ -9,7 +9,7 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-
+var busboy = require('connect-busboy');
 
 // var busboy = require('connect-busboy');
 var multer  = require('multer')
