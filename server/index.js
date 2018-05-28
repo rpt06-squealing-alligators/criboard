@@ -256,10 +256,18 @@ app.get('/allactivity', authMiddleware(), function(req, res) {
   });
 });
 
-// route to get info about the currently logged in
+// route to get username of the currently logged in user
 app.get('/getuser', authMiddleware(), function(req, res) {
   console.log('REQ.USER IN SERVER', req.user)
   res.send(req.user);
+});
+
+
+// route to get info about the user that's logged in
+app.get('/getuserinfo', authMiddleware(), function(req, res) {
+  console.log('REQ.USER IN SERVER', req.user)
+  var username = req.user;
+  res.send(username);
 });
 
 // protect all routes other than landing, login, and signup pages
