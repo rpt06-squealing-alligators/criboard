@@ -12,9 +12,6 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var busboy = require('connect-busboy');
 
-// initalize sequelize with session store
-var SequelizeStore = require('connect-session-sequelize')(session.Store);
-
 // var busboy = require('connect-busboy');
 var multer  = require('multer')
 var storage = multer.diskStorage({
