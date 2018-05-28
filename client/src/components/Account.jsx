@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 
 import Home from '../components/Home.jsx';
 
@@ -8,6 +9,13 @@ class Account extends React.Component {
     super(props);
     this.state = {
     }
+  }
+
+  componentDidMount() {
+    axios.get('/getuser')
+      .then(result => {
+        console.log('logged in user', result.data)
+      })
   }
 
   render() {

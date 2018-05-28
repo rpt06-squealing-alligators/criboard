@@ -22,10 +22,10 @@ class Login extends React.Component {
   }
 
   onSubmit() {
-    console.log(this.state)
     if (this.state.username === '' || this.state.password === '')  {
-      alert('username, email and password fields cannot be empty. Enter new values');
-      // TODO - redirect to signup page
+      this.setState({
+            onLandingPage: true
+      })
     }
     var data = {
       username: this.state.username,
@@ -33,7 +33,8 @@ class Login extends React.Component {
     };
     axios.post('./loginuser', data)
       .then(result => {
-        console.log(result);
+        console.log('in loginuser', result.data);
+        alert(`${this.state.username} is logged in!`)
         if (result) {
           this.setState({
             onHomePage: true
@@ -45,6 +46,7 @@ class Login extends React.Component {
         }
       })
       .catch(err => {
+        alert('Incorrect username and/or password');
         this.setState({
             onLandingPage: true
         })
@@ -57,8 +59,7 @@ class Login extends React.Component {
       return (
         <Redirect to="/home" />
       );
-    }
-    if (this.state.onLandingPage) {
+    } else if (this.state.onLandingPage) {
       return (
         <Redirect to="/" />
       );

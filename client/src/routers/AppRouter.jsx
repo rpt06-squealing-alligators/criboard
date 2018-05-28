@@ -16,6 +16,7 @@ import Account from '../components/Account.jsx';
 import Group from '../components/Group.jsx';
 import Help from '../components/Help.jsx';
 import Transaction from '../components/Transaction.jsx';
+import Activity from '../components/Activity.jsx';
 
 import Logout from '../components/Logout.jsx';
 
@@ -39,6 +40,7 @@ const AppRouter = () => (
       <Route exact path="/group" component={Group}/>
       <Route exact path="/help" component={Help}/>
       <Route exact path="/dashboard" component={Dashboard}/>
+      <Route exact path="/activity" component={Activity}/>
       <Route exact path="/logout" component={Logout}/>
     </Switch>
     </div>
