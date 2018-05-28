@@ -9,6 +9,7 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
+
 var busboy = require('connect-busboy');
 
 // var busboy = require('connect-busboy');
@@ -20,6 +21,7 @@ var storage = multer.diskStorage({
   }
 });
 var upload = multer({ storage: storage }).single('image')
+
 
 var busboy = require('connect-busboy');
 
@@ -219,7 +221,9 @@ app.get('/data', authMiddleware(), function(req, res) {
   })
 })
 
-app.get('/check', authMiddleware(), function(req, res) {
+
+app.get('/check', authMiddleware(),function(req, res) {
+  console.log('++++++++check is being called+++++++++++')
   // res.json('test')
   db.selectIssues
   .then(data => res.json(data))
