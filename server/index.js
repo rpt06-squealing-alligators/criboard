@@ -17,7 +17,7 @@ var multer  = require('multer')
 var storage = multer.diskStorage({
   destination: path.resolve(__dirname, '../client/src/assets/images/'),
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    cb(null, file.fieldname + Date.now() + path.extname(file.originalname))
   }
 });
 var upload = multer({ storage: storage }).single('image')
@@ -175,7 +175,7 @@ app.post('/upload', function(req, res) {
     }
     console.log('req.body: ', req.body)
     console.log('req.file: ', req.file)
-    db.reportIssue(req.body.title, req.body.description, req.file.destination + '/' + req.file.filename, () => {
+    db.reportIssue(req.body.title, req.body.description, './' + req.file.filename, () => {
       console.log('results: ', results)
     })
   })
