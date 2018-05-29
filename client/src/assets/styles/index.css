@@ -1,3 +1,19 @@
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.scrollable-menu {
+    height: auto;
+    width: 6px;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+.statesDD:hover {
+  background-color: #dbe7f9;
+}
+
 .dropbtn {
     background-color: #4CAF50;
     color: white;
