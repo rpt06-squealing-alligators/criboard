@@ -1,25 +1,118 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import Home from '../components/Home.jsx';
+
+import { Button } from 'react-bootstrap';
 
 class Group extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      number: null,
+      indices: [],
+      previousTab: 0,
+      currentTab: 0,
+      users: [],
+      user: ''
+    }
+    this.showTab = this.showTab.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.showTab(this.state.currentTab);
+    axios.get('/fetchusers')
+    .then((result) => {
+      // console.log(result)
+      this.setState({
+        users: result.data,
+        user: result.data[0]
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
+  showTab() {
+    var tabs = Object.keys(this.refs);
+    var prev = this.refs[tabs[this.state.previousTab]];
+    console.log('prev: ', prev)
+    var curr = this.refs[tabs[this.state.currentTab]];
+    console.log('curr: ', curr)
+    prev.style.display = "none";
+    curr.style.display = "block";
+  }
+
+  onChange(event) {
+    console.log('event.target.name: ', event.target.name)
+    console.log('event.target.value: ', event.target.value)
+    this.setState({
+      [event.target.name]: event.target.value
+    }, () => {
+      var indices = Array.from({length: this.state.number}, (v, k) => k+1)
+      this.setState({indices: indices})
+    });
+  }
+
+  nextPrev(pg) {
+    console.log('this.state.currentTab: ', this.state.currentTab)
+    if((this.state.currentTab + pg > -1) && (this.state.currentTab + pg < 2)) {
+      this.setState({previousTab: this.state.currentTab, currentTab: this.state.currentTab + pg}, this.showTab);
     }
   }
 
+  onSubmit() {
+    console.log('newgroup submitted')
+    axios.post('/newgroup', this.state)
+    .then(res => {
+      // console.log(res)
+      alert('Your group has been created');
+      this.setState({
+        number: ''
+      });
+    });
+  }
+
   render() {
-    return(
+    let optionItems = this.state.users.map(user => {
+      return (
+        <option key={user}>
+          {user}
+        </option>
+      );
+    });
+    return (
       <div>
-      <Home />
-      <h3>Group</h3>
-        <ul>
-          <li>Set up a new group</li>
-        </ul>
+        <Home />
+          <div className="jumbotron">
+            <form id="regForm" action="/newgroup" method="POST" onSubmit={() => alert('Your group has been created')}>
+            <h1 className="display-4">Create a Group</h1>
+            <div className="tab" ref="numberTab">Number of group members:
+              <p><input placeholder="number" name="number" onChange={this.onChange} /></p>
+            </div>
+            <div className="tab" ref="nameTab">Select members:
+              {this.state.indices.map(i =>
+              <p key={i}><select className="form-control" name="user" placeholder="name">{optionItems}</select></p>)}
+            </div>
+            <div>
+              <div>
+                <button type="button" id="prevBtn" onClick={() => this.nextPrev(-1)} disabled={this.state.currentTab <= 0 ? true : false}>Previous</button>
+                <button type="button" id="nextBtn" onClick={() => this.nextPrev(1)} disabled={this.state.currentTab >= 1 ? true : false}>Next</button>
+                {this.state.currentTab > 0 && <input type="submit" className="btn btn-primary"></input>}
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-    )
+    );
   }
 }
+
+//prevent form from being submitted on hitting enter at first step
+//prevent duplicate members from being entered
+//notify group members with email:
+// https://zapier.com/learn/email-marketing/best-transactional-email-sending-services/
 
 export default Group;

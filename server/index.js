@@ -211,6 +211,11 @@ app.post('/upload', function(req, res) {
   // req.pipe(req.busboy);
 // })
 
+app.post('/newgroup', function(req, res) {
+  console.log('this is the req.body posted to newgroup: ', req.body)
+  db.createLedger(req.body.user);
+  res.status(201).redirect('/group');
+})
 
 app.get('/data', authMiddleware(), function(req, res) {
   console.log('there is a request to /data')
@@ -232,6 +237,8 @@ app.get('/check', authMiddleware(),function(req, res) {
 
 app.post('/addtransaction', authMiddleware(), function(req, res) {
   // console.log('req.body: ', req.body)
+  var debt = req.body.amount / req.body.users.length
+  db.updateLedger(req.body.user, debt)
   db.insertTransaction(req.body.bill, req.body.amount, req.body.user, function(result) {
     res.status(201).send(result);
   })
