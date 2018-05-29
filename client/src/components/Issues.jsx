@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Home from '../components/Home.jsx';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import { Button, Modal } from 'react-bootstrap';
+
 // import {Collapse} from 'react-collapse';
 import $ from 'jquery';
 import Issnew from './Issnew.jsx';
@@ -37,6 +38,9 @@ class Issues extends React.Component {
   }
 
   componentDidMount() {
+    // $( function() {
+    //   $( "#datepicker" ).datepicker();
+    // } );
     images.keys().forEach(function(key){
       console.log('key: ', key)
       console.log('images(key): ', images(key));
@@ -107,6 +111,9 @@ class Issues extends React.Component {
   render() {
     return(
       <div>
+
+
+
       <Home />
       {this.state.report ? <Issnew /> :
       <div className="issues grid">
@@ -122,7 +129,10 @@ class Issues extends React.Component {
                   <div>
                     <p>{issue.description}</p>
                     <Button bsStyle="primary" bsSize="small" onClick={e => this.handleShow(e, i)}>Photo</Button>
-                    <Button bsStyle="primary" bsSize="small" className="booking" onClick={this.bookRepair}>Book handyman</Button>
+
+ <Button bsStyle="primary" bsSize="small" className="booking" onClick={this.bookRepair}>Book handyman</Button>
+
+
                     <Button bsStyle="primary" bsSize="small" className="supply" onClick={this.showCatalogue}>Get supplies</Button>
                     <Modal show={this.state.activeModal === i} onHide={this.handleClose}>
                       <Modal.Header closeButton></Modal.Header>
