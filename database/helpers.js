@@ -179,6 +179,19 @@ var createLedger = (userArr) => {
   // }).then((users) => console.log(users))
 }
 
+var updateLedger = (grantor, amount) => {
+  Ledgers.find({where: {matrixRow: !grantor} })
+  .on('success', function (record) {
+    // Check if record exists in db
+    if (record) {
+      record.updateAttributes({
+        value: -amount
+      })
+      .success(function (results) {console.log(results)})
+    }
+  })
+}
+
 module.exports = {
   createUser: createUser,
   reportIssue: reportIssue,
@@ -187,5 +200,6 @@ module.exports = {
   insertTransaction: insertTransaction,
   fetchPeople: fetchPeople,
   fetchActivity: fetchActivity,
-  createLedger: createLedger
+  createLedger: createLedger,
+  updateLedger: updateLedger
 };
