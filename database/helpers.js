@@ -3,6 +3,7 @@ var Sequelize = require('sequelize');
 var User = require('./models/user.js');
 var Transaction = require('./models/transaction.js')
 var Issues = require('./models/issues.js');
+var Ledgers = require('./models/ledger.js');
 var bcrypt = require('bcrypt');
 var db = require('../database');
 
@@ -158,6 +159,26 @@ var insertTransaction = (bill, amount, paidby, cb) => {
   .catch(err => console.log(err))
 };
 
+var createLedger = (userArr) => {
+  var arr = ['a', 'b', 'c'];
+  var toCreate = [];
+  for (var i = 0; i < arr.length; i++) {
+    for (var j = 0; j < arr.length; j++) {
+      var obj = {matrixRow: '',
+                matrixColumn: '',
+                value: 0
+                }
+      obj.matrixRow = arr[i];
+      obj.matrixColumn = arr[j];
+      toCreate.push(obj);
+    }
+  }
+  Ledgers.bulkCreate(toCreate)
+  // .then(() => {
+  //   return Ledgers.findAll();
+  // }).then((users) => console.log(users))
+}
+
 module.exports = {
   createUser: createUser,
   reportIssue: reportIssue,
@@ -165,5 +186,6 @@ module.exports = {
   authenticateUser: authenticateUser,
   insertTransaction: insertTransaction,
   fetchPeople: fetchPeople,
-  fetchActivity: fetchActivity
+  fetchActivity: fetchActivity,
+  createLedger: createLedger
 };

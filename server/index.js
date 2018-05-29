@@ -211,6 +211,11 @@ app.post('/upload', function(req, res) {
   // req.pipe(req.busboy);
 // })
 
+app.post('/newgroup', function(req, res) {
+  console.log('this is the req.body posted to newgroup: ', req.body)
+  db.createLedger(req.body.user);
+  res.status(201).redirect('/group');
+})
 
 app.get('/data', authMiddleware(), function(req, res) {
   console.log('there is a request to /data')
