@@ -25,7 +25,7 @@ class Landing extends React.Component {
   render() {
     if (this.state.loggedIn) {
       return (
-        <Redirect to="/home" />
+        <Redirect to="/dashboard" />
       );
     }
     return (

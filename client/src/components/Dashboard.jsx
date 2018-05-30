@@ -17,7 +17,7 @@ class Dashboard extends React.Component {
   componentDidMount() {
     axios.get('/getuserinfo')
       .then(result => {
-        console.log('logged in user', result.data);
+        // console.log('logged in user', result.data);
         this.setState({
           user: result.data.username,
           finances: result.data.row,
@@ -34,10 +34,10 @@ class Dashboard extends React.Component {
     };
     axios.post('/settleup', params)
       .then(result => {
-        console.log(result);
+        // console.log(result);
         axios.get('/getuserinfo')
           .then(result => {
-            console.log('logged in user', result.data);
+            // console.log('logged in user', result.data);
             this.setState({
               user: result.data.username,
               finances: result.data.row,
@@ -73,24 +73,28 @@ class Dashboard extends React.Component {
       <div>
       <Home />
       <h3>Dashboard for {this.state.user}</h3>
-        <ul>
-          <li>Map with address</li>
-          <li>Notifications</li>
-          <li>User specific info</li>
-          <li>Whiteboard</li>
-        </ul>
+      <ul>
+        <li>Map with address</li>
+        <li>Notifications</li>
+        <li>User specific info</li>
+        <li>Whiteboard</li>
+      </ul>
+      <div className="table-responsive col-md-6">
         <table className="table table-hover">
           <thead><tr><th>{this.state.user} Owes</th></tr></thead>
             <tbody>
             {itemsOwedByUser}
           </tbody>
         </table>
+      </div>
+      <div className="table-responsive col-md-6">
         <table className="table table-hover">
           <thead><tr><th>{this.state.user} is Owed</th></tr></thead>
             <tbody>
             {itemsOwedToUser}
           </tbody>
         </table>
+      </div>
       </div>
     )
   }
