@@ -275,6 +275,20 @@ app.get('/getuserinfo', authMiddleware(), function(req, res) {
   })
 });
 
+// to settle up the given 2 users
+app.post('/settleup', authMiddleware(), function(req, res) {
+  console.log('REQ.BODY in settleup', req.body)
+  var userId2 = req.body.user2;
+  db.findUserId(req.body.user1, function(i) {
+    var userId1 = i - 1;
+    db.settleUsers(userId1, userId2, function(done) {
+      if (done) {
+        res.send('users settled');
+      }
+    })
+  })
+})
+
 // protect all routes other than landing, login, and signup pages
 app.get('*', authMiddleware(), function(req, res) {
   // console.log('req.user', req.user)
