@@ -105,6 +105,7 @@ var fetchActivity = function(callback) {
         var transaction = {
           paidBy: username,
           amount: result.amount,
+          date: result.date,
           bill: result.bill
         };
         transactions.push(transaction);
