@@ -80,8 +80,6 @@ class Transaction extends React.Component {
             <label>Amount</label>&nbsp;&nbsp;
             <input type="text" className="form-control" placeholder="Enter amount" name="amount" value={this.state.amount} onChange={this.onChange.bind(this)} />
           </div>
-
-
           <div className="form-group">
             <label>Paid on</label>&nbsp;&nbsp;
             <DatePicker
@@ -89,9 +87,6 @@ class Transaction extends React.Component {
               onChange={this.handleChange}
             />
           </div>
-
-
-
           <div className="form-group">
             <label>Paid by</label>&nbsp;&nbsp;
             <select className="form-control" name="user" value={this.state.user} onChange={this.onChange.bind(this)} >
