@@ -138,7 +138,6 @@ app.post('/loginuser', passport.authenticate('local'), (req, res) => {
   res.send(req.user);
 })
 
-
 app.get('/logoutuser', function(req, res) {
   // req.logout is a function available from passport
   req.logout();
@@ -226,14 +225,12 @@ app.get('/data', authMiddleware(), function(req, res) {
   })
 })
 
-
 app.get('/check', authMiddleware(),function(req, res) {
   console.log('++++++++check is being called+++++++++++')
   // res.json('test')
   db.selectIssues
   .then(data => res.json(data))
 })
-
 
 app.post('/addtransaction', authMiddleware(), function(req, res) {
   // console.log('req.body: ', req.body)
@@ -245,7 +242,7 @@ app.post('/addtransaction', authMiddleware(), function(req, res) {
 })
 
 app.get('/fetchusers', authMiddleware(), function(req, res) {
-  db.fetchPeople(function(people) {
+  db.fetchUsers(function(people) {
     res.send(people);
   })
 });
@@ -258,16 +255,24 @@ app.get('/allactivity', authMiddleware(), function(req, res) {
 
 // route to get username of the currently logged in user
 app.get('/getuser', authMiddleware(), function(req, res) {
-  console.log('REQ.USER IN SERVER', req.user)
+  console.log('req.user in server', req.user)
   res.send(req.user);
 });
 
-
-// route to get info about the user that's logged in
+// route to get info about the user that's logged in (including amounts owed to/owed by user)
 app.get('/getuserinfo', authMiddleware(), function(req, res) {
-  console.log('REQ.USER IN SERVER', req.user)
+  console.log('req.user in server', req.user)
   var username = req.user;
-  res.send(username);
+  db.findUserInfo(username, (row) => {
+    db.fetchUsers(users => {
+      var data = {
+        username: username,
+        row: row,
+        users: users
+      };
+      res.send(data);
+    })
+  })
 });
 
 // protect all routes other than landing, login, and signup pages
