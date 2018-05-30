@@ -4,6 +4,8 @@ var User = require('./models/user.js');
 var Transaction = require('./models/transaction.js')
 var Issues = require('./models/issues.js');
 var Ledgers = require('./models/ledger.js');
+var Group = require('./models/group.js');
+
 var bcrypt = require('bcrypt');
 var db = require('../database');
 
@@ -74,7 +76,7 @@ var authenticateUser = function(username, password, isMatch) {
     })
 };
 
-var fetchPeople = function(callback) {
+var fetchUsers = function(callback) {
   User.findAll({})
     .then(result => {
       var people = result.map(person => {
@@ -140,6 +142,28 @@ var selectIssues = (callback) => {
   }).bind(this);
 };
 
+// initialize group - run this once for MVP to create a group with all users - the groupname assigned is 'Super Mario World'
+var initGroup = () => {
+  fetchUsers(users => {
+    var n = users.length;
+    var groupTable = [];
+  for (var i = 0; i < n; i++) {
+    groupTable[i] = []
+    for (var j = 0; j < n; j++) {
+      groupTable[i][j] = 0;
+    }
+  }
+  var matrix = JSON.stringify(groupTable)
+  Group.create({
+    groupname: 'Super Mario World',
+    matrix: matrix
+  })
+    .then(result => {
+      // console.log('result of initializing group', result)
+    })
+  })
+};
+
 var insertTransaction = (bill, amount, paidby, cb) => {
   User.findOne({where: {username: paidby}})
   .then((result) => {
@@ -154,6 +178,33 @@ var insertTransaction = (bill, amount, paidby, cb) => {
     .then(result => {
       // console.log(result)
       cb(result)
+      // insert transaction in groups table matrix
+      Group.findOne({
+        where: {groupname: 'Super Mario'}
+      })
+      .then(result => {
+        console.log('groupfound')
+        var groupMatrix = result.dataValues.matrix;
+        var groupTable = JSON.parse(groupMatrix);
+        var n = groupTable.length;
+        // console.log('group table', groupTable)
+        var userIndex = userId - 1;
+        var temp = amount/n;
+        for (var i = 0; i < n; i++) {
+          if (i != userIndex) {
+            groupTable[userIndex][i] -= temp;
+            groupTable[i][userIndex] += temp;
+          }
+        }
+        groupMatrix = JSON.stringify(groupTable);
+        Group.update({
+          matrix: groupMatrix
+        }, {
+          where: {
+            groupname: 'Super Mario'
+          }
+        })
+      })
     })
   })
   .catch(err => console.log(err))
@@ -198,8 +249,9 @@ module.exports = {
   selectIssues: selectIssues,
   authenticateUser: authenticateUser,
   insertTransaction: insertTransaction,
-  fetchPeople: fetchPeople,
   fetchActivity: fetchActivity,
   createLedger: createLedger,
   updateLedger: updateLedger
+  fetchUsers: fetchUsers,
+  fetchActivity: fetchActivity
 };
