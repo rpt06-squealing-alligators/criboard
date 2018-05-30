@@ -141,7 +141,7 @@ var selectIssues = (callback) => {
   }).bind(this);
 };
 
-// initialize group - run this once for MVP to create a group with all users - the groupname assigned is 'Super Mario World'
+// function to initialize the groups table with an NxN matrix of all zeros
 var initGroup = () => {
   fetchUsers(users => {
     var n = users.length;
@@ -164,51 +164,55 @@ var initGroup = () => {
   })
 };
 
-// initGroup()
-
 var insertTransaction = (bill, amount, paidby, cb) => {
   // if this is the first transaction, initialize the groups table to save an NxN matrix of all zeros
-  User.findOne({where: {username: paidby}})
-  .then((result) => {
-    console.log('')
-    var userId = result.dataValues.id;
-    console.log('userId', userId)
-    Transaction.create({
-      bill: bill,
-      amount: amount,
-      UserId: userId
-    })
-    .then(result => {
-      // console.log(result)
-      cb(result)
-      // insert transaction in groups table matrix
-      Group.findOne({
-        where: {groupname: 'Super Mario World'}
-      })
-      .then(result => {
-        console.log('groupfound')
-        var groupMatrix = result.dataValues.matrix;
-        var groupTable = JSON.parse(groupMatrix);
-        var n = groupTable.length;
-        // console.log('group table', groupTable)
-        var userIndex = userId - 1;
-        var temp = amount/n;
-        for (var i = 0; i < n; i++) {
-          if (i != userIndex) {
-            groupTable[userIndex][i] -= temp;
-            groupTable[i][userIndex] += temp;
-          }
-        }
-        groupMatrix = JSON.stringify(groupTable);
-        Group.update({
-          matrix: groupMatrix
-        }, {
-          where: {
-            groupname: 'Super Mario World'
-          }
+  Transaction.findAll({})
+  .then(result => {
+    if (result.length === 0) {
+      initGroup();
+    }
+    User.findOne({where: {username: paidby}})
+      .then((result) => {
+        console.log('')
+        var userId = result.dataValues.id;
+        console.log('userId', userId)
+        Transaction.create({
+          bill: bill,
+          amount: amount,
+          UserId: userId
+        })
+        .then(result => {
+          // console.log(result)
+          cb(result)
+          // insert transaction in groups table matrix
+          Group.findOne({
+            where: {groupname: 'Super Mario World'}
+          })
+          .then(result => {
+            console.log('groupfound')
+            var groupMatrix = result.dataValues.matrix;
+            var groupTable = JSON.parse(groupMatrix);
+            var n = groupTable.length;
+            // console.log('group table', groupTable)
+            var userIndex = userId - 1;
+            var temp = amount/n;
+            for (var i = 0; i < n; i++) {
+              if (i != userIndex) {
+                groupTable[userIndex][i] -= temp;
+                groupTable[i][userIndex] += temp;
+              }
+            }
+            groupMatrix = JSON.stringify(groupTable);
+            Group.update({
+              matrix: groupMatrix
+            }, {
+              where: {
+                groupname: 'Super Mario World'
+              }
+            })
+          })
         })
       })
-    })
   })
   .catch(err => console.log(err))
 };
