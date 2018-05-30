@@ -15,7 +15,7 @@ var busboy = require('connect-busboy');
 // var busboy = require('connect-busboy');
 var multer  = require('multer')
 var storage = multer.diskStorage({
-  destination: path.resolve(__dirname, '../client/src/assets/images/'),
+  destination: path.resolve(__dirname, '../client/src/assets/downloads/'),
   filename: function (req, file, cb) {
     cb(null, file.fieldname + Date.now() + path.extname(file.originalname))
   }
@@ -217,7 +217,7 @@ app.post('/newgroup', function(req, res) {
 })
 
 app.get('/data', authMiddleware(), function(req, res) {
-  console.log('there is a request to /data')
+  console.log('+++++++++++++++++there is a request to /data++++++++++++++++')
   db.selectIssues(data => {
     console.log('inside the callback')
     console.log('++++++++ THIS IS MY DATA INSIDE THE SERVER GET REQUEST: ', data)
@@ -229,7 +229,7 @@ app.get('/check', authMiddleware(),function(req, res) {
   console.log('++++++++check is being called+++++++++++')
   // res.json('test')
   db.selectIssues
-  .then(data => res.json(data))
+  .then(data => res.send(data))
 })
 
 // app.post('/addtransaction', authMiddleware(), function(req, res) {
@@ -243,7 +243,7 @@ app.get('/check', authMiddleware(),function(req, res) {
 
 app.post('/addtransaction', authMiddleware(), function(req, res) {
   // console.log('req.body: ', req.body)
-  db.insertTransaction(req.body.bill, req.body.amount, req.body.user, function(result) {
+  db.insertTransaction(req.body.bill, req.body.amount, req.body.date, req.body.user, function(result) {
     res.status(201).send(result);
   })
 });
@@ -281,6 +281,7 @@ app.get('/getuserinfo', authMiddleware(), function(req, res) {
     })
   })
 });
+
 
 // to settle up the given 2 users
 app.post('/settleup', authMiddleware(), function(req, res) {

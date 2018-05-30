@@ -7,6 +7,9 @@ var Transaction = db.define('Transaction', {
   amount: {
     type: Sequelize.INTEGER
   },
+  date: {
+    type: Sequelize.DATEONLY
+  },
   bill: {
     type: Sequelize.STRING
   }

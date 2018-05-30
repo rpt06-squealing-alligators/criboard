@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import Home from '../components/Home.jsx';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import { Button } from 'react-bootstrap';
 
@@ -11,8 +14,10 @@ class Transaction extends React.Component {
       bill: '',
       amount: '',
       users: [],
-      user: ''
+      user: '',
+      date: moment()
     }
+    this.handleChange = this.handleChange.bind(this);
   }
 
   onChange(event) {
@@ -48,6 +53,12 @@ class Transaction extends React.Component {
     });
   }
 
+  handleChange(date) {
+    this.setState({
+      date: date
+    });
+  }
+
   render() {
     let optionItems = this.state.users.map(user => {
       return (
@@ -69,6 +80,18 @@ class Transaction extends React.Component {
             <label>Amount</label>&nbsp;&nbsp;
             <input type="text" className="form-control" placeholder="Enter amount" name="amount" value={this.state.amount} onChange={this.onChange.bind(this)} />
           </div>
+
+
+          <div className="form-group">
+            <label>Paid on</label>&nbsp;&nbsp;
+            <DatePicker
+              selected={this.state.date}
+              onChange={this.handleChange}
+            />
+          </div>
+
+
+
           <div className="form-group">
             <label>Paid by</label>&nbsp;&nbsp;
             <select className="form-control" name="user" value={this.state.user} onChange={this.onChange.bind(this)} >

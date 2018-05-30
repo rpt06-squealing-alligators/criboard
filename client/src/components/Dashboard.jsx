@@ -22,7 +22,7 @@ class Dashboard extends React.Component {
           user: result.data.username,
           finances: result.data.row,
           groupUsers: result.data.users
-        });
+        }, () => console.log(this.state.finances));
       })
   }
 
