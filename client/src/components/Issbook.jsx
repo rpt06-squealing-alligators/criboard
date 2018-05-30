@@ -4,6 +4,7 @@ import '../assets/styles/index.css'
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 
 class Issbook extends React.Component {
   constructor(props) {
@@ -36,25 +37,39 @@ class Issbook extends React.Component {
   }
 
   search(e) {
+    var searchTerm = this.state.searchInput
     console.log('this.state.searchInput: ', this.state.searchInput)
-    $(".btn").click(function(){
-      console.log('inside')
-        $(this).button('loading').delay(1000).queue(function() {
-            $(this).button('reset');
-            $(this).dequeue();
-        });
-    });
 
-    navigator.geolocation.getCurrentPosition(function(position) {
-      fetch(`http://geoservices.tamu.edu/Services/ReverseGeocoding/WebService/v04_01/HTTP/default.aspx?lat=${position.coords.latitude}&lon=${position.coords.longitude}&state=tx&apikey=7968f1af4a8a442b97c820d1d905502c&format=json&notStore=true&version=4.10`)
-      .then(res => res.json())
-      .then(jres => jres.StreetAddresses[0].Zip)
-      // .then(zip => {
-      //   fetch('http://api2.yp.com/listings/v1/search?searchloc=91203&term=pizza&format=json&sort=distance&radius=5&listingcount=10&key=3yp32k8718', { mode: 'no-cors' })
-      // })
-      // .then(res => res.json())
-      // .then(jres => console.log(jres))
-    });
+navigator.geolocation.getCurrentPosition(function(position) {
+  console.log('position: ', position)
+
+  axios.get({
+    url: `https://api.yelp.com/v3/businesses/search?term=${searchTerm}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&radius=30&limit=10`,
+    headers: { Bearer: 'xMmvcK07D-N-CBAXDK_cmHhVrdcOscQEY6Mz5pCUDG4GwrKHQ2G56OO0gBl1Itjin5broVW73_uACMG21_Iab2RuOU-pflqtoEmu3NYTW82DysElCBJhAUFREB4PW3Yx'}
+  })
+  .then(res => console.log('res.data:', res.data))
+
+ });
+
+    // console.log('this.state.searchInput: ', this.state.searchInput)
+    // $(".btn").click(function(){
+    //   console.log('inside')
+    //     $(this).button('loading').delay(1000).queue(function() {
+    //         $(this).button('reset');
+    //         $(this).dequeue();
+    //     });
+    // });
+
+    // navigator.geolocation.getCurrentPosition(function(position) {
+    //   fetch(`http://geoservices.tamu.edu/Services/ReverseGeocoding/WebService/v04_01/HTTP/default.aspx?lat=${position.coords.latitude}&lon=${position.coords.longitude}&state=tx&apikey=7968f1af4a8a442b97c820d1d905502c&format=json&notStore=true&version=4.10`)
+    //   .then(res => res.json())
+    //   .then(jres => jres.StreetAddresses[0].Zip)
+    //   // .then(zip => {
+    //   //   fetch('http://api2.yp.com/listings/v1/search?searchloc=91203&term=pizza&format=json&sort=distance&radius=5&listingcount=10&key=3yp32k8718', { mode: 'no-cors' })
+    //   // })
+    //   // .then(res => res.json())
+    //   // .then(jres => console.log(jres))
+    // });
 
     // var options = {
 

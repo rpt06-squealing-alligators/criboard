@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Home from '../components/Home.jsx';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import { Button, Modal } from 'react-bootstrap';
+import axios from 'axios';
 
 // import {Collapse} from 'react-collapse';
 import $ from 'jquery';
@@ -11,7 +12,7 @@ import Issbook from './Issbook.jsx';
 import Issupplies from './Issupplies.jsx';
 import data from '../assets/mockdata.json';
 import '../assets/styles/index.css';
-var images = require.context('../assets/images', false, /\.(png|jpg|gif)$/);
+var images = require.context('../assets/downloads', false, /\.(png|jpg|gif)$/);
 
 class Issues extends React.Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class Issues extends React.Component {
   }
 
   componentDidMount() {
+    this.updateData();
     // $( function() {
     //   $( "#datepicker" ).datepicker();
     // } );
@@ -52,12 +54,16 @@ class Issues extends React.Component {
   }
 
   updateData() {
-    fetch('/data')
-    .then(res => res.json())
-    .then(jres => JSON.parse(jres))
+    axios.get('/data')
+    .then(res => JSON.parse(res.data))
+    // .then(jres => JSON.parse(jres))
     .then(data => {
+      if(data) {
+
+    //   var data = data.data
+    //   console.log('data: ', typeof data)
       var pictures = data.map(instance => images(instance.image))
-      console.log('pictures: ', pictures)
+    // //   console.log('pictures: ', pictures)
       this.setState({
         reported: data.filter(issue => issue.status === 'reported'),
         scheduled: data.filter(issue => issue.status === 'scheduled'),
@@ -65,6 +71,10 @@ class Issues extends React.Component {
         fixed: data.filter(issue => issue.status === 'fixed'),
         pictures: pictures
       }, () => console.log('images(this.state.reported[0].image): ', images(this.state.reported[0].image) ))
+
+
+      }
+
     })
     .catch(err => console.log(err))
   }

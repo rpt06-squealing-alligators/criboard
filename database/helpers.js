@@ -134,6 +134,7 @@ var reportIssue = (title, description, image) => {
 }
 
 var selectIssues = (callback) => {
+  console.log('+++++++++++++++SELECT ISSUES IS BEING CALLED+++++++++++')
   Issues.findAll()
   .then((result) => {
     console.log(callback)
@@ -164,7 +165,7 @@ var initGroup = () => {
   })
 };
 
-var insertTransaction = (bill, amount, paidby, cb) => {
+var insertTransaction = (bill, amount, date, paidby, cb) => {
   // if the groups table doesnt have a matrix for the given group, initialize it to save an NxN matrix of all zeros for the group
   Group.findOne({
     where: {groupname: 'Super Mario World'}
@@ -181,6 +182,7 @@ var insertTransaction = (bill, amount, paidby, cb) => {
         Transaction.create({
           bill: bill,
           amount: amount,
+          date: date,
           UserId: userId
         })
         .then(result => {
