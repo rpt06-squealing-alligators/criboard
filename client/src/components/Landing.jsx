@@ -1,12 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 class Landing extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      loggedIn: false
+    }
+  }
+
+  componentDidMount() {
+    axios.get('/getuser')
+      .then(result => {
+        // console.log('logged in user', result.data)
+        var loggedIn = (result.data !== '');
+        this.setState({
+          loggedIn: loggedIn
+        });
+      })
   }
 
   render() {
+    if (this.state.loggedIn) {
+      return (
+        <Redirect to="/home" />
+      );
+    }
     return (
       <div className="jumbotron">
         <h1 className="display-4">Criboard</h1>
