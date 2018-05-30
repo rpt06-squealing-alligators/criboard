@@ -165,10 +165,12 @@ var initGroup = () => {
 };
 
 var insertTransaction = (bill, amount, paidby, cb) => {
-  // if this is the first transaction, initialize the groups table to save an NxN matrix of all zeros
-  Transaction.findAll({})
+  // if the groups table doesnt have a matrix for the given group, initialize it to save an NxN matrix of all zeros for the group
+  Group.findOne({
+    where: {groupname: 'Super Mario World'}
+  })
   .then(result => {
-    if (result.length === 0) {
+    if (result === null) {
       initGroup();
     }
     User.findOne({where: {username: paidby}})
@@ -260,10 +262,15 @@ var findUserInfo = function(username, callback) {
       where: {groupname: 'Super Mario World'}
     })
     .then(result => {
-      var groupTable = JSON.parse(result.dataValues.matrix);
-      var index = userId - 1;
-      // console.log(groupTable[index]);
-      callback(groupTable[index])
+      if (result !== null) {
+        var groupTable = JSON.parse(result.dataValues.matrix);
+        var index = userId - 1;
+        // console.log(groupTable[index]);
+        callback(groupTable[index]);
+      } else {
+        callback(null);
+      }
+
     })
   })
 };

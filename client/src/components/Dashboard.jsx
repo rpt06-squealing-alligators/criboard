@@ -48,24 +48,27 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    var itemsOwedByUser = this.state.groupUsers.map((item, i) => {
-      if (this.state.finances[i] > 0) {
-        return (
-          <tr key={i}>
-            <td>{this.state.user} owes ${this.state.finances[i]} to {item}<button className="settle" onClick={() => this.onClick(i)}>Settle Up</button></td>
-          </tr>
-        );
-      }
-    });
-    var itemsOwedToUser = this.state.groupUsers.map((item, i) => {
-      if (this.state.finances[i] < 0) {
-        return (
-          <tr key={i}>
-            <td> {this.state.user} is owed ${Math.abs(this.state.finances[i])} by {item}<button className="settle" onClick={() => this.onClick(i)}>Settle Up</button></td>
-          </tr>
-        );
-      }
-    });
+    if (this.state.finances !== null) {
+      var itemsOwedByUser = this.state.groupUsers.map((item, i) => {
+        if (this.state.finances[i] > 0) {
+          return (
+            <tr key={i}>
+              <td>{this.state.user} owes ${this.state.finances[i]} to {item}<button className="settle" onClick={() => this.onClick(i)}>Settle Up</button></td>
+            </tr>
+          );
+        }
+      });
+      var itemsOwedToUser = this.state.groupUsers.map((item, i) => {
+        if (this.state.finances[i] < 0) {
+          return (
+            <tr key={i}>
+              <td> {this.state.user} is owed ${Math.abs(this.state.finances[i])} by {item}<button className="settle" onClick={() => this.onClick(i)}>Settle Up</button></td>
+            </tr>
+          );
+        }
+      });
+    }
+
     return(
       <div>
       <Home />
