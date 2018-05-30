@@ -167,6 +167,7 @@ var initGroup = () => {
 // initGroup()
 
 var insertTransaction = (bill, amount, paidby, cb) => {
+  // if this is the first transaction, initialize the groups table to save an NxN matrix of all zeros
   User.findOne({where: {username: paidby}})
   .then((result) => {
     console.log('')
@@ -232,18 +233,18 @@ var createLedger = (userArr) => {
   // }).then((users) => console.log(users))
 }
 
-// var updateLedger = (grantor, amount) => {
-//   Ledgers.find({where: {matrixRow: !grantor} })
-//   .on('success', function (record) {
-//     // Check if record exists in db
-//     if (record) {
-//       record.updateAttributes({
-//         value: -amount
-//       })
-//       .success(function (results) {console.log(results)})
-//     }
-//   })
-// }
+var updateLedger = (grantor, amount) => {
+  Ledgers.find({where: {matrixRow: !grantor} })
+  .on('success', function (record) {
+    // Check if record exists in db
+    if (record) {
+      record.updateAttributes({
+        value: -amount
+      })
+      .success(function (results) {console.log(results)})
+    }
+  })
+}
 
 var findUserInfo = function(username, callback) {
   User.findOne({
@@ -309,7 +310,7 @@ module.exports = {
   insertTransaction: insertTransaction,
   fetchActivity: fetchActivity,
   createLedger: createLedger,
-  // updateLedger: updateLedger,
+  updateLedger: updateLedger,
   fetchUsers: fetchUsers,
   fetchActivity: fetchActivity,
   findUserInfo: findUserInfo,
