@@ -243,6 +243,25 @@ var updateLedger = (grantor, amount) => {
   })
 }
 
+var findUserInfo = function(username, callback) {
+  User.findOne({
+    where: {username: username}
+  })
+  .then(result => {
+    var userId = result.dataValues.id;
+    Group.findOne({
+      where: {groupname: 'Super Mario World'}
+    })
+    .then(result => {
+      var groupTable = JSON.parse(result.dataValues.matrix);
+      var index = userId - 1;
+      // console.log(groupTable[index]);
+      callback(groupTable[index])
+    })
+  })
+};
+
+
 module.exports = {
   createUser: createUser,
   reportIssue: reportIssue,
@@ -253,5 +272,6 @@ module.exports = {
   createLedger: createLedger,
   updateLedger: updateLedger
   fetchUsers: fetchUsers,
-  fetchActivity: fetchActivity
+  fetchActivity: fetchActivity,
+  findUserInfo: findUserInfo
 };
