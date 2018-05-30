@@ -50,10 +50,10 @@ class Home extends React.Component {
 
       <div>
 
-      <div>
+     {/*<div>
       <h3>This is a test of users' debts</h3>
       {this.state.users.map(user => <div>{user}</div>)}
-      </div>
+      </div>*/}
 
 
         <div className="main grid">

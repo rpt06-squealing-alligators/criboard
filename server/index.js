@@ -232,14 +232,21 @@ app.get('/check', authMiddleware(),function(req, res) {
   .then(data => res.json(data))
 })
 
+// app.post('/addtransaction', authMiddleware(), function(req, res) {
+//   // console.log('req.body: ', req.body)
+//   var debt = req.body.amount / req.body.users.length
+//   db.updateLedger(req.body.user, debt)
+//   db.insertTransaction(req.body.bill, req.body.amount, req.body.user, function(result) {
+//     res.status(201).send(result);
+//   })
+// })
+
 app.post('/addtransaction', authMiddleware(), function(req, res) {
   // console.log('req.body: ', req.body)
-  var debt = req.body.amount / req.body.users.length
-  db.updateLedger(req.body.user, debt)
   db.insertTransaction(req.body.bill, req.body.amount, req.body.user, function(result) {
     res.status(201).send(result);
   })
-})
+});
 
 app.get('/fetchusers', authMiddleware(), function(req, res) {
   db.fetchUsers(function(people) {
