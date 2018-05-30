@@ -15,7 +15,7 @@ class Activity extends React.Component {
   componentDidMount() {
     axios.get('/allactivity')
       .then(result => {
-        console.log('all activity', result.data);
+        // console.log('all activity', result.data);
         this.setState({
           transactions: result.data
         })

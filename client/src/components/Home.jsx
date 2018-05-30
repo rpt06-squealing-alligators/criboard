@@ -47,15 +47,11 @@ class Home extends React.Component {
       );
     } */}
     return (
-
       <div>
-
      {/*<div>
       <h3>This is a test of users' debts</h3>
       {this.state.users.map(user => <div>{user}</div>)}
       </div>*/}
-
-
         <div className="main grid">
           <div className="navs">
             <div className="dropdown">
@@ -82,9 +78,9 @@ class Home extends React.Component {
                 <Link to="/dashboard">
                   <div onClick={this.showDashboard}>Dashboard</div>
                 </Link>
-                <Link to="/budget">
+                {/*<Link to="/budget">
                   <div onClick={this.hideDashboard}>Budget (activity, billpay)</div>
-                </Link>
+                </Link>*/}
                 <Link to="/activity">
                   <div onClick={this.hideDashboard}>Show all Activity</div>
                 </Link>
@@ -94,17 +90,17 @@ class Home extends React.Component {
                 <Link to="/issues">
                   <div onClick={this.hideDashboard}>Issues</div>
                 </Link>
-                <Link to="/lease">
+                {/*<Link to="/lease">
                   <div onClick={this.hideDashboard}>Lease (and other documents)</div>
-                </Link>
+                </Link>*/}
               </div>
             </div>
           </div>
         </div>
       </div>
-    )
-
+    );
   }
+
 }
 
 export default Home;

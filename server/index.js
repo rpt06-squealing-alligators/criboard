@@ -261,7 +261,7 @@ app.get('/allactivity', authMiddleware(), function(req, res) {
 });
 
 // route to get username of the currently logged in user
-app.get('/getuser', authMiddleware(), function(req, res) {
+app.get('/getuser', function(req, res) {
   console.log('req.user in server', req.user)
   res.send(req.user);
 });
