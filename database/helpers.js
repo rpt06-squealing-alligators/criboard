@@ -164,6 +164,8 @@ var initGroup = () => {
   })
 };
 
+// initGroup()
+
 var insertTransaction = (bill, amount, paidby, cb) => {
   User.findOne({where: {username: paidby}})
   .then((result) => {
@@ -180,7 +182,7 @@ var insertTransaction = (bill, amount, paidby, cb) => {
       cb(result)
       // insert transaction in groups table matrix
       Group.findOne({
-        where: {groupname: 'Super Mario'}
+        where: {groupname: 'Super Mario World'}
       })
       .then(result => {
         console.log('groupfound')
@@ -201,7 +203,7 @@ var insertTransaction = (bill, amount, paidby, cb) => {
           matrix: groupMatrix
         }, {
           where: {
-            groupname: 'Super Mario'
+            groupname: 'Super Mario World'
           }
         })
       })
@@ -276,7 +278,7 @@ var findUserId = function(username, callback) {
 // make values of 2 matrix elements 0 - these elements are determined from the given user ids
 var settleUsers = function(id1, id2, callback) {
   Group.findOne({
-    where: {groupname: 'Super Mario'}
+    where: {groupname: 'Super Mario World'}
   })
   .then(result => {
     var groupMatrix = result.dataValues.matrix;
