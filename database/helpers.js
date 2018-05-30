@@ -309,7 +309,7 @@ module.exports = {
   insertTransaction: insertTransaction,
   fetchActivity: fetchActivity,
   createLedger: createLedger,
-  updateLedger: updateLedger
+  updateLedger: updateLedger,
   fetchUsers: fetchUsers,
   fetchActivity: fetchActivity,
   findUserInfo: findUserInfo,
