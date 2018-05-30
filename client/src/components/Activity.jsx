@@ -30,6 +30,7 @@ class Activity extends React.Component {
           <th scope="row">{i + 1}</th>
           <td>{item.bill}</td>
           <td>{item.amount}</td>
+          <td>{item.date}</td>
           <td>{item.paidBy}</td>
         </tr>
       );
@@ -44,6 +45,7 @@ class Activity extends React.Component {
               <th scope="col">#</th>
               <th scope="col">Bill</th>
               <th scope="col">Amount</th>
+              <th scope="col">Paid On</th>
               <th scope="col">Paid By</th>
             </tr>
           </thead>
