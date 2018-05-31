@@ -10,7 +10,10 @@
     "test": "mocha server/spec",
     "react-dev": "webpack --watch",
     "server-dev": "nodemon server/index.js",
-    "start": "npm run react-dev & npm run server-dev"
+    "dev-start": "npm run react-dev & npm run server-dev",
+    "start": "node server/index.js",
+    "build": "webpack",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
