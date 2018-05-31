@@ -82,25 +82,25 @@ class Signup extends React.Component {
       );
     }
     return (
-      <div className="jumbotron">
-      <h1 className="display-4">Signup</h1>
-        <div className="form-group">
-          <label>Username</label>&nbsp;&nbsp;
-          <input type="email" className="form-control" placeholder="Enter username" name="username" value={this.state.usernamel} onChange={this.onChange.bind(this)} />
-        </div>
-        <div className="form-group">
-          <label>Email address</label>&nbsp;&nbsp;
-          <input type="email" className="form-control" placeholder="Enter email" name="email" value={this.state.email} onChange={this.onChange.bind(this)} />
-        </div>
-        <div className="form-group">
-          <label>Password</label>&nbsp;&nbsp;
-          <input type="password" className="form-control" placeholder="Password" name="password" value={this.state.password} onChange={this.onChange.bind(this)} />
-        </div>
-        <div className="form-group">
-          <label>Re enter Password</label>&nbsp;&nbsp;
-          <input type="password" className="form-control" placeholder="Re enter Password" name="passwordMatch" value={this.state.passwordMatch} onChange={this.onChange.bind(this)} />
-        </div>
-        <Button className="btn btn-primary" onClick={this.onSubmit.bind(this)}>Submit</Button>
+      <div className="col-md-8 col-md-offset-2">
+        <h1 className="display-4">Signup</h1>
+          <div className="form-group">
+            <label>Username</label>&nbsp;&nbsp;
+            <input type="email" className="form-control" placeholder="Enter username" name="username" value={this.state.usernamel} onChange={this.onChange.bind(this)} />
+          </div>
+          <div className="form-group">
+            <label>Email address</label>&nbsp;&nbsp;
+            <input type="email" className="form-control" placeholder="Enter email" name="email" value={this.state.email} onChange={this.onChange.bind(this)} />
+          </div>
+          <div className="form-group">
+            <label>Password</label>&nbsp;&nbsp;
+            <input type="password" className="form-control" placeholder="Password" name="password" value={this.state.password} onChange={this.onChange.bind(this)} />
+          </div>
+          <div className="form-group">
+            <label>Re enter Password</label>&nbsp;&nbsp;
+            <input type="password" className="form-control" placeholder="Re enter Password" name="passwordMatch" value={this.state.passwordMatch} onChange={this.onChange.bind(this)} />
+          </div>
+          <button className="btn btn-primary" onClick={this.onSubmit.bind(this)}>Submit</button>
       </div>
     );
   }

@@ -39,11 +39,13 @@ class Landing extends React.Component {
       );
     }
     return (
+      <div className="jumbotron">
       <div style={landingStyle}>
         <h1 className="display-4">Criboard</h1>
         <p className="lead">An app to track/split monthly expenses, maintenance issues, etc. and help roommates and landlords stay organized.</p>
         <a className="btn btn-primary btn-lg" href="/login" role="button">Login</a><br/><br/>
         <a className="btn btn-primary btn-lg" href="/signup" role="button">Signup</a>
+      </div>
       </div>
     );
   }
