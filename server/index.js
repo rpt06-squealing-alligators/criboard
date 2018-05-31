@@ -110,7 +110,7 @@ app.post('/signupuser', function(req, res) {
   req.checkBody('username', 'Username must be between 4-15 characters long.').len(4, 15);
   req.checkBody('email', 'The email you entered is invalid. Please try again.').isEmail();
   req.checkBody('password', 'Password must be between 8-100 characters long.').len(8, 100);
-  req.checkBody('passwordMatch', 'Passwords do not match, please try again.').equals(password);
+  req.checkBody('passwordMatch', 'Passwords do not match, please try again.').equals(req.body.password);
 
   var errors = req.validationErrors();
   if (errors) {

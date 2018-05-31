@@ -24,7 +24,7 @@ class Signup extends React.Component {
   }
 
   onSubmit() {
-    // console.log(this.state.username, this.state.email, this.state.password)
+    // console.log('this.state', this.state)
     if (this.state.username === '' || this.state.email === '' || this.state.password === '')  {
       alert('username, email and password fields cannot be empty. Enter new values');
       // stay on signup page
@@ -32,7 +32,8 @@ class Signup extends React.Component {
         var data = {
           username: this.state.username,
           email: this.state.email,
-          password: this.state.password
+          password: this.state.password,
+          passwordMatch: this.state.passwordMatch
         };
         axios.post('./signupuser', data)
           .then(result => {
