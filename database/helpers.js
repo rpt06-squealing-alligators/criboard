@@ -14,6 +14,10 @@ var db = require('../database');
 Transaction.belongsTo(User);
 User.hasMany(Transaction);
 
+// establish many-to-many relationship between users and groups with a join table users_groups
+User.belongsToMany(Group, {through: UserGroup});
+Group.belongsToMany(User, {through: UserGroup});
+
 db.sync();
 
 // save username, email and password in database

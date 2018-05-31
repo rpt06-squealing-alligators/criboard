@@ -74,7 +74,7 @@ class Transaction extends React.Component {
           <h1 className="display-4">Enter a transaction</h1>
           <div className="form-group">
             <label>Bill</label>&nbsp;&nbsp;
-            <input type="text" className="form-control" placeholder="Enter bill you are paying" name="bill" value={this.state.bill} onChange={this.onChange.bind(this)} />
+            <input type="text" className="form-control" placeholder="Enter bill" name="bill" value={this.state.bill} onChange={this.onChange.bind(this)} />
           </div>
           <div className="form-group">
             <label>Amount</label>&nbsp;&nbsp;
