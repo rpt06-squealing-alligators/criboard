@@ -5,6 +5,7 @@ var Transaction = require('./models/transaction.js')
 var Issues = require('./models/issues.js');
 var Ledgers = require('./models/ledger.js');
 var Group = require('./models/group.js');
+var UserGroup = require('./models/user-group.js');
 
 var bcrypt = require('bcrypt');
 var db = require('../database');
