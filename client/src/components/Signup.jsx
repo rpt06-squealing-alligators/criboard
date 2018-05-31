@@ -11,7 +11,7 @@ class Signup extends React.Component {
       username: '',
       email: '',
       password: '',
-      onHomePage: false,
+      onDashboard: false,
       onLandingPage: false
     }
   }
@@ -38,13 +38,13 @@ class Signup extends React.Component {
         console.log(result);
         if (result.data === 'user created') {
           alert(`Info for ${this.state.username} has been saved`);
-          // TODO - redirect to Home page - which is one of the restricted pages
+          // redirect to Dashboard after signup
           this.setState({
-            onHomePage: true
+            onDashboard: true
           })
         } else {
           alert(`${this.state.username} already exists. Please login as ${this.state.username} or signup as a different user`)
-          // TODO - redirect to landing page
+          // redirect to landing page
           this.setState({
             onLandingPage: true
           })
@@ -58,9 +58,9 @@ class Signup extends React.Component {
   }
 
   render() {
-    if (this.state.onHomePage) {
+    if (this.state.onDashboard) {
       return (
-        <Redirect to="/home" />
+        <Redirect to="/dashboard" />
       );
     }
     if (this.state.onLandingPage) {
