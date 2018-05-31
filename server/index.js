@@ -305,7 +305,7 @@ app.get('*', authMiddleware(), function(req, res) {
   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
 });
 
-var port = 3000;
+var port = process.env.PORT || 3000
 
 app.listen(port, function() {
   console.log(`server is listening on ${port} . . .`)

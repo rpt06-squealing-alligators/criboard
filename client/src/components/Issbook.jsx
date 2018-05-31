@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
+axios.defaults.headers.Authorization = 'Bearer JFzd1IrkYY5-v3PKIg4GOzHobFHP09vsV9D1i6RVUGtsb0ZzhNmoMsj2EZsDMIdAQt2hvubokTRUV9rqE3gs5Ec83n0pYiYZNbIDpozs11ASzS1yPCaLWIo78DMPW3Yx'
 
 class Issbook extends React.Component {
   constructor(props) {
@@ -42,12 +43,56 @@ class Issbook extends React.Component {
 
 navigator.geolocation.getCurrentPosition(function(position) {
   console.log('position: ', position)
+  // var options = (
+  //   method: 'GET',
+  //   headers: new Headers({
+  //       'Access-Control-Allow-Origin': '*',
+  //       'Authorization': '[my token]'
+  //       'Content-Type': 'application/json'
+  //   })
 
-  axios.get({
-    url: `https://api.yelp.com/v3/businesses/search?term=${searchTerm}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&radius=30&limit=10`,
-    headers: { Bearer: 'xMmvcK07D-N-CBAXDK_cmHhVrdcOscQEY6Mz5pCUDG4GwrKHQ2G56OO0gBl1Itjin5broVW73_uACMG21_Iab2RuOU-pflqtoEmu3NYTW82DysElCBJhAUFREB4PW3Yx'}
-  })
-  .then(res => console.log('res.data:', res.data))
+
+const config = {
+  headers: {
+      // 'Accept': 'application/json',
+  // 'Content-Type': 'application/x-www-form-urlencoded',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token, Authorization',
+    'Authorization': 'Bearer JFzd1IrkYY5-v3PKIg4GOzHobFHP09vsV9D1i6RVUGtsb0ZzhNmoMsj2EZsDMIdAQt2hvubokTRUV9rqE3gs5Ec83n0pYiYZNbIDpozs11ASzS1yPCaLWIo78DMPW3Yx'},
+  params: {
+    term: 'tacos',
+    latitude: 43.8957864,
+    longitude: -91.2367975
+  }
+};
+
+// const config = {
+
+
+//   headers: {
+//     'Access-Control-Allow-Origin': '*',
+//     'Authorization': 'Bearer JFzd1IrkYY5-v3PKIg4GOzHobFHP09vsV9D1i6RVUGtsb0ZzhNmoMsj2EZsDMIdAQt2hvubokTRUV9rqE3gs5Ec83n0pYiYZNbIDpozs11ASzS1yPCaLWIo78DMPW3Yx'},
+//   params: {
+//     term: searchTerm,
+//     latitude: position.coords.latitude,
+//     longitude: position.coords.longitude
+//   }
+// };
+console.log('config: ', config)
+
+  axios.get('https://api.yelp.com/v3/businesses/search', config)
+  .then(response => console.log(response));
+
+
+  // fetch(`https://api.yelp.com/v3/businesses/search?term=${searchTerm}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
+  //   {
+  //     mode: 'no-cors',
+  //     headers:
+  //     new Headers({ Authorization: 'Bearer JFzd1IrkYY5-v3PKIg4GOzHobFHP09vsV9D1i6RVUGtsb0ZzhNmoMsj2EZsDMIdAQt2hvubokTRUV9rqE3gs5Ec83n0pYiYZNbIDpozs11ASzS1yPCaLWIo78DMPW3Yx' })
+
+  // })
+  // .then(res => console.log('res.data:', res.data))
 
  });
 
