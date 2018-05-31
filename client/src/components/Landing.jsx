@@ -2,6 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import BackGround from '../assets/images/landing.jpg';
+
+var landingStyle = {
+  backgroundSize: "cover",
+  backgroundImage: `url(${BackGround})`,
+  height: "100vh"
+}
 
 class Landing extends React.Component {
   constructor(props) {
@@ -29,14 +36,12 @@ class Landing extends React.Component {
       );
     }
     return (
-      <div className="jumbotron">
+      <div style={landingStyle}>
         <h1 className="display-4">Criboard</h1>
-        <p className="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p className="lead">An app to track/split monthly expenses, maintenance issues, etc. and help roommates and landlords stay organized.</p>
         <a className="btn btn-primary btn-lg" href="/login" role="button">Login</a><br/><br/>
         <a className="btn btn-primary btn-lg" href="/signup" role="button">Signup</a>
-
       </div>
-
     );
   }
 
