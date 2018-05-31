@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
 var fs = require('fs');
 var Sequelize = require('sequelize')
 var cookieParser = require('cookie-parser')
@@ -36,6 +37,7 @@ const saltRounds = 10;
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressValidator()); // this line must be immediately after any of the bodyParser middlewares
 
 // var fs = require('fs');
 // var busboy = require('connect-busboy');
@@ -104,33 +106,45 @@ app.get('/login', function(req, res) {
 });
 
 app.post('/signupuser', function(req, res) {
-  // TODO - data validation using express-validator
-  console.log(req.body)
-  var username = req.body.username;
-  var email = req.body.email;
-  var password = req.body.password;
-  // hash the password by auto-gen a salt and hash
-  bcrypt.hash(password, saltRounds, function(err, hash) {
-    // store hash in database
-    if (hash) {
-      db.createUser(username, email, hash, function(userCreated, user_id) {
-        if (userCreated) {
-          //login comes from passport and creates a session and a cookie for the user
-          req.login(username, function(err) {
-            if (err) {
-              console.log(err)
-            } else {
-              // console.log('req.user', req.user)
-              // console.log('isauthenticated', req.isAuthenticated())
-              res.send('user created');
-            }
-          });
-        } else {
-          res.send('user already exists');
-        }
-      });
-    }
-  });
+  // data validation using express-validator
+  req.checkBody('username', 'Username must be between 4-15 characters long.').len(4, 15);
+  req.checkBody('email', 'The email you entered is invalid. Please try again.').isEmail();
+  req.checkBody('password', 'Password must be between 8-100 characters long.').len(8, 100);
+  req.checkBody('passwordMatch', 'Passwords do not match, please try again.').equals(password);
+
+  var errors = req.validationErrors();
+  if (errors) {
+    console.log(`errors: ${JSON.stringify(errors)}`);
+    res.send(errors);
+  } else {
+    // console.log(req.body)
+    var username = req.body.username;
+    var email = req.body.email;
+    var password = req.body.password;
+
+    // hash the password by auto-gen a salt and hash
+    bcrypt.hash(password, saltRounds, function(err, hash) {
+      // store hash in database
+      if (hash) {
+        db.createUser(username, email, hash, function(userCreated, user_id) {
+          if (userCreated) {
+            //login comes from passport and creates a session and a cookie for the user
+            req.login(username, function(err) {
+              if (err) {
+                console.log(err)
+              } else {
+                // console.log('req.user', req.user)
+                // console.log('isauthenticated', req.isAuthenticated())
+                res.send('user created');
+              }
+            });
+          } else {
+            res.send('user already exists');
+          }
+        });
+      }
+    });
+  }
 });
 
 app.post('/loginuser', passport.authenticate('local'), (req, res) => {

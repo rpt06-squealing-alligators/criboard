@@ -11,6 +11,7 @@ class Signup extends React.Component {
       username: '',
       email: '',
       password: '',
+      passwordMatch: '',
       onDashboard: false,
       onLandingPage: false
     }
@@ -26,35 +27,47 @@ class Signup extends React.Component {
     // console.log(this.state.username, this.state.email, this.state.password)
     if (this.state.username === '' || this.state.email === '' || this.state.password === '')  {
       alert('username, email and password fields cannot be empty. Enter new values');
-      // TODO - redirect to signup page
+      // stay on signup page
+    } else {
+        var data = {
+          username: this.state.username,
+          email: this.state.email,
+          password: this.state.password
+        };
+        axios.post('./signupuser', data)
+          .then(result => {
+            console.log(result);
+            if (result.data === 'user created') {
+              alert(`Info for ${this.state.username} has been saved`);
+              // redirect to Dashboard after signup
+              this.setState({
+                onDashboard: true
+              })
+            } else if (result.data === 'user already exists') {
+              alert(`${this.state.username} already exists. Please login as ${this.state.username} or signup as a different user`)
+              // redirect to landing page
+              this.setState({
+                onLandingPage: true
+              })
+            } else {
+              var errors = result.data;
+              // console.log(errors);
+              var messages = errors.map((error) => {
+                return error.msg;
+              });
+              alert(messages);
+              this.setState({
+                username: '',
+                email: '',
+                password: '',
+                passwordMatch: ''
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          })
     }
-    var data = {
-      username: this.state.username,
-      email: this.state.email,
-      password: this.state.password
-    };
-    axios.post('./signupuser', data)
-      .then(result => {
-        console.log(result);
-        if (result.data === 'user created') {
-          alert(`Info for ${this.state.username} has been saved`);
-          // redirect to Dashboard after signup
-          this.setState({
-            onDashboard: true
-          })
-        } else {
-          alert(`${this.state.username} already exists. Please login as ${this.state.username} or signup as a different user`)
-          // redirect to landing page
-          this.setState({
-            onLandingPage: true
-          })
-
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      })
-
   }
 
   render() {
@@ -62,8 +75,7 @@ class Signup extends React.Component {
       return (
         <Redirect to="/dashboard" />
       );
-    }
-    if (this.state.onLandingPage) {
+    } else if (this.state.onLandingPage) {
       return (
         <Redirect to="/" />
       );
@@ -82,6 +94,10 @@ class Signup extends React.Component {
         <div className="form-group">
           <label>Password</label>&nbsp;&nbsp;
           <input type="password" className="form-control" placeholder="Password" name="password" value={this.state.password} onChange={this.onChange.bind(this)} />
+        </div>
+        <div className="form-group">
+          <label>Re enter Password</label>&nbsp;&nbsp;
+          <input type="password" className="form-control" placeholder="Re enter Password" name="passwordMatch" value={this.state.passwordMatch} onChange={this.onChange.bind(this)} />
         </div>
         <Button className="btn btn-primary" onClick={this.onSubmit.bind(this)}>Submit</Button>
       </div>
