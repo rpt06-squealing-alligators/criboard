@@ -130,7 +130,7 @@ class Issues extends React.Component {
         <h3 className="reports" onMouseEnter={this.displayReportButton}>Reports</h3>
           {
             this.state.showReportButton &&
-            <Button className="report-button" onClick={this.showReport}>Report Issue</Button>
+            <Button className=" btn btn-primary report-button" onClick={this.showReport}>Report Issue</Button>
           }
           <ul className="reports-list">
             {this.state.reported.map((issue, i) =>

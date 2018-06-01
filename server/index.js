@@ -172,6 +172,8 @@ app.post('/upload', function(req, res) {
   })
   res.status(201).redirect('/issues');
 });
+// res.status(201).send(results).redirect('/issues');
+//send and then depending on state after setState, redirect
 
   // console.log('req.body.image: ', req.body.image)
 
