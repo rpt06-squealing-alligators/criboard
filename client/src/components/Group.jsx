@@ -71,6 +71,7 @@ class Group extends React.Component {
 
   onSubmit() {
     console.log('newgroup submitted')
+    // var data = all group members (this.state.users, name of the group)
     axios.post('/newgroup', this.state)
     .then(res => {
       // console.log(res)

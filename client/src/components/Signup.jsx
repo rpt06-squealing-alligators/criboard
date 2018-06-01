@@ -82,7 +82,7 @@ class Signup extends React.Component {
       );
     }
     return (
-      <div className="col-md-8 col-md-offset-2">
+      <div className="jumbotron">
         <h1 className="display-4">Signup</h1>
           <div className="form-group">
             <label>Username</label>&nbsp;&nbsp;

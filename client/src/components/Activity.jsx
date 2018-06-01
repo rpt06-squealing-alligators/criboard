@@ -38,6 +38,7 @@ class Activity extends React.Component {
     return(
       <div>
       <Home />
+      <div className="jumbotron">
       <h3>Financial Activity</h3>
         <table className="table table-hover">
           <thead>
@@ -53,6 +54,7 @@ class Activity extends React.Component {
             {items}
           </tbody>
         </table>
+        </div>
       </div>
     )
   }
