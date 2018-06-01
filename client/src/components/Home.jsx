@@ -55,7 +55,7 @@ class Home extends React.Component {
         <div className="main grid">
           <div className="navs">
             <div className="dropdown">
-              <button className="dropbtn glyphicons glyphicons-user">Account</button>
+              <button className="btn btn-primary dropbtn">Account <span className="caret"></span></button>
               <div className="dropdown-content">
                 <Link to="/account">
                   <div onClick={this.hideDashboard}>Account</div>
@@ -72,8 +72,11 @@ class Home extends React.Component {
               </div>
             </div>
 
-            <div className="dropdown">
-              <button className="dropbtn glyphicons glyphicons-menu-hamburger">Sidebar</button>
+
+
+
+            <div className="dropdown navbar-light">
+              <button className="btn btn-primary dropbtn"> <span className="navbar-toggler-icon"></span><span className="caret"></span></button>
               <div className="dropdown-content">
                 <Link to="/dashboard">
                   <div onClick={this.showDashboard}>Dashboard</div>

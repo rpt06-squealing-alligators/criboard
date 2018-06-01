@@ -9,6 +9,7 @@ class Group extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      groupname: null,
       number: null,
       indices: [],
       previousTab: 0,
@@ -18,6 +19,7 @@ class Group extends React.Component {
     }
     this.showTab = this.showTab.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onNumChange = this.onNumChange.bind(this);
   }
 
   componentDidMount() {
@@ -46,8 +48,12 @@ class Group extends React.Component {
   }
 
   onChange(event) {
-    console.log('event.target.name: ', event.target.name)
-    console.log('event.target.value: ', event.target.value)
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+  onNumChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     }, () => {
@@ -89,8 +95,11 @@ class Group extends React.Component {
           <div className="jumbotron">
             <form id="regForm" action="/newgroup" method="POST" onSubmit={() => alert('Your group has been created')}>
             <h1 className="display-4">Create a Group</h1>
-            <div className="tab" ref="numberTab">Number of group members:
-              <p><input placeholder="number" name="number" onChange={this.onChange} /></p>
+            <div className="tab" ref="numberTab">
+            <label>Name of the group:</label>
+              <p><input placeholder="group name" name="groupname" onChange={this.onNumChange}/></p>
+            <label>Number of group members:</label>
+              <p><input placeholder="number" name="number" onChange={this.onNumChange}/></p>
             </div>
             <div className="tab" ref="nameTab">Select members:
               {this.state.indices.map(i =>
@@ -98,8 +107,8 @@ class Group extends React.Component {
             </div>
             <div>
               <div>
-                <button type="button" id="prevBtn" onClick={() => this.nextPrev(-1)} disabled={this.state.currentTab <= 0 ? true : false}>Previous</button>
-                <button type="button" id="nextBtn" onClick={() => this.nextPrev(1)} disabled={this.state.currentTab >= 1 ? true : false}>Next</button>
+                <button className="btn btn-primary" type="button" id="prevBtn" onClick={() => this.nextPrev(-1)} disabled={this.state.currentTab <= 0 ? true : false}>Previous</button>
+                <button className="btn btn-primary" type="button" id="nextBtn" onClick={() => this.nextPrev(1)} disabled={this.state.currentTab >= 1 || this.state.number < 1 || !this.state.groupname ? true : false}>Next</button>
                 {this.state.currentTab > 0 && <input type="submit" className="btn btn-primary"></input>}
               </div>
             </div>
