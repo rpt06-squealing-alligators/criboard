@@ -7,6 +7,8 @@ import BackGround from '../assets/images/landing.jpg';
 var landingStyle = {
   backgroundSize: "cover",
   backgroundImage: `url(${BackGround})`,
+  height: "100vh",
+  padding: "40px",
   height: "100vh"
 }
 
@@ -36,14 +38,19 @@ class Landing extends React.Component {
       );
     }
     return (
-      <div className="jumbotron">
-      <div style={landingStyle}>
-        <h1 className="display-4">Criboard</h1>
-        <p className="lead">An app to track/split monthly expenses, maintenance issues, etc. and help roommates and landlords stay organized.</p>
-        <a className="btn btn-primary btn-lg" href="/login" role="button">Login</a><br/><br/>
-        <a className="btn btn-primary btn-lg" href="/signup" role="button">Signup</a>
+      <div>
+        <div className="jumbotron">
+          <h1 className="display-4">Criboard</h1>
+          <p className="lead">An app to track/split monthly expenses, maintenance issues, etc. and help roommates and landlords stay organized.</p>
+        </div>
+        <div className="jumbotron">
+        <div style={landingStyle}>
+          <a className="btn btn-primary btn-lg landingbtn" href="/login" role="button">Login</a><br/><br/>
+          <a className="btn btn-primary btn-lg landingbtn" href="/signup" role="button">Signup</a>
+        </div>
+        </div>
       </div>
-      </div>
+
     );
   }
 

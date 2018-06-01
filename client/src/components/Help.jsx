@@ -11,14 +11,10 @@ class Help extends React.Component {
 
   render() {
     return(
-      <div>
-      <Home />
-      <h3>Help</h3>
-        <ul>
-          <li>Navigation map</li>
-          <li>General info about using the app</li>
-          <li>Link to github page</li>
-        </ul>
+      <div className="jumbotron">
+        <Home />
+        <h3>Help</h3>
+        <a href="https://rpt06-squealing-alligators.github.io/criboard/">Please see our github page for additional information</a>
       </div>
     )
   }
