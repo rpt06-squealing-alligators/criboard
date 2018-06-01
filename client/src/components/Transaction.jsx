@@ -70,7 +70,7 @@ class Transaction extends React.Component {
     return (
       <div>
         <Home />
-        <div className="jumbotron">
+        <div className="col-md-8 col-md-offset-2">
           <h1 className="display-4">Enter a transaction</h1>
           <div className="form-group">
             <label>Bill</label>&nbsp;&nbsp;
