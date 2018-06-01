@@ -25,11 +25,9 @@ class Landing extends React.Component {
   render() {
     if (this.state.loggedIn) {
       return (
-<<<<<<< HEAD
         <Redirect to="/dashboard" />
-=======
         <Redirect to="/home" />
->>>>>>> Any attempt to go to landing page should take a logged in user to homepage
+// Any attempt to go to landing page should take a logged in user to homepage
       );
     }
     return (
