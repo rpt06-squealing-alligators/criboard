@@ -42,6 +42,7 @@
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    z-index: 100;
 }
 
 .dropdown-content a:hover {background-color: #ddd}
@@ -184,7 +185,37 @@
 }
 
 
+.landingbtn {
+  display: block !important;
+  /*margin: auto !important;*/
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 0 !important;
+  width: 40em;
+}
 
+.dashboard-bullets {
+  padding: 15px;
+}
+
+.whiteboard {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 3px solid #cccccc;
+  border-radius: 10px;
+  width: 95%;
+  margin: auto;
+}
+
+#mapid {
+  z-index: 0;
+  height: 180px;
+}
+
+.settle {
+  margin:8px;
+}
 
 
 

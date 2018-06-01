@@ -8,6 +8,8 @@ class Account extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      address: '123 Main St',
+      cityState: 'Springfield, MA 01105'
     }
   }
 
@@ -20,12 +22,12 @@ class Account extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="jumbotron">
       <Home />
       <h3>Account</h3>
         <ul>
           <li>Profile picture</li>
-          <li>Settings</li>
+          <li>Apartment address is: {this.state.address}; {this.state.cityState}</li>
         </ul>
       </div>
     )
