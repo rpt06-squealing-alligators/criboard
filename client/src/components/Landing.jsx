@@ -28,6 +28,7 @@ class Landing extends React.Component {
         <Redirect to="/dashboard" />
         <Redirect to="/home" />
 // Any attempt to go to landing page should take a logged in user to homepage
+//Add styles; when user logs in, redirect to dashboard
       );
     }
     return (
