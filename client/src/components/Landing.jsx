@@ -8,7 +8,8 @@ var landingStyle = {
   backgroundSize: "cover",
   backgroundImage: `url(${BackGround})`,
   height: "100vh",
-  padding: "40px"
+  padding: "40px",
+  height: "100vh"
 }
 
 class Landing extends React.Component {
@@ -34,9 +35,6 @@ class Landing extends React.Component {
     if (this.state.loggedIn) {
       return (
         <Redirect to="/dashboard" />
-        <Redirect to="/home" />
-// Any attempt to go to landing page should take a logged in user to homepage
-//Add styles; when user logs in, redirect to dashboard
       );
     }
     return (
@@ -52,6 +50,7 @@ class Landing extends React.Component {
         </div>
         </div>
       </div>
+
     );
   }
 
