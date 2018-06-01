@@ -139,10 +139,7 @@ class Issues extends React.Component {
                   <div>
                     <p>{issue.description}</p>
                     <Button bsStyle="primary" bsSize="small" onClick={e => this.handleShow(e, i)}>Photo</Button>
-
- <Button bsStyle="primary" bsSize="small" className="booking" onClick={this.bookRepair}>Book handyman</Button>
-
-
+                    <Button bsStyle="primary" bsSize="small" className="booking" onClick={this.bookRepair}>Book handyman</Button>
                     <Button bsStyle="primary" bsSize="small" className="supply" onClick={this.showCatalogue}>Get supplies</Button>
                     <Modal show={this.state.activeModal === i} onHide={this.handleClose}>
                       <Modal.Header closeButton></Modal.Header>
