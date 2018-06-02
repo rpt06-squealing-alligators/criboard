@@ -49,7 +49,14 @@ class UserFinances extends React.Component {
   render() {
     // if no groups, render that user is not in any groups yet
     if(this.state.groupInfo.length === 0) {
-      return(<div>User is not in any groups yet</div>)
+      return(
+      <div>
+      <Nav />
+      <div className="jumbotron">
+        <h3>User is not in any groups yet. Add user to a group.</h3>
+      </div>
+      </div>
+      )
     }
     var toRender = [];
     var user = this.state.user;
