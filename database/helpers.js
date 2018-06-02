@@ -495,6 +495,16 @@ var postAddress = (data, callback) => {
   })
 }
 
+// delete a group
+var delGroup = (groupname, callback) => {
+  Group.destroy({
+    where: {groupname: groupname}
+  })
+  .then(result => {
+    callback(true);
+  })
+};
+
 module.exports = {
   createUser: createUser,
   reportIssue: reportIssue,
@@ -512,5 +522,6 @@ module.exports = {
   makeGroup: makeGroup,
   findGroups: findGroups,
   fetchUsersByGroup: fetchUsersByGroup,
-  postAddress: postAddress
+  postAddress: postAddress,
+  delGroup: delGroup
 };

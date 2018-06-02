@@ -345,6 +345,16 @@ app.post('/postaddress', function(req, res) {
   })
 });
 
+app.post('/deletegroup', function(req, res) {
+  var group = req.body.group;
+  console.log(group)
+  db.delGroup(group, function(done) {
+    if (done) {
+      res.send('group deleted');
+    }
+  });
+});
+
 // protect all routes other than landing, login, and signup pages
 app.get('*', authMiddleware(), function(req, res) {
   // console.log('req.user', req.user)

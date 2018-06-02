@@ -13,6 +13,7 @@ import Address from '../components/Address.jsx';
 import Group from '../components/Group.jsx';
 import Help from '../components/Help.jsx';
 import PickGroup from '../components/PickGroup.jsx';
+import DeleteGroup from '../components/DeleteGroup.jsx';
 import AddTransaction from '../components/AddTransaction.jsx';
 import UserFinances from '../components/UserFinances.jsx';
 import Activity from '../components/Activity.jsx';
@@ -36,6 +37,7 @@ const AppRouter = () => (
       <Route exact path="/help" component={Help}/>
       <Route exact path="/dashboard" component={Dashboard}/>
       <Route exact path="/pickgroup" component={PickGroup}/>
+      <Route exact path="/deletegroup" component={DeleteGroup}/>
       <Route exact path="/activity" component={Activity}/>
       <Route exact path="/userfinances" component={UserFinances}/>
       <Route exact path="/logout" component={Logout}/>
