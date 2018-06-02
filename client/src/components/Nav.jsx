@@ -53,6 +53,9 @@ class Home extends React.Component {
                 <Link to="/group">
                   <div onClick={this.hideDashboard}>Create Group</div>
                 </Link>
+                <Link to="/deletegroup">
+                  <div onClick={this.hideDashboard}>Delete Group</div>
+                </Link>
                 <Link to="/help">
                   <div onClick={this.hideDashboard}>Help</div>
                 </Link>
