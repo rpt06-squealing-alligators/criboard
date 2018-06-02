@@ -128,7 +128,7 @@ var fetchActivity = (callback) => {
           transactions.push(transaction);
           if (transactions.length === results.length) {
             console.log(transactions)
-            callback(transactions);
+            // callback(transactions);
           }
         })
 
@@ -140,6 +140,8 @@ var fetchActivity = (callback) => {
     callback(null)
   });
 };
+
+fetchActivity()
 
 // // // get transactions from groups which logged in user is a part of
 // var fetchActivity = (username, callback) => {
