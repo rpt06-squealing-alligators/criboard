@@ -32,7 +32,7 @@ class Logout extends React.Component {
     }
     return(
       <div>
-      <h1 className="display-4">Logout</h1>
+      <h3>Logout</h3>
         <ul>
           <li>Logging out...</li>
         </ul>

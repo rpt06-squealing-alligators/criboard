@@ -477,6 +477,24 @@ var fetchUsersByGroup = (groupname, callback) => {
   })
 };
 
+// save address to database
+var postAddress = (data, callback) => {
+  var latitude = data.latitude;
+  var longitude = data.longitude;
+  var address = data.address;
+  var username = data.username;
+  User.update({
+    latitude: latitude,
+    longitude: longitude,
+    address: address
+  }, {
+    where: {username: username}
+  })
+  .then(result => {
+    callback(true)
+  })
+}
+
 module.exports = {
   createUser: createUser,
   reportIssue: reportIssue,
@@ -493,5 +511,6 @@ module.exports = {
   settleUsers: settleUsers,
   makeGroup: makeGroup,
   findGroups: findGroups,
-  fetchUsersByGroup: fetchUsersByGroup
+  fetchUsersByGroup: fetchUsersByGroup,
+  postAddress: postAddress
 };

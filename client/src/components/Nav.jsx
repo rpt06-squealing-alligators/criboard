@@ -47,8 +47,8 @@ class Home extends React.Component {
             <div className="dropdown">
               <button className="btn btn-primary dropbtn">Account <span className="caret"></span></button>
               <div className="dropdown-content">
-                <Link to="/account">
-                  <div onClick={this.hideDashboard}>Account</div>
+                <Link to="/address">
+                  <div onClick={this.hideDashboard}>Enter address</div>
                 </Link>
                 <Link to="/group">
                   <div onClick={this.hideDashboard}>Create Group</div>

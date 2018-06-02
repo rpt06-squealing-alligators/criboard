@@ -122,6 +122,7 @@ class Issues extends React.Component {
     return(
       <div>
       <Nav />
+      <div className="jumbotron">
       {this.state.report ? <Issnew /> :
       <div className="issues grid">
         <h3 className="reports" onMouseEnter={this.displayReportButton}>Reports</h3>
@@ -187,6 +188,7 @@ class Issues extends React.Component {
             </div>)}
           </ul>
       </div>}
+      </div>
       </div>
     )
   }

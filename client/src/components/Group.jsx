@@ -80,7 +80,7 @@ class Group extends React.Component {
         <Nav />
           <div className="jumbotron">
             <form id="regForm" method="POST" onSubmit={() => alert('Your group has been created')}>
-            <h1 className="display-4">Create a Group</h1>
+            <h3>Create a Group</h3>
             <div className="tab" ref="numberTab">
             <label>Name of the group</label>
               <p><input placeholder="Enter group name" name="groupname" onChange={this.onNumChange}/></p>

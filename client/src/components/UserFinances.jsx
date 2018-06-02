@@ -84,7 +84,7 @@ class UserFinances extends React.Component {
         });
       }
       toRender[i] = (<div key={i} className="container">
-        <h3>In {groupname} group</h3>
+        <h4>In {groupname} group</h4>
         <div className="table-responsive col-md-6">
           <table className="table table-hover">
             <thead><tr><th>{this.state.user} Owes</th></tr></thead>
