@@ -9,7 +9,6 @@ import Dashboard from '../components/Dashboard.jsx';
 import Issues from '../components/Issues.jsx';
 import Issbook from '../components/Issbook.jsx';
 import Issupplies from '../components/Issupplies.jsx';
-import Lease from '../components/Lease.jsx';
 import Account from '../components/Account.jsx';
 import Group from '../components/Group.jsx';
 import Help from '../components/Help.jsx';
@@ -32,7 +31,6 @@ const AppRouter = () => (
       <Route exact path="/issues" component={Issues}/>
       <Route exact path="/book" component={Issbook}/>
       <Route exact path="/supplies" component={Issupplies}/>
-      <Route exact path="/lease" component={Lease}/>
       <Route exact path="/account" component={Account}/>
       <Route exact path="/group" component={Group}/>
       <Route exact path="/help" component={Help}/>
