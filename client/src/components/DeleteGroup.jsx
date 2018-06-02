@@ -34,7 +34,7 @@ class DeleteGroup extends React.Component {
     var data = {
       group: this.state.group
     };
-    console.log(data)
+    // console.log(data)
     axios.post('/deletegroup', data)
     .then(result => {
       alert('Group has been deleted');
