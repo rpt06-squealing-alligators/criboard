@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 import { Button } from 'react-bootstrap';
 
-class Transaction extends React.Component {
+class AddTransaction extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +27,7 @@ class Transaction extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/fetchusers')
+    axios.get(`/fetchusers/${this.props.group}`)
       .then((result) => {
         // console.log(result)
         this.setState({
@@ -41,10 +41,17 @@ class Transaction extends React.Component {
   }
 
   onSubmit() {
-    axios.post('/addtransaction', this.state)
+    var data = {
+      groupname: this.props.group,
+      bill: this.state.bill,
+      amount: this.state.amount,
+      date: this.state.date,
+      user: this.state.user
+    };
+    axios.post('/addtransaction', data)
     .then(res => {
       // console.log(res)
-      alert('Transaction has been posted');
+      alert(`Transaction has been posted in ${this.props.group} group.`);
       this.setState({
         bill: '',
         amount: '',
@@ -69,9 +76,8 @@ class Transaction extends React.Component {
     });
     return (
       <div>
-        <Home />
         <div className="jumbotron">
-          <h1 className="display-4">Enter a transaction</h1>
+          <h4 className="display-4">Enter a transaction for {this.props.group} group</h4>
           <div className="form-group">
             <label>Bill</label>&nbsp;&nbsp;
             <input type="text" className="form-control" placeholder="Enter bill" name="bill" value={this.state.bill} onChange={this.onChange.bind(this)} />
@@ -103,4 +109,4 @@ class Transaction extends React.Component {
 //datepicker:
 //https://jqueryui.com/datepicker/
 
-export default Transaction;
+export default AddTransaction;

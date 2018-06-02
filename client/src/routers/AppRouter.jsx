@@ -15,7 +15,9 @@ import Lease from '../components/Lease.jsx';
 import Account from '../components/Account.jsx';
 import Group from '../components/Group.jsx';
 import Help from '../components/Help.jsx';
-import Transaction from '../components/Transaction.jsx';
+import PickGroup from '../components/PickGroup.jsx';
+import AddTransaction from '../components/AddTransaction.jsx';
+import UserFinances from '../components/UserFinances.jsx';
 import Activity from '../components/Activity.jsx';
 
 import Logout from '../components/Logout.jsx';
@@ -31,7 +33,6 @@ const AppRouter = () => (
       <Route exact path='/signup' component={Signup} />
       <Route exact path='/home' component={Home}/>
       <Route exact path="/budget" component={Budget}/>
-      <Route exact path="/transaction" component={Transaction}/>
       <Route exact path="/issues" component={Issues}/>
       <Route exact path="/book" component={Issbook}/>
       <Route exact path="/supplies" component={Issupplies}/>
@@ -40,7 +41,9 @@ const AppRouter = () => (
       <Route exact path="/group" component={Group}/>
       <Route exact path="/help" component={Help}/>
       <Route exact path="/dashboard" component={Dashboard}/>
+      <Route exact path="/pickgroup" component={PickGroup}/>
       <Route exact path="/activity" component={Activity}/>
+      <Route exact path="/userfinances" component={UserFinances}/>
       <Route exact path="/logout" component={Logout}/>
     </Switch>
     </div>

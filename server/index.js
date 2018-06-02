@@ -26,7 +26,6 @@ var upload = multer({ storage: storage }).single('image')
 
 var busboy = require('connect-busboy');
 
-
 var bcrypt = require('bcrypt');
 var db = require('../database/helpers.js');
 var connection = require('../database');
@@ -121,7 +120,6 @@ app.post('/signupuser', function(req, res) {
     var username = req.body.username;
     var email = req.body.email;
     var password = req.body.password;
-
     // hash the password by auto-gen a salt and hash
     bcrypt.hash(password, saltRounds, function(err, hash) {
       // store hash in database
@@ -226,11 +224,22 @@ app.post('/upload', function(req, res) {
   // req.pipe(req.busboy);
 // })
 
-app.post('/newgroup', function(req, res) {
-  console.log('this is the req.body posted to newgroup: ', req.body)
-  db.createLedger(req.body.user);
-  res.status(201).redirect('/group');
-})
+// app.post('/newgroup', function(req, res) {
+//   console.log('this is the req.body posted to newgroup: ', req.body)
+//   db.createLedger(req.body.user);
+//   res.status(201).redirect('/group');
+// })
+
+app.post('/group', function(req, res) {
+  console.log('REQ.BODY in SERVER', req.body, req.query) // this should have groupname and an array of group members
+  var data = {
+    groupname: req.body.groupname,
+    groupmembers: req.body.user
+  };
+  db.makeGroup(data, function(done) {
+    res.send("group created");
+  })
+});
 
 app.get('/data', authMiddleware(), function(req, res) {
   console.log('+++++++++++++++++there is a request to /data++++++++++++++++')
@@ -248,19 +257,18 @@ app.get('/check', authMiddleware(),function(req, res) {
   .then(data => res.send(data))
 })
 
-// app.post('/addtransaction', authMiddleware(), function(req, res) {
-//   // console.log('req.body: ', req.body)
-//   var debt = req.body.amount / req.body.users.length
-//   db.updateLedger(req.body.user, debt)
-//   db.insertTransaction(req.body.bill, req.body.amount, req.body.user, function(result) {
-//     res.status(201).send(result);
-//   })
-// })
-
 app.post('/addtransaction', authMiddleware(), function(req, res) {
-  // console.log('req.body: ', req.body)
-  db.insertTransaction(req.body.bill, req.body.amount, req.body.date, req.body.user, function(result) {
-    res.status(201).send(result);
+  console.log('req.body: ', req.body)
+  db.insertTransaction(req.body.groupname, req.body.bill, req.body.amount, req.body.date, req.body.user, function(result) {
+    res.send(result);
+  })
+});
+
+app.get('/fetchusers/:group', authMiddleware(), function(req, res) {
+  console.log('REQ.PARAMS', req.params)
+  var group = req.params.group;
+  db.fetchUsersByGroup(group, function(people) {
+    res.send(people);
   })
 });
 
@@ -271,6 +279,7 @@ app.get('/fetchusers', authMiddleware(), function(req, res) {
 });
 
 app.get('/allactivity', authMiddleware(), function(req, res) {
+  var username = req.user;
   db.fetchActivity(function(results) {
     res.send(results);
   });
@@ -282,34 +291,42 @@ app.get('/getuser', function(req, res) {
   res.send(req.user);
 });
 
-// route to get info about the user that's logged in (including amounts owed to/owed by user)
-app.get('/getuserinfo', authMiddleware(), function(req, res) {
-  console.log('req.user in server', req.user)
+// find all groups for logged in user
+app.get('/groups', authMiddleware(), function(req, res) {
   var username = req.user;
-  db.findUserInfo(username, (row) => {
-    db.fetchUsers(users => {
-      var data = {
-        username: username,
-        row: row,
-        users: users
-      };
-      res.send(data);
-    })
+  db.findGroups(username, (err, groups) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+    } else {
+      res.send(groups);
+    }
   })
 });
 
+// route to get info about the user that's logged in (including amounts owed to/owed by user in all groups of which user is a part of
+app.get('/getuserinfo', authMiddleware(), function(req, res) {
+  var username = req.user;
+  // find groups that user belongs to - groupname and groupmembers array
+  // for each group, find row of user
+  // send this info back to client
+  db.findUserInfo(username, function(results) {
+    console.log('RESULTS', results)
+    var data = {
+      username: username,
+      groupInfo: results
+    }
+    res.json(data);
+  })
+})
 
 // to settle up the given 2 users
 app.post('/settleup', authMiddleware(), function(req, res) {
   console.log('REQ.BODY in settleup', req.body)
-  var userId2 = req.body.user2;
-  db.findUserId(req.body.user1, function(i) {
-    var userId1 = i - 1;
-    db.settleUsers(userId1, userId2, function(done) {
-      if (done) {
-        res.send('users settled');
-      }
-    })
+  db.settleUsers(req.body.groupname, req.body.user1, req.body.user2, function(done) {
+    if (done) {
+      res.send('users settled');
+    }
   })
 })
 

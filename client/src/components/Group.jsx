@@ -69,19 +69,6 @@ class Group extends React.Component {
     }
   }
 
-  onSubmit() {
-    console.log('newgroup submitted')
-    // var data = all group members (this.state.users, name of the group)
-    axios.post('/newgroup', this.state)
-    .then(res => {
-      // console.log(res)
-      alert('Your group has been created');
-      this.setState({
-        number: ''
-      });
-    });
-  }
-
   render() {
     let optionItems = this.state.users.map(user => {
       return (
@@ -94,7 +81,7 @@ class Group extends React.Component {
       <div>
         <Home />
           <div className="jumbotron">
-            <form id="regForm" action="/newgroup" method="POST" onSubmit={() => alert('Your group has been created')}>
+            <form id="regForm" method="POST" onSubmit={() => alert('Your group has been created')}>
             <h1 className="display-4">Create a Group</h1>
             <div className="tab" ref="numberTab">
             <label>Name of the group:</label>
@@ -108,8 +95,8 @@ class Group extends React.Component {
             </div>
             <div>
               <div>
-                <button className="btn btn-primary" type="button" id="prevBtn" onClick={() => this.nextPrev(-1)} disabled={this.state.currentTab <= 0 ? true : false}>Previous</button>
-                <button className="btn btn-primary" type="button" id="nextBtn" onClick={() => this.nextPrev(1)} disabled={this.state.currentTab >= 1 || this.state.number < 1 || !this.state.groupname ? true : false}>Next</button>
+                <button className="btn btn-primary" type="button" id="prevBtn" onClick={() => this.nextPrev(-1)} disabled={this.state.currentTab <= 0 ? true : false}>Previous</button>&nbsp;&nbsp;
+                <button className="btn btn-primary" type="button" id="nextBtn" onClick={() => this.nextPrev(1)} disabled={this.state.currentTab >= 1 || this.state.number < 1 || !this.state.groupname ? true : false}>Next</button>&nbsp;&nbsp;
                 {this.state.currentTab > 0 && <input type="submit" className="btn btn-primary"></input>}
               </div>
             </div>
@@ -124,5 +111,6 @@ class Group extends React.Component {
 //prevent duplicate members from being entered
 //notify group members with email:
 // https://zapier.com/learn/email-marketing/best-transactional-email-sending-services/
+// do not allow duplicate groupnames
 
 export default Group;

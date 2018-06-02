@@ -8,9 +8,6 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: '',
-      finances: [],
-      groupUsers: [],
       address: '123 Main St',
       cityState: 'Springfield, MA 01105',
       whiteboard: 'Hey guys, Am going to be out of town next Monday! Someone pick up my chores? --Sam'
@@ -27,15 +24,6 @@ class Dashboard extends React.Component {
         id: 'mapbox.streets',
         accessToken: 'pk.eyJ1IjoiaG91c2tlciIsImEiOiJjamh2aXMwODcwem5uM2twMzA3cmZsbnBvIn0.rz3s-qyoAcFzzrOd91YdYg'
     }).addTo(mymap);
-    axios.get('/getuserinfo')
-      .then(result => {
-        // console.log('logged in user', result.data);
-        this.setState({
-          user: result.data.username,
-          finances: result.data.row,
-          groupUsers: result.data.users
-        }, () => console.log(this.state.finances));
-      })
   }
 
   onClick(i) {
@@ -60,27 +48,6 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    if (this.state.finances !== null) {
-      var itemsOwedByUser = this.state.groupUsers.map((item, i) => {
-        if (this.state.finances[i] > 0) {
-          return (
-            <tr key={i}>
-              <td>{this.state.user} owes ${this.state.finances[i]} to {item}<button className="settle btn btn-primary" onClick={() => this.onClick(i)}>Settle Up</button></td>
-            </tr>
-          );
-        }
-      });
-      var itemsOwedToUser = this.state.groupUsers.map((item, i) => {
-        if (this.state.finances[i] < 0) {
-          return (
-            <tr key={i}>
-              <td> {this.state.user} is owed ${Math.abs(this.state.finances[i])} by {item}<button className="settle btn btn-primary" onClick={() => this.onClick(i)}>Settle Up</button></td>
-            </tr>
-          );
-        }
-      });
-    }
-
     return(
       <div>
       <Home />
@@ -92,25 +59,7 @@ class Dashboard extends React.Component {
           <li>Notifications</li>
           <li>User specific info</li>
         </ul>
-        <div>
         <textarea className="whiteboard" name="message" rows="10" cols="30" defaultValue={this.state.whiteboard}></textarea>
-        </div>
-      </div>
-      <div className="table-responsive col-md-6">
-        <table className="table table-hover">
-          <thead><tr><th>{this.state.user} Owes</th></tr></thead>
-            <tbody>
-            {itemsOwedByUser}
-          </tbody>
-        </table>
-      </div>
-      <div className="table-responsive col-md-6">
-        <table className="table table-hover">
-          <thead><tr><th>{this.state.user} is Owed</th></tr></thead>
-            <tbody>
-            {itemsOwedToUser}
-          </tbody>
-        </table>
       </div>
       </div>
     )

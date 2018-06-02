@@ -18,9 +18,8 @@ class Activity extends React.Component {
         // console.log('all activity', result.data);
         this.setState({
           transactions: result.data
-        })
-
-      })
+        });
+      });
   }
 
   render() {
@@ -32,6 +31,7 @@ class Activity extends React.Component {
           <td>{item.amount}</td>
           <td>{item.date}</td>
           <td>{item.paidBy}</td>
+          <td>{item.groupname}</td>
         </tr>
       );
     })
@@ -48,6 +48,7 @@ class Activity extends React.Component {
               <th scope="col">Amount</th>
               <th scope="col">Paid On</th>
               <th scope="col">Paid By</th>
+              <th scope="col">In Group</th>
             </tr>
           </thead>
           <tbody>

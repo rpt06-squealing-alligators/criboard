@@ -217,8 +217,6 @@
   margin:8px;
 }
 
-
-
 .upload {
   position:relative;
   overflow:hidden
@@ -246,3 +244,8 @@
   cursor:default;
   cursor:not-allowed
 }
+
+.text {
+  background-color: white;
+}
+

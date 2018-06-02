@@ -5,10 +5,14 @@ var Sequelize = require('sequelize');
 
 var Group = db.define('Group', {
   groupname: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    unique: true
   },
   matrix: {
     type: Sequelize.TEXT // serialize the matrix to store it
+  },
+  members: {
+    type: Sequelize.TEXT // save the array of users in the groups table as an MVP - later use the join table to get this information
   }
 });
 
