@@ -4,13 +4,15 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import BackGround from '../assets/images/landing.jpg';
 
-var landingStyle = {
+var imageStyle = {
   backgroundSize: "cover",
   backgroundImage: `url(${BackGround})`,
-  height: "100vh",
-  padding: "40px",
+  height: "75vh"
+};
+
+var landingStyle = {
   height: "100vh"
-}
+};
 
 class Landing extends React.Component {
   constructor(props) {
@@ -38,15 +40,15 @@ class Landing extends React.Component {
       );
     }
     return (
-      <div>
-        <div className="jumbotron">
+      <div className="jumbotron" style={landingStyle}>
+        <div className="container">
           <h1 className="display-4">Criboard</h1>
           <p className="lead">An app to track/split monthly expenses, maintenance issues, etc. and help roommates and landlords stay organized.</p>
         </div>
-        <div className="jumbotron">
-        <div style={landingStyle}>
-          <a className="btn btn-primary btn-lg landingbtn" href="/login" role="button">Login</a><br/><br/>
-          <a className="btn btn-primary btn-lg landingbtn" href="/signup" role="button">Signup</a>
+        <div className="container" style={imageStyle}>
+        <div>
+          <a className="btn btn-primary btn-lg landing-btn" href="/login" role="button">Login</a><br/><br/>
+          <a className="btn btn-primary btn-lg" href="/signup" role="button">Signup</a>
         </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import Home from '../components/Home.jsx';
+import Nav from './Nav.jsx';
 
 class Activity extends React.Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class Activity extends React.Component {
     })
     return(
       <div>
-      <Home />
+      <Nav />
       <div className="jumbotron">
       <h3>Financial Activity</h3>
         <table className="table table-hover">

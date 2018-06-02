@@ -1,11 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import Home from '../components/Home.jsx';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
-
-import { Button } from 'react-bootstrap';
 
 class AddTransaction extends React.Component {
   constructor(props) {
@@ -77,7 +74,7 @@ class AddTransaction extends React.Component {
     return (
       <div>
         <div className="jumbotron">
-          <h4 className="display-4">Enter a transaction for {this.props.group} group</h4>
+          <h3>Enter a transaction for {this.props.group} group</h3>
           <div className="form-group">
             <label>Bill</label>&nbsp;&nbsp;
             <input type="text" className="form-control" placeholder="Enter bill" name="bill" value={this.state.bill} onChange={this.onChange.bind(this)} />
@@ -99,7 +96,7 @@ class AddTransaction extends React.Component {
               {optionItems}
             </select>
           </div>
-          <Button className="btn btn-primary" onClick={this.onSubmit.bind(this)}>Submit</Button>
+          <button className="btn btn-primary" onClick={this.onSubmit.bind(this)}>Submit</button>
         </div>
       </div>
     );

@@ -24,7 +24,6 @@ class Signup extends React.Component {
   }
 
   onSubmit() {
-    // console.log('this.state', this.state)
     if (this.state.username === '' || this.state.email === '' || this.state.password === '')  {
       alert('username, email and password fields cannot be empty. Enter new values');
       // stay on signup page
@@ -52,7 +51,6 @@ class Signup extends React.Component {
               })
             } else {
               var errors = result.data;
-              // console.log(errors);
               var messages = errors.map((error) => {
                 return error.msg;
               });

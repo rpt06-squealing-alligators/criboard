@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Home from '../components/Home.jsx';
-
-import { Button } from 'react-bootstrap';
+import Nav from './Nav.jsx';
 
 class Group extends React.Component {
   constructor(props) {
@@ -40,9 +38,9 @@ class Group extends React.Component {
   showTab() {
     var tabs = Object.keys(this.refs);
     var prev = this.refs[tabs[this.state.previousTab]];
-    console.log('prev: ', prev)
+    // console.log('prev: ', prev)
     var curr = this.refs[tabs[this.state.currentTab]];
-    console.log('curr: ', curr)
+    // console.log('curr: ', curr)
     prev.style.display = "none";
     curr.style.display = "block";
   }
@@ -63,7 +61,7 @@ class Group extends React.Component {
   }
 
   nextPrev(pg) {
-    console.log('this.state.currentTab: ', this.state.currentTab)
+    // console.log('this.state.currentTab: ', this.state.currentTab)
     if((this.state.currentTab + pg > -1) && (this.state.currentTab + pg < 2)) {
       this.setState({previousTab: this.state.currentTab, currentTab: this.state.currentTab + pg}, this.showTab);
     }
@@ -79,17 +77,17 @@ class Group extends React.Component {
     });
     return (
       <div>
-        <Home />
+        <Nav />
           <div className="jumbotron">
             <form id="regForm" method="POST" onSubmit={() => alert('Your group has been created')}>
             <h1 className="display-4">Create a Group</h1>
             <div className="tab" ref="numberTab">
-            <label>Name of the group:</label>
-              <p><input placeholder="group name" name="groupname" onChange={this.onNumChange}/></p>
-            <label>Number of group members:</label>
-              <p><input placeholder="number" name="number" onChange={this.onNumChange}/></p>
+            <label>Name of the group</label>
+              <p><input placeholder="Enter group name" name="groupname" onChange={this.onNumChange}/></p>
+            <label>Number of group members</label>
+              <p><input placeholder="Enter number" name="number" onChange={this.onNumChange}/></p>
             </div>
-            <div className="tab" ref="nameTab">Select members:
+            <div className="tab" ref="nameTab"><label>Select members</label>
               {this.state.indices.map(i =>
               <p key={i}><select className="form-control" name="user" placeholder="name">{optionItems}</select></p>)}
             </div>

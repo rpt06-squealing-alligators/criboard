@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import Home from '../components/Home.jsx';
+import Nav from './Nav.jsx';
 
 class Account extends React.Component {
   constructor(props) {
@@ -23,8 +23,8 @@ class Account extends React.Component {
   render() {
     return(
       <div className="jumbotron">
-      <Home />
-      <h3>Account</h3>
+      <Nav />
+      <h1 className="display-4">Account</h1>
         <ul>
           <li>Profile picture</li>
           <li>Apartment address is: {this.state.address}; {this.state.cityState}</li>

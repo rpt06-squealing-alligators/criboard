@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import Dashboard from './Dashboard.jsx';
 import axios from 'axios';
-// import Logout from './Logout.jsx';
 import '../assets/styles/index.css';
 
 class Home extends React.Component {
@@ -41,17 +40,8 @@ class Home extends React.Component {
   }
 
   render() {
-   {/* if (this.state.dashboard) {
-      return (
-        <Dashboard />
-      );
-    } */}
     return (
       <div>
-     {/*<div>
-      <h3>This is a test of users' debts</h3>
-      {this.state.users.map(user => <div>{user}</div>)}
-      </div>*/}
         <div className="main grid">
           <div className="navs">
             <div className="dropdown">
@@ -71,12 +61,8 @@ class Home extends React.Component {
                 </Link>
               </div>
             </div>
-
-
-
-
             <div className="dropdown navbar-light">
-              <button className="btn btn-primary dropbtn"> <span className="navbar-toggler-icon"></span><span className="caret"></span></button>
+              <button className="btn btn-primary dropbtn"> Menu<span className="navbar-toggler-icon"></span><span className="caret"></span></button>
               <div className="dropdown-content">
                 <Link to="/dashboard">
                   <div onClick={this.showDashboard}>Dashboard</div>
@@ -93,9 +79,6 @@ class Home extends React.Component {
                 <Link to="/issues">
                   <div onClick={this.hideDashboard}>Issues</div>
                 </Link>
-                {/*<Link to="/lease">
-                  <div onClick={this.hideDashboard}>Lease (and other documents)</div>
-                </Link>*/}
               </div>
             </div>
           </div>

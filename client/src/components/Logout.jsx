@@ -24,7 +24,6 @@ class Logout extends React.Component {
       })
   }
 
-
   render() {
     if (this.state.onLandingPage) {
       return (
@@ -33,7 +32,7 @@ class Logout extends React.Component {
     }
     return(
       <div>
-      <h3>Logout</h3>
+      <h1 className="display-4">Logout</h1>
         <ul>
           <li>Logging out...</li>
         </ul>

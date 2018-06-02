@@ -51,7 +51,6 @@ class Login extends React.Component {
             onLandingPage: true
         })
       })
-
   }
 
   render() {

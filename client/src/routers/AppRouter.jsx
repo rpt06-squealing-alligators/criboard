@@ -6,8 +6,6 @@ import Landing from '../components/Landing.jsx';
 import Login from '../components/Login.jsx';
 import Signup from '../components/Signup.jsx';
 import Dashboard from '../components/Dashboard.jsx';
-import Home from '../components/Home.jsx';
-import Budget from '../components/Budget.jsx';
 import Issues from '../components/Issues.jsx';
 import Issbook from '../components/Issbook.jsx';
 import Issupplies from '../components/Issupplies.jsx';
@@ -31,8 +29,6 @@ const AppRouter = () => (
       <Route exact path='/' component={Landing} />
       <Route exact path='/login' component={Login} />
       <Route exact path='/signup' component={Signup} />
-      <Route exact path='/home' component={Home}/>
-      <Route exact path="/budget" component={Budget}/>
       <Route exact path="/issues" component={Issues}/>
       <Route exact path="/book" component={Issbook}/>
       <Route exact path="/supplies" component={Issupplies}/>

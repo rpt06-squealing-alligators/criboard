@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Home from '../components/Home.jsx';
+import Nav from './Nav.jsx';
 // import '../assets/images/whiteboard.jpg'
 
 class Dashboard extends React.Component {
@@ -10,12 +10,18 @@ class Dashboard extends React.Component {
     this.state = {
       address: '123 Main St',
       cityState: 'Springfield, MA 01105',
-      whiteboard: 'Hey guys, Am going to be out of town next Monday! Someone pick up my chores? --Sam'
+      whiteboard: 'Hey guys, Am going to be out of town next Monday! Someone pick up my chores? --Sam',
+      user: ''
     };
-    this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
+    axios.get('/getuser')
+    .then(result => {
+      this.setState({
+        user: result.data
+      });
+    });
     var mymap = L.map('mapid').setView([42.09, -72.58], 15);
     var marker = L.marker([42.09, -72.58]).addTo(mymap);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -26,31 +32,10 @@ class Dashboard extends React.Component {
     }).addTo(mymap);
   }
 
-  onClick(i) {
-    // console.log('button clicked', this.state.user, i)
-    var params = {
-      user1: this.state.user,
-      user2: i
-    };
-    axios.post('/settleup', params)
-      .then(result => {
-        // console.log(result);
-        axios.get('/getuserinfo')
-          .then(result => {
-            // console.log('logged in user', result.data);
-            this.setState({
-              user: result.data.username,
-              finances: result.data.row,
-              groupUsers: result.data.users
-            });
-          })
-        })
-  }
-
   render() {
     return(
       <div>
-      <Home />
+      <Nav />
       <div className="jumbotron">
         <h3>Dashboard for {this.state.user}</h3>
         <div id="mapid"></div>

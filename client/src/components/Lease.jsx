@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from '../components/Home.jsx';
+import Nav from './Nav.jsx';
 
 class Lease extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class Lease extends React.Component {
   render() {
     return(
       <div>
-      <Home />
+      <Nav />
       <h3>Lease</h3>
         <ul>
           <li>Lease</li>

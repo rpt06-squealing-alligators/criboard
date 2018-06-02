@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import AddTransaction from './AddTransaction.jsx';
-import Home from './Home.jsx';
+import Nav from './Nav.jsx';
 
 class PickGroup extends React.Component {
   constructor(props) {
@@ -48,13 +48,14 @@ class PickGroup extends React.Component {
     });
     return (
       <div>
-      <Home />
-      <div className="jumbotron">
+        <Nav />
+        <div className="jumbotron">
+        <h3>Add a Transaction</h3>
           <div className="form-group">
-            <label>Pick the Group</label>&nbsp;&nbsp;
-            <select className="form-control" name="group" value={this.state.group} onChange={this.onChange.bind(this)} >
-              {optionItems}
-            </select>
+          <label>Pick a Group</label>&nbsp;&nbsp;
+          <select className="form-control" name="group" value={this.state.group} onChange={this.onChange.bind(this)} >
+            {optionItems}
+          </select>
           </div>
           <button className="btn btn-primary" onClick={this.onSubmit.bind(this)}>Submit</button>
           {this.state.showTransaction && <AddTransaction group={this.state.group} />}

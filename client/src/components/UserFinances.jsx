@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Home from '../components/Home.jsx';
+import Nav from './Nav.jsx';
 // import '../assets/images/whiteboard.jpg'
 
 class UserFinances extends React.Component {
@@ -51,12 +51,9 @@ class UserFinances extends React.Component {
     if(this.state.groupInfo.length === 0) {
       return(<div>User is not in any groups yet</div>)
     }
-    var toRender = [<Home key={0}/>];
-    // var toRender = [];
+    var toRender = [];
     var user = this.state.user;
     var groupInfo = this.state.groupInfo;
-    console.log('user, groupInfo', user, groupInfo)
-
     for (var i = 0; i < groupInfo.length; i++) {
       var members = groupInfo[i].groupmembers;
       var row = groupInfo[i].row;
@@ -86,8 +83,8 @@ class UserFinances extends React.Component {
           }
         });
       }
-      toRender[i + 1] = (<div key={i + 1} className="container">
-        <h1>In {groupname} group</h1>
+      toRender[i] = (<div key={i} className="container">
+        <h3>In {groupname} group</h3>
         <div className="table-responsive col-md-6">
           <table className="table table-hover">
             <thead><tr><th>{this.state.user} Owes</th></tr></thead>
@@ -109,7 +106,13 @@ class UserFinances extends React.Component {
     }
   // return toRender
   return (
-    toRender
+    <div>
+      <Nav />
+      <div className="jumbotron">
+      <h3>{this.state.user}'s finances</h3>
+      {toRender}
+      </div>
+    </div>
   );
   }
 
