@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import Nav from './Nav.jsx';
 
-class Account extends React.Component {
+class Address extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,11 +29,28 @@ class Account extends React.Component {
   }
 
   onSubmit() {
-    console.log(this.state)
-    axios.post('/postaddress', this.state)
-    .then(result => {
-      alert('Address has been saved');
-    })
+    var address = `${this.state.street}; ${this.state.city}, ${this.state.state} ${this.state.zipcode}`
+    var getCoordinates = function(address) {
+      var geocoder =  new google.maps.Geocoder();
+      geocoder.geocode({'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          console.log('latitudeLongitude', results[0].geometry.location.lng(), results[0].geometry.location.lat())
+          var data = {
+            latitude: results[0].geometry.location.lat(),
+            longitude: results[0].geometry.location.lng(),
+            address: address
+          }
+          console.log(data)
+          axios.post('/postaddress', data)
+          .then(result => {
+            alert('Address has been saved');
+          })
+        } else {
+          console.log(status);
+        }
+      });
+    }
+    getCoordinates(address);
   }
 
   render() {
@@ -65,4 +82,4 @@ class Account extends React.Component {
   }
 }
 
-export default Account;
+export default Address;

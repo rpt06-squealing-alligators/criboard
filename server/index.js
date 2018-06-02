@@ -322,13 +322,28 @@ app.get('/getuserinfo', authMiddleware(), function(req, res) {
 
 // to settle up the given 2 users
 app.post('/settleup', authMiddleware(), function(req, res) {
-  console.log('REQ.BODY in settleup', req.body)
+  // console.log('REQ.BODY in settleup', req.body)
   db.settleUsers(req.body.groupname, req.body.user1, req.body.user2, function(done) {
     if (done) {
       res.send('users settled');
     }
   })
 })
+
+app.post('/postaddress', function(req, res) {
+  console.log(req.body);
+  var data = {
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+    address: req.body.address,
+    username: req.user
+  };
+  db.postAddress(data, function(done) {
+    if(done) {
+      res.send('address saved');
+    }
+  })
+});
 
 // protect all routes other than landing, login, and signup pages
 app.get('*', authMiddleware(), function(req, res) {

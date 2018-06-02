@@ -8,8 +8,9 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      address: '123 Main St',
-      cityState: 'Springfield, MA 01105',
+      latitude: 42.09,
+      longitude: -72.58,
+      address: '123 Main St; Springfield, MA 01105',
       whiteboard: 'Hey guys, Am going to be out of town next Monday! Someone pick up my chores? --Sam',
       user: ''
     };
@@ -21,15 +22,22 @@ class Dashboard extends React.Component {
       this.setState({
         user: result.data
       });
-    });
-    var mymap = L.map('mapid').setView([42.09, -72.58], 15);
-    var marker = L.marker([42.09, -72.58]).addTo(mymap);
+      // axios.get('/getaddress')
+      // .then(result => {
+      //   // result.data should have latitude, longitude, address
+          // use this to setState
+    var mymap = L.map('mapid').setView([this.state.latitude, longitude], 15);
+    var marker = L.marker([latitude, longitude]).addTo(mymap);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
         id: 'mapbox.streets',
         accessToken: 'pk.eyJ1IjoiaG91c2tlciIsImEiOiJjamh2aXMwODcwem5uM2twMzA3cmZsbnBvIn0.rz3s-qyoAcFzzrOd91YdYg'
     }).addTo(mymap);
+
+      // })
+    });
+
   }
 
   render() {
