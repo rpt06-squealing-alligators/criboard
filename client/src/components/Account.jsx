@@ -22,13 +22,15 @@ class Account extends React.Component {
 
   render() {
     return(
-      <div className="jumbotron">
+      <div>
       <Nav />
-      <h1 className="display-4">Account</h1>
+      <div className="jumbotron">
+      <h3>Account</h3>
         <ul>
           <li>Profile picture</li>
           <li>Apartment address is: {this.state.address}; {this.state.cityState}</li>
         </ul>
+      </div>
       </div>
     )
   }
