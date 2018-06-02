@@ -5,8 +5,14 @@ var db = require('../config.js');
 
 var connection = new Sequelize(db.DBNAME, db.DBUSERNAME, db.DBPASSWORD, {
   host: db.DBHOST,
-  dialect: 'mysql'
+  // port: db.DBPORT,
+  dialect: 'mysql',
+  // dialectOptions: {
+  //   ssl: 'Amazon RDS'
+  // }
 });
+
+// var connection = new Sequelize(process.env.DATABASE_URL);
 
 connection
   .authenticate()

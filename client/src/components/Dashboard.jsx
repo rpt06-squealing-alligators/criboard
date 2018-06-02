@@ -17,24 +17,37 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/getuser')
+    axios.get('/getaddress')
     .then(result => {
       this.setState({
-        user: result.data
+      user: result.data.username,
+      address: result.data.address,
+      latitude: result.data.latitude,
+      longitude: result.data.longitude
+      }, () => {
+        var mymap = L.map('mapid').setView([this.state.latitude, this.state.longitude], 15);
+        var marker = L.marker([this.state.latitude, this.state.longitude]).addTo(mymap);
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox.streets',
+            accessToken: 'pk.eyJ1IjoiaG91c2tlciIsImEiOiJjamh2aXMwODcwem5uM2twMzA3cmZsbnBvIn0.rz3s-qyoAcFzzrOd91YdYg'
+        }).addTo(mymap);
+
       });
+
       // axios.get('/getaddress')
       // .then(result => {
       //   // result.data should have latitude, longitude, address
           // use this to setState
-    var mymap = L.map('mapid').setView([this.state.latitude, longitude], 15);
-    var marker = L.marker([latitude, longitude]).addTo(mymap);
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox.streets',
-        accessToken: 'pk.eyJ1IjoiaG91c2tlciIsImEiOiJjamh2aXMwODcwem5uM2twMzA3cmZsbnBvIn0.rz3s-qyoAcFzzrOd91YdYg'
-    }).addTo(mymap);
 
+
+
+      // });
+      // axios.get('/getaddress')
+      // .then(result => {
+      //   // result.data should have latitude, longitude, address
+          // use this to setState
       // })
     });
 
@@ -48,7 +61,7 @@ class Dashboard extends React.Component {
         <h3>Dashboard for {this.state.user}</h3>
         <div id="mapid"></div>
         <ul className="dashboard-bullets">
-          <li>{this.state.address}; {this.state.cityState}</li>
+          <li>{this.state.address}</li>
           <li>Notifications</li>
           <li>User specific info</li>
         </ul>

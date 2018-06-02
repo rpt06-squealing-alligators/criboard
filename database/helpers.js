@@ -203,6 +203,26 @@ var fetchActivity = (callback) => {
 
 // fetchActivity('Yoshi')
 
+var getAddress = (user, cb) => {
+  User.findOne({
+    where: {username: user}
+  })
+  .then(result => {
+    var data = {
+      username: result.dataValues.username,
+      address: result.dataValues.address,
+      latitude: result.dataValues.latitude,
+      longitude: result.dataValues.longitude
+
+    }
+  })
+}
+
+
+
+
+
+
 var reportIssue = (title, description, image) => {
   // console.log('title: ', title)
   // console.log('title: ', description)
@@ -523,5 +543,6 @@ module.exports = {
   findGroups: findGroups,
   fetchUsersByGroup: fetchUsersByGroup,
   postAddress: postAddress,
-  delGroup: delGroup
+  delGroup: delGroup,
+  getAddress: getAddress
 };

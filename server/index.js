@@ -3,8 +3,9 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var fs = require('fs');
-var Sequelize = require('sequelize')
-var cookieParser = require('cookie-parser')
+var Sequelize = require('sequelize');
+var cookieParser = require('cookie-parser');
+var cors = require('cors');
 
 var session = require('express-session');
 var passport = require('passport');
@@ -34,6 +35,7 @@ var sessionStore = require('./../database/models/session.js');
 const saltRounds = 10;
 
 var app = express();
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator()); // this line must be immediately after any of the bodyParser middlewares
@@ -257,6 +259,13 @@ app.get('/check', authMiddleware(),function(req, res) {
   .then(data => res.send(data))
 })
 
+app.post('/postaddress', authMiddleware(), function(req, res) {
+  db.inserAddress(req.user, req.body.street, req.body.city, req.body.state, req.body.code, req.body.latitude, req.body.longitude, function() {
+    res.status(201).send('success');
+  });
+
+})
+
 app.post('/addtransaction', authMiddleware(), function(req, res) {
   console.log('req.body: ', req.body)
   db.insertTransaction(req.body.groupname, req.body.bill, req.body.amount, req.body.date, req.body.user, function(result) {
@@ -289,6 +298,12 @@ app.get('/allactivity', authMiddleware(), function(req, res) {
 app.get('/getuser', function(req, res) {
   console.log('req.user in server', req.user)
   res.send(req.user);
+});
+
+app.get('/getaddress', function(req, res) {
+  db.getAddress(req.user, function(results) {
+    res.status(200).send(results);
+  })
 });
 
 // find all groups for logged in user

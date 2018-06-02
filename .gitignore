@@ -1,6 +1,5 @@
 **/node_modules
 client/dist/bundle.js
-config.js
 package-lock.json
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
