@@ -161,18 +161,6 @@ app.get('/logoutuser', function(req, res) {
   res.send('logged out')
 });
 
-// app.post('/issues', function (req, res, next) {
-//   console.log('posting')
-
-// let body = [];
-// req.on('data', (chunk) => {
-//   body.push(chunk);
-// }).on('end', () => {
-//   body = Buffer.concat(body).toString();
-//   console.log('body: ', body)
-//   // at this point, `body` has the entire request body stored in it as a string
-// });
-
 app.post('/upload', function(req, res) {
   upload(req, res, function(err) {
     if(err) {
@@ -186,51 +174,6 @@ app.post('/upload', function(req, res) {
   })
   res.status(201).redirect('/issues');
 });
-// res.status(201).send(results).redirect('/issues');
-//send and then depending on state after setState, redirect
-
-  // console.log('req.body.image: ', req.body.image)
-
-
-  // var buffer = require('fs').createWriteStream('output.txt');
-  // var enc = require('base64-stream').encode();
-  // savePixels(pixels, 'png').on('end', function() {
-  //   //Writes a DataURL to  output.txt
-  //   buffer.write("data:image/png;base64,"+enc.read().toString());
-  // }).pipe(enc);
-  // // var buf = new Buffer(req.body.image, 'base64');
-  // // console.log('+++++++++POST TO ISSUES +++++++')
-  // db.reportIssue(req.body.title, req.body.description, req.body.image)
-
-  // // var file = fs.createWriteStream(path.resolve(__dirname, '../client/src/assets/') + 'test');
-  // // buff.pipe(file)
-
-
-
-  // req.on('data ', function(data){
-  //   console.log('readable')
-  //   console.log(req.read());
-  // });
-  // console.log('req.body: ', req.body)
-  // db.reportIssue(req.body.title, req.body.description, req.body.image)
-  // req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-  //   console.log('file: ', file)
-  //   file.on('data', function(data) {
-  //     db.reportIssue(req.body.title, req.body.description, data)
-  //     console.log('data:', data)
-  //     file.on('end', function() {
-  //       res.send(`File ${filename} finished`);
-  //     });
-  //   });
-  // });
-  // req.pipe(req.busboy);
-// })
-
-// app.post('/newgroup', function(req, res) {
-//   console.log('this is the req.body posted to newgroup: ', req.body)
-//   db.createLedger(req.body.user);
-//   res.status(201).redirect('/group');
-// })
 
 app.post('/group', function(req, res) {
   console.log('REQ.BODY in SERVER', req.body, req.query) // this should have groupname and an array of group members
@@ -260,7 +203,13 @@ app.get('/check', authMiddleware(),function(req, res) {
 })
 
 app.post('/postaddress', authMiddleware(), function(req, res) {
-  db.inserAddress(req.user, req.body.street, req.body.city, req.body.state, req.body.code, req.body.latitude, req.body.longitude, function() {
+  var data = {
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+    username: req.user,
+    address: req.body.address
+  };
+  db.postAddress(data, function() {
     res.status(201).send('success');
   });
 
@@ -301,7 +250,8 @@ app.get('/getuser', function(req, res) {
 });
 
 app.get('/getaddress', function(req, res) {
-  db.getAddress(req.user, function(results) {
+  var username = req.user;
+  db.getAddress(username, function(results) {
     res.status(200).send(results);
   })
 });

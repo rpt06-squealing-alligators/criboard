@@ -15,15 +15,15 @@ var User = db.define('User', {
   },
  latitude: {
     type: Sequelize.DECIMAL,
-    default: 42.09
+    defaultValue: 42.09
   },
   longitude: {
     type: Sequelize.DECIMAL,
-    default: -72.58
+    defaultValue: -72.58
   },
   address: {
     type: Sequelize.STRING,
-    default: "123 Main St; Springfield, MA 01105"
+    defaultValue: "123 Main St; Springfield, MA 01105"
   }
 });
 

@@ -213,15 +213,11 @@ var getAddress = (user, cb) => {
       address: result.dataValues.address,
       latitude: result.dataValues.latitude,
       longitude: result.dataValues.longitude
-
-    }
+    };
+    console.log(data)
+    cb(data);
   })
-}
-
-
-
-
-
+};
 
 var reportIssue = (title, description, image) => {
   // console.log('title: ', title)
