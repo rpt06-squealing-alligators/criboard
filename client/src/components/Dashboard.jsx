@@ -11,7 +11,7 @@ class Dashboard extends React.Component {
       latitude: 42.09,
       longitude: -72.58,
       address: '123 Main St; Springfield, MA 01105',
-      whiteboard: 'Hey guys, Am going to be out of town next Monday! Someone pick up my chores? --Sam',
+      // whiteboard: 'Hey guys, Am going to be out of town next Monday! Someone pick up my chores? --Sam',
       user: ''
     };
   }

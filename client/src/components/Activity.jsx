@@ -13,7 +13,6 @@ class Activity extends React.Component {
   }
 
   componentDidMount() {
-    console.log('in componentDidMount')
     axios.get('/allactivity')
       .then(result => {
         console.log('all activity', result.data);

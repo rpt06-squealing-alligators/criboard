@@ -9,24 +9,10 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dashboard: true,
-      users: []
+      dashboard: true
     }
     this.hideDashboard = this.hideDashboard.bind(this);
     this.showDashboard = this.showDashboard.bind(this);
-  }
-
-  componentDidMount() {
-    axios.get('/fetchusers')
-    .then((result) => {
-      // console.log(result)
-      this.setState({
-        users: result.data
-      });
-    })
-    .catch(err => {
-      console.log(err);
-    })
   }
 
   hideDashboard() {

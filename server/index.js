@@ -40,10 +40,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator()); // this line must be immediately after any of the bodyParser middlewares
 
-// var fs = require('fs');
-// var busboy = require('connect-busboy');
-// app.use(busboy());
-
 app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
 app.use(session({
@@ -93,15 +89,11 @@ var authMiddleware = function () {
 }
 
 app.get('/signup', function(req, res) {
-  // console.log('req.user', req.user)
-  // console.log('isauthenticated', req.isAuthenticated())
   // console.log('serving signup route')
   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
 });
 
 app.get('/login', function(req, res) {
-  // console.log('req.user', req.user)
-  // console.log('isauthenticated', req.isAuthenticated())
   // console.log('serving login route')
   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
 });

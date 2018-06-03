@@ -17,7 +17,6 @@ class UserFinances extends React.Component {
   componentDidMount() {
     axios.get('/getuserinfo')
       .then(result => {
-        // console.log('logged in user', result);
         this.setState({
           user: result.data.username,
           groupInfo: result.data.groupInfo
@@ -37,7 +36,6 @@ class UserFinances extends React.Component {
         console.log(result);
         axios.get('/getuserinfo')
         .then(result => {
-          // console.log('logged in user', result);
           this.setState({
             user: result.data.username,
             groupInfo: result.data.groupInfo

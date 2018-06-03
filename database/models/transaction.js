@@ -1,7 +1,7 @@
 var db = require('../../database');
 var Sequelize = require('sequelize');
 
-// define model for users table
+// define model for transactions table
 
 var Transaction = db.define('Transaction', {
   amount: {
