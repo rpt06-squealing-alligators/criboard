@@ -15,13 +15,6 @@ class Address extends React.Component {
     }
   }
 
-  componentDidMount() {
-    axios.get('/getuser')
-      .then(result => {
-        console.log('logged in user', result.data)
-      })
-  }
-
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -34,19 +27,17 @@ class Address extends React.Component {
       var geocoder =  new google.maps.Geocoder();
       geocoder.geocode({'address': address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-          console.log('latitudeLongitude', results[0].geometry.location.lng(), results[0].geometry.location.lat())
           var data = {
             latitude: results[0].geometry.location.lat(),
             longitude: results[0].geometry.location.lng(),
             address: address
-          }
-          console.log(data)
+          };
           axios.post('/postaddress', data)
           .then(result => {
             alert('Address has been saved');
           })
         } else {
-          console.log(status);
+          // console.log(status);
         }
       });
     }

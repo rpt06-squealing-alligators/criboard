@@ -24,7 +24,6 @@ class Group extends React.Component {
     this.showTab(this.state.currentTab);
     axios.get('/fetchusers')
     .then((result) => {
-      // console.log(result)
       this.setState({
         users: result.data,
         user: result.data[0]
@@ -59,7 +58,6 @@ class Group extends React.Component {
   }
 
   nextPrev(pg) {
-    // console.log('this.state.currentTab: ', this.state.currentTab)
     if((this.state.currentTab + pg > -1) && (this.state.currentTab + pg < 2)) {
       this.setState({previousTab: this.state.currentTab, currentTab: this.state.currentTab + pg}, this.showTab);
     }
@@ -102,11 +100,5 @@ class Group extends React.Component {
     );
   }
 }
-
-//prevent form from being submitted on hitting enter at first step
-//prevent duplicate members from being entered
-//notify group members with email:
-// https://zapier.com/learn/email-marketing/best-transactional-email-sending-services/
-// do not allow duplicate groupnames
 
 export default Group;
