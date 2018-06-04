@@ -26,7 +26,6 @@ class AddTransaction extends React.Component {
   componentDidMount() {
     axios.get(`/fetchusers/${this.props.group}`)
       .then((result) => {
-        // console.log(result)
         this.setState({
           users: result.data,
           user: result.data[0]
@@ -47,7 +46,6 @@ class AddTransaction extends React.Component {
     };
     axios.post('/addtransaction', data)
     .then(res => {
-      // console.log(res)
       alert(`Transaction has been posted in ${this.props.group} group.`);
       this.setState({
         bill: '',

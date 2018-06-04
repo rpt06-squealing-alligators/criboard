@@ -3,7 +3,6 @@ var Sequelize = require('sequelize');
 var User = require('./models/user.js');
 var Transaction = require('./models/transaction.js')
 var Issues = require('./models/issues.js');
-// var Ledgers = require('./models/ledger.js');
 var Group = require('./models/group.js');
 var UserGroup = require('./models/user-group.js');
 
@@ -33,15 +32,11 @@ var createUser = (username, email, password, callback) => {
     where: {username: username}
   })
   .then((result) => {
-    // console.log(result)
-    // if user doesn't exist
     if (result === null) {
       User.create({
         username: username, email: email, password: password
       })
       .then((result) => {
-        // console.log('new user created', result)
-        // grab the last inserted id in database
         User.findOne({
           where: {username: username}
         })
@@ -53,7 +48,6 @@ var createUser = (username, email, password, callback) => {
       })
     } else {
       // username already exists in database
-      // console.log('username already exists');
       callback(false);
     }
   })
@@ -69,7 +63,6 @@ var authenticateUser = (username, password, isMatch) => {
       isMatch(false);
     } else {
       var hash = result.dataValues.password;
-      // console.log('hash for user', hash);
       var userId = result.dataValues.id;
       bcrypt.compare(password, hash, function(err, response) {
         if (response === true) {
@@ -92,11 +85,9 @@ var fetchUsers = (callback) => {
     var people = result.map(person => {
       return person.dataValues.username;
     })
-    // console.log(people)
     callback(people);
   })
   .catch(err => {
-    // console.log('error fetching from database');
     callback(null);
   })
 };
@@ -136,7 +127,6 @@ var fetchActivity = (callback) => {
     })
   })
   .catch(err => {
-    // console.log(err);
     callback(null)
   });
 };
@@ -158,9 +148,6 @@ var getAddress = (user, cb) => {
 };
 
 var reportIssue = (title, description, image) => {
-  // console.log('title: ', title)
-  // console.log('title: ', description)
-  // console.log('title: ', image)
   Issues.create({
     status: 'reported',
     title: title,
@@ -170,10 +157,8 @@ var reportIssue = (title, description, image) => {
 }
 
 var selectIssues = (callback) => {
-  console.log('+++++++++++++++SELECT ISSUES IS BEING CALLED+++++++++++')
   Issues.findAll()
   .then((result) => {
-    console.log(callback)
     callback(JSON.stringify(result))
   }).bind(this);
 };
@@ -213,8 +198,7 @@ var makeGroup = (data, callback) => {
         })
         .then(result => {
           if (i === groupmembers.length) {
-            console.log('group initialized');
-            // callback(true); //- uncomment this line later
+            callback(true);
           }
         })
       })
@@ -233,7 +217,6 @@ var insertTransaction = (groupname, bill, amount, date, paidby, cb) => {
     User.findOne({where: {username: paidby}})
       .then((result) => {
         var userId = result.dataValues.id;
-        // console.log('userId', userId)
         Transaction.create({
           bill: bill,
           amount: amount,
@@ -245,7 +228,6 @@ var insertTransaction = (groupname, bill, amount, date, paidby, cb) => {
           // insert transaction in groups table matrix
           var groupTable = JSON.parse(groupMatrix);
           var n = groupTable.length;
-          // console.log('group table', groupTable)
           // find userIndex in groupmembers array and adjust matrix values when transaction is added
           var userIndex = members.indexOf(paidby);
           console.log('userIndex', userIndex)
@@ -315,7 +297,6 @@ var findUserInfo = (username, callback) => {
   })
   .then(result => {
     var userid = result.dataValues.id;
-    // console.log('USER ID', userid )
     // find group ids for this user
     UserGroup.findAll({
       where: {UserId: userid}
@@ -326,7 +307,6 @@ var findUserInfo = (username, callback) => {
         // for each group, find groupname from groups table
         groups[i] = {};
         var groupId = result.dataValues.GroupId;
-        // console.log('GROUP ID', groupId)
         Group.findOne({
           where: {id: groupId}
         })
@@ -341,7 +321,6 @@ var findUserInfo = (username, callback) => {
             return acc && (Object.keys(item).length === 3);
           }, true)
           if (check) {
-            // console.log(groups)
             callback(groups);
           }
         })
@@ -356,7 +335,6 @@ var findUserId = function(username, callback) {
     where: {username: username}
   })
   .then(result => {
-    // console.log(result.dataValues.id)
     var userId = result.dataValues.id
     callback(userId)
   })
@@ -391,7 +369,6 @@ var fetchUsersByGroup = (groupname, callback) => {
   })
   .then(result => {
     var members = result.dataValues.members;
-    // console.log(members);
     callback(members);
   })
 };
