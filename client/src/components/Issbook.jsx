@@ -20,12 +20,6 @@ class Issbook extends React.Component {
     this.search = this.search.bind(this);
   }
 
-  // componentDidMount() {
-  //   fetch('http://api2.yp.com/listings/v1/search?searchloc=91203&term=pizza&format=json&sort=distance&radius=5&listingcount=10&key=3yp32k8718', { mode: 'no-cors' })
-  //   .then(res => res.json())
-  //   .then(jres => console.log(jres))
-  // }
-
   handleChange(date) {
     console.log('date: ', date)
     this.setState({

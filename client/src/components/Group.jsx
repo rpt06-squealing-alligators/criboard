@@ -38,9 +38,7 @@ class Group extends React.Component {
   showTab() {
     var tabs = Object.keys(this.refs);
     var prev = this.refs[tabs[this.state.previousTab]];
-    // console.log('prev: ', prev)
     var curr = this.refs[tabs[this.state.currentTab]];
-    // console.log('curr: ', curr)
     prev.style.display = "none";
     curr.style.display = "block";
   }

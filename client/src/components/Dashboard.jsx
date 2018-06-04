@@ -11,7 +11,7 @@ class Dashboard extends React.Component {
       latitude: 42.09,
       longitude: -72.58,
       address: '123 Main St; Springfield, MA 01105',
-      whiteboard: 'Hey guys, Am going to be out of town next Monday! Someone pick up my chores? --Sam',
+      // whiteboard: 'Hey guys, Am going to be out of town next Monday! Someone pick up my chores? --Sam',
       user: ''
     };
   }
@@ -46,9 +46,9 @@ class Dashboard extends React.Component {
         <h3>Dashboard for {this.state.user}</h3>
         <div id="mapid"></div>
         <ul className="dashboard-bullets">
-          <li>{this.state.address}</li>
-          <li>Notifications</li>
-          <li>User specific info</li>
+          <li>Address: {this.state.address}</li>
+         {/*} <li>Notifications</li>
+          <li>User specific info</li>*/}
         </ul>
        {/*} <textarea className="whiteboard" name="message" rows="10" cols="30" defaultValue={this.state.whiteboard}></textarea> */}
       </div>

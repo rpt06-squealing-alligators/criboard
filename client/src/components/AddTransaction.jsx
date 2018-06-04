@@ -103,7 +103,4 @@ class AddTransaction extends React.Component {
   }
 }
 
-//datepicker:
-//https://jqueryui.com/datepicker/
-
 export default AddTransaction;

@@ -25,7 +25,6 @@ class Landing extends React.Component {
   componentDidMount() {
     axios.get('/getuser')
       .then(result => {
-        // console.log('logged in user', result.data)
         var loggedIn = (result.data !== '');
         this.setState({
           loggedIn: loggedIn

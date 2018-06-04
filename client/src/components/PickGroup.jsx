@@ -14,7 +14,6 @@ class PickGroup extends React.Component {
   }
 
   componentDidMount() {
-    // get groups for logged in user
     axios.get('/groups')
     .then(result => {
       console.log(result)

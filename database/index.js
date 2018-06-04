@@ -13,7 +13,6 @@ var connection = new Sequelize(db.DBNAME, db.DBUSERNAME, db.DBPASSWORD, {
 });
 
 // var connection = new Sequelize(process.env.DATABASE_URL);
-
 connection
   .authenticate()
   .then(() => {
@@ -24,7 +23,6 @@ connection
   });
 
 // sync
-
 connection.sync({
   logging: console.log
 });
