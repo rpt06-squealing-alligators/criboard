@@ -59,7 +59,6 @@ var authenticateUser = (username, password, isMatch) => {
   })
   .then((result) => {
     if (result === null) {
-      // console.log('user does not exist');
       isMatch(false);
     } else {
       var hash = result.dataValues.password;
@@ -74,7 +73,6 @@ var authenticateUser = (username, password, isMatch) => {
     }
   })
   .catch(err => {
-    // console.log('error reading from database');
     isMatch(false)
   })
 };
@@ -98,7 +96,6 @@ var fetchActivity = (callback) => {
   Transaction.findAll({})
   .then(results => {
     results.forEach(result => {
-      console.log('USER ID:', result.UserId)
       User.findOne({
         where: {id: result.UserId}
       })
@@ -119,7 +116,6 @@ var fetchActivity = (callback) => {
           };
           transactions.push(transaction);
           if (transactions.length === results.length) {
-            console.log(transactions)
             callback(transactions);
           }
         })
@@ -142,7 +138,6 @@ var getAddress = (user, cb) => {
       latitude: result.dataValues.latitude,
       longitude: result.dataValues.longitude
     };
-    console.log(data)
     cb(data);
   })
 };
@@ -167,7 +162,6 @@ var makeGroup = (data, callback) => {
   var groupname = data.groupname; // a string
   var groupmembers = data.groupmembers; // an array of all group members (all of these members exist in the users array)
   // save a new entry in groups table with groupname and groupmembers array
-  console.log('groupname and members in DATABASE HELPER', groupname, groupmembers, Array.isArray(groupmembers))
   var n = groupmembers.length;
   var groupTable = [];
   for (var i = 0; i < n; i++) {
@@ -230,7 +224,6 @@ var insertTransaction = (groupname, bill, amount, date, paidby, cb) => {
           var n = groupTable.length;
           // find userIndex in groupmembers array and adjust matrix values when transaction is added
           var userIndex = members.indexOf(paidby);
-          console.log('userIndex', userIndex)
           var temp = amount/n;
           for (var i = 0; i < n; i++) {
             if (i != userIndex) {
@@ -264,7 +257,6 @@ var findGroups = (username, callback) => {
   })
   .then(result => {
     var userid = result.dataValues.id;
-    console.log('USER ID', userid )
     // find group ids for this user
     UserGroup.findAll({
       where: {UserId: userid}
@@ -274,14 +266,12 @@ var findGroups = (username, callback) => {
       results.forEach((result, i) => {
         // for each group, find groupname from groups table
         var groupId = result.dataValues.GroupId;
-        console.log('GROUP ID', groupId)
         Group.findOne({
           where: {id: groupId}
         })
         .then(result => {
           groups.push(result.dataValues.groupname)
           if (groups.length === results.length) {
-            console.log(groups)
             callback(null, groups)
           }
         })
