@@ -86,12 +86,10 @@ var authMiddleware = function () {
 }
 
 app.get('/signup', function(req, res) {
-  // console.log('serving signup route')
   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
 });
 
 app.get('/login', function(req, res) {
-  // console.log('serving login route')
   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
 });
 
@@ -104,7 +102,6 @@ app.post('/signupuser', function(req, res) {
 
   var errors = req.validationErrors();
   if (errors) {
-    console.log(`errors: ${JSON.stringify(errors)}`);
     res.send(errors);
   } else {
     var username = req.body.username;
@@ -134,7 +131,6 @@ app.post('/signupuser', function(req, res) {
 });
 
 app.post('/loginuser', passport.authenticate('local'), (req, res) => {
-  console.log('req.user in loginuser', req.user)
   res.send(req.user);
 })
 
@@ -152,8 +148,6 @@ app.post('/upload', function(req, res) {
     if(err) {
       console.log(err);
     }
-    console.log('req.body: ', req.body)
-    console.log('req.file: ', req.file)
     db.reportIssue(req.body.title, req.body.description, './' + req.file.filename, () => {
       console.log('results: ', results)
     })
@@ -162,7 +156,6 @@ app.post('/upload', function(req, res) {
 });
 
 app.post('/group', function(req, res) {
-  console.log('REQ.BODY in SERVER', req.body, req.query) // this should have groupname and an array of group members
   var data = {
     groupname: req.body.groupname,
     groupmembers: req.body.user
@@ -239,7 +232,6 @@ app.get('/groups', authMiddleware(), function(req, res) {
   var username = req.user;
   db.findGroups(username, (err, groups) => {
     if (err) {
-      console.log(err);
       res.sendStatus(500);
     } else {
       res.send(groups);
@@ -254,7 +246,6 @@ app.get('/getuserinfo', authMiddleware(), function(req, res) {
   // for each group, find row of user
   // send this info back to client
   db.findUserInfo(username, function(results) {
-    console.log('RESULTS', results)
     var data = {
       username: username,
       groupInfo: results
@@ -273,7 +264,6 @@ app.post('/settleup', authMiddleware(), function(req, res) {
 })
 
 app.post('/postaddress', function(req, res) {
-  console.log(req.body);
   var data = {
     latitude: req.body.latitude,
     longitude: req.body.longitude,
@@ -289,7 +279,6 @@ app.post('/postaddress', function(req, res) {
 
 app.post('/deletegroup', function(req, res) {
   var group = req.body.group;
-  console.log(group)
   db.delGroup(group, function(done) {
     if (done) {
       res.send('group deleted');
